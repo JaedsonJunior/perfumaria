@@ -234,15 +234,15 @@ void tela_alterar_cliente(void) {
     printf("///            = = = =   Fragância Popular     = = = =                      ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023               ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alterar Cliente = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Alterar Cliente = = = = = = = = =             ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                        ///\n");
+    printf("///            Informe o CPF (apenas números):                             ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
