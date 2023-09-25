@@ -29,7 +29,7 @@ void tela_pesquisar_funcionario(void);
 void tela_alterar_funcioinario(void);
 void tela_excluir_funcionario(void); 
 void tela_menu_produto(void);
-
+void tela_menu_venda(void);
 /////
 // Programa principal
 int main(void) {
@@ -50,6 +50,7 @@ int main(void) {
     tela_alterar_funcioinario();
     tela_excluir_funcionario(); 
     tela_menu_produto();
+    tela_menu_venda();
     return 0;
 }
 
@@ -586,6 +587,42 @@ void tela_menu_funcioanrio(void) {
     printf("///            2. Pesquisar os dados de um funcionario                          ///\n");
     printf("///            3. Atualizar os dados de um funcionario                       ///\n");
     printf("///            4. Excluir um funcionario do sistema                             ///\n");
+    printf("///            0. Voltar ao menu anterior                                   ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opção desejada: ");
+    scanf("%c", &op);
+    getchar();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void tela_menu_venda(void) {
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  Menu venda = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cadastrar uma venda                                       ///\n");
+    printf("///            2. venda cliente                                              ///\n");
+    printf("///            3. venda produto                                              ///\n");
+    printf("///            4. venda funcionario                                          ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
