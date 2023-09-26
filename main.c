@@ -30,6 +30,10 @@ void tela_alterar_funcioinario(void);
 void tela_excluir_funcionario(void); 
 void tela_menu_produto(void);
 void tela_menu_venda(void);
+void cadastra_venda(void);
+void venda_cliente(void);
+void venda_funcionario(void);
+void venda_produto(void);
 /////
 // Programa principal
 int main(void) {
@@ -51,6 +55,10 @@ int main(void) {
     tela_excluir_funcionario(); 
     tela_menu_produto();
     tela_menu_venda();
+    cadastra_venda();
+    venda_cliente();
+    venda_funcionario();
+    venda_produto();
     return 0;
 }
 
@@ -565,7 +573,7 @@ void tela_menu_produto(void) {
 }
 
 
-void tela_menu_funcioanrio(void) {
+void tela_menu_funcionario(void) {
     char op;
     system("clear||cls");
     printf("\n");
@@ -601,7 +609,7 @@ void tela_menu_funcioanrio(void) {
     getchar();
 }
 
-void menu_venda(void) {
+void tela_menu_venda(void) {
     char op;
     system("clear||cls");
     printf("\n");
