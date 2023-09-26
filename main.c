@@ -78,7 +78,8 @@ void tela_menu_principal(void) {
     printf("///            1. Módulo Cliente                                             ///\n");
     printf("///            2. Módulo Produto                                             ///\n");
     printf("///            3. Módulo funcionarios                                        ///\n");
-    printf("///            4. Sobre                                                     ///\n");
+    printf("///            4. Módulo vendas                                              ///\n");
+    printf("///            5. Sobre                                                     ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
@@ -600,7 +601,7 @@ void tela_menu_funcioanrio(void) {
     getchar();
 }
 
-void tela_menu_venda(void) {
+void menu_venda(void) {
     char op;
     system("clear||cls");
     printf("\n");
@@ -628,6 +629,114 @@ void tela_menu_venda(void) {
     printf("///            Escolha a opção desejada: ");
     scanf("%c", &op);
     getchar();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void cadastra_venda(void) {
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  cadastrar venda = = = = = = = = =         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///             EM ANDAMENTO                                                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void venda_cliente(void) {
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  venda cliente = = = = = = = = =         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///             EM ANDAMENTO                                                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void venda_funcionario(void) {
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  venda funcionario = = = = = = = = =         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///             EM ANDAMENTO                                                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void venda_produto(void) {
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  venda produto = = = = = = = = =           ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///             EM ANDAMENTO                                                 ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
