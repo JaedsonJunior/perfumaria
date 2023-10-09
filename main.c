@@ -3,21 +3,22 @@
 #include <stdlib.h>
 
 // Assinaturas
-void tela_menu_principal();
+int tela_menu_principal();
 
 
 
 /////
 // Programa principal
 int main() {
-    int opcao;
-
+    int opcao=-1;
     do {
-        tela_menu_principal();
+        opcao=tela_menu_principal();
     } while (opcao != 0);
 
-    return 0;}
-void tela_menu_principal() {
+    return 0;
+}
+int tela_menu_principal(void) {
+    int opcao;
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -39,33 +40,33 @@ void tela_menu_principal() {
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
-    int opcao;
     scanf("%d", &opcao);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar(); // Limpa o caractere de nova linha do buffer
     switch (opcao) {
-        case 1:
-            printf("1 deu certo");
-            break;
-        case 2:
-            printf("2 deu certo");
-            break;
-        case 3:
-            printf("3 deu certo");
-            break;
-        case 4:
-            printf("4 deu certo");
-            break;
-        case 5:
-            printf("5 deu certo");
-            break;    
-        case 0:
-            printf("0 deu certo");
-            break;
-        default:
-            printf("Opção inválida\n");
-            break;
-    }
+            case 1:
+                printf("1 deu certo\n");
+                break;
+            case 2:
+                printf("2 deu certo\n");
+                break;
+            case 3:
+                printf("3 deu certo\n");
+                break;
+            case 4:
+                printf("4 deu certo\n");
+                break;
+            case 5:
+                printf("5 deu certo\n");
+                break;
+            case 0:
+                printf("saindo...\n");
+                break;
+            default:
+                printf("Opção inválida\n");
+                break;
+        }
+
+return opcao;        
 }
