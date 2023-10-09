@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 void tela_menu_venda(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -26,7 +25,8 @@ void tela_menu_venda(void) {
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
-    scanf("%c", &op);
+    int opcao_venda;
+    scanf("%d", &opcao_venda);
     getchar();
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -36,7 +36,6 @@ void tela_menu_venda(void) {
     getchar();
 }
 void cadastra_venda(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -62,7 +61,6 @@ void cadastra_venda(void) {
     getchar();
 }
 void venda_cliente(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -88,7 +86,6 @@ void venda_cliente(void) {
     getchar();
 }
 void venda_funcionario(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -114,7 +111,6 @@ void venda_funcionario(void) {
     getchar();
 }
 void venda_produto(void) {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
