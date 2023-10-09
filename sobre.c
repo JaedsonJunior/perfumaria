@@ -1,10 +1,7 @@
-/////
-// Funções
+#include <stdio.h>
+#include <stdlib.h>
 
-void tela_menu_principal(void) {
-    char op;
-    system("clear||cls");
-    printf("\n");
+void tela_menu_principal() {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -26,18 +23,38 @@ void tela_menu_principal(void) {
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
-    scanf("%c", &op);
-    getchar();
+    int opcao;
+    scanf("%d", &opcao);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    getchar(); // Limpa o caractere de nova linha do buffer
+    switch (opcao) {
+        case 1:
+            printf("1 deu certo");
+            break;
+        case 2:
+            printf("2 deu certo");
+            break;
+        case 3:
+            printf("3 deu certo");
+            break;
+        case 4:
+            printf("4 deu certo");
+            break;
+        case 5:
+            printf("5 deu certo");
+            break;    
+        case 0:
+            printf("0 deu certo");
+            break;
+        default:
+            printf("Opção inválida\n");
+            break;
+    }
 }
 
 void tela_sobre(void) {
-    system("clear||cls");
-    printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -54,14 +71,12 @@ void tela_sobre(void) {
     printf("///  Programa exemplo utilizado na disciplina DCT1106 - Programação, para   ///\n");
     printf("///  fins de aprendizado e avaliativo ao aluno: Jaedson da Silva Soares Junior ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
+    
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    
 }
 
 void tela_equipe(void) {
-    system("clear||cls");
-    printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -83,7 +98,6 @@ void tela_equipe(void) {
     printf("///            Git: https://github.com/JaedsonJunior/perfumaria              ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-} 
+    
+}
