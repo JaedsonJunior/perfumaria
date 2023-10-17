@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+struct cliente
+{
+char cpf_cliente[12];
+char nome_cliente[100];
+char email_cliente[54];
+char data_cliente[20];
+char situacao_cliente; 
+};
 void tela_cadastrar_cliente(void) {
     char cpf[12]; // 11 dígitos + 1 caractere nulo
     system("clear||cls");

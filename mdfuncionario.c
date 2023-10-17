@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct funcionario
+{
+char cpf[12];
+char nome[100];
+char email[54];
+char data[20]; 
+};
 void tela_menu_funcionario(void) {
     char op;
     system("clear||cls");

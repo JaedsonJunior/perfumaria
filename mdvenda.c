@@ -1,5 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+struct venda
+{
+char cpf_cliente[12];
+char cpf[12];
+char nome_produto[100];
+char data[20];
+char situacao; 
+};
 void tela_menu_venda(void) {
     system("clear||cls");
     printf("\n");
