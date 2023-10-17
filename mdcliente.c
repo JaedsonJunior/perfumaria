@@ -9,7 +9,6 @@ char data_cliente[20];
 char situacao_cliente; 
 };
 void tela_cadastrar_cliente(void) {
-    char cpf[12]; // 11 dígitos + 1 caractere nulo
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
