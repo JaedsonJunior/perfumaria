@@ -6,7 +6,7 @@
 #include <time.h>
 
 //CPF ///https://gist.github.com/eduardoedson/8f991b6d234a9ebdcbe3
-int validarCPF(char *cpf){
+bool validarCPF(const char *cpf){
     int i, j, digito1 = 0, digito2 = 0;
     if(strlen(cpf) != 11)
         return 0;
@@ -102,21 +102,40 @@ int validaEmail(const char *email) {
     return 1;
 }
 
-//data de nascimento//chatgpt
-int validate_date(int day, int month, int year) {
-    struct tm timeinfo;
-
-    // Preencha a estrutura tm com a data fornecida
-    timeinfo.tm_year = year - 1900; // Ano desde 1900
-    timeinfo.tm_mon = month - 1;    // Mês (0-11)
-    timeinfo.tm_mday = day;         // Dia do mês
-
-    // Tente converter a data em um formato válido
-    if (mktime(&timeinfo) != -1) {
-        return 1; // Data válida
-    } else {
-        return 0; // Data inválida
-    }
+//data de nascimento// https://www.vivaolinux.com.br/script/Funcao-para-validacao-de-datas
+int valida_data(int dia, int mes, int ano)
+    {
+    if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2100)) //verifica se os numeros sao validos
+        {
+            if ((dia == 29 && mes == 2) && ((ano % 4) == 0)) //verifica se o ano e bissexto
+            {
+                return 1;
+            }
+            if (dia <= 28 && mes == 2) //verifica o mes de feveireiro
+            {
+                return 1;
+            }
+            if ((dia <= 30) && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) //verifica os meses de 30 dias
+            {
+                return 1;
+            }
+            if ((dia <=31) && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes ==8 || mes == 10 || mes == 12)) //verifica os meses de 31 dias
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+      }
+       else
+           {
+                return 0;
+           }
 }
 
+// Função para verificar se um caractere é um dígito numérico
+bool isDigit(char c) {
+    return isdigit((unsigned char)c) != 0;
+}
     

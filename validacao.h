@@ -1,10 +1,10 @@
 #ifndef validacao_h
 #define validacao_h
-
-int validarCPF(char *cpf);
+#include <stdbool.h>
+bool validarCPF(const char *cpf);
 bool validaNome(const char nome[]);
 bool validaFone(const char fone[]);
 int validaEmail(const char *email);
-int validate_date(int day, int month, int year);
-
+int valida_data(int dia, int mes, int ano);
+bool isDigit(char c);
 #endif

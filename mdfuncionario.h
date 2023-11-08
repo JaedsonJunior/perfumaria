@@ -1,7 +1,7 @@
 #ifndef mdfunionarios_h
 #define mdfuncionarios_h
 
-void tela_menu_funcionario(void);
+int tela_menu_funcionario();
 void tela_cadastrar_funcionario(void);
 void tela_pesquisar_funcionario(void);
 void tela_alterar_funcioinario(void);
