@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "mdcliente.h"
 #include "mdfuncionario.h"
+#include "mdproduto.h"
 //Assinaturas
 int tela_menu_principal();
 void tela_cadastrar_cliente();
@@ -14,15 +15,8 @@ void tela_cadastrar_funcionario();
 void tela_pesquisar_funcionario();
 void tela_alterar_funcioinario();
 void tela_excluir_funcionario(); 
-
-struct cliente
-{
-char cpf[12];
-char nome[100];
-char email[54];
-char data[20];
-char situacao; 
-};
+int tela_menu_produto();
+void tela_cadastrar_produto();
 
 /////
 // Programa principal
@@ -38,6 +32,7 @@ int main() {
 int tela_menu_principal(void) {
     int opcao;
     int opcaoCl=-1;
+    int opcaoC2=-1;
     int opcaoC3=-1;
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -72,7 +67,10 @@ int tela_menu_principal(void) {
             } while (opcaoCl!=0);
                 break;
             case 2:
-                printf("2 deu certo\n");
+                 do
+            {
+            opcaoC2=tela_menu_produto(); 
+            } while (opcaoC2!=0);
                 break;
             case 3:
                 do
