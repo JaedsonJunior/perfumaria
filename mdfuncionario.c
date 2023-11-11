@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "validacao.h"
+#include "ultilidade.h"
 bool validarCPF(const char *cpf);
 bool validaNome(const char nome[]);
 int validaEmail(const char *email);
@@ -41,7 +42,7 @@ void tela_cadastrar_funcionario(void) {
     printf("///            Informe o CPF (apenas números):                              ///\n");
 
     scanf("%s",cpf);
-    getchar();
+    limparBuffer();
     if (validarCPF(cpf)){
         printf("deu certo cpf: %s\n",cpf);
     }else{
@@ -132,10 +133,10 @@ void tela_alterar_funcioinario(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alterar Funcionario = = = = = = = = =             ///\n");
+    printf("///            = = = = = = = = Alterar Funcionario = = = = = = = = =        ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                             ///\n");
+    printf("///            Informe o CPF (apenas números):                              ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");

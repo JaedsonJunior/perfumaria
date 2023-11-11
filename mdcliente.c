@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "validacao.h"
 bool validarCPF(const char *cpf);
 bool validaNome(const char nome[]);
 int validaEmail(const char *email);
 int valida_data(int dia, int mes, int ano);
 bool validaFone(const char fone[]);
+void limparBuffer();
+
 struct cliente
 {
 char cpf_cliente[12];
@@ -14,7 +17,37 @@ char email_cliente[61];
 char data_cliente[21];
 char situacao_cliente; 
 };
+
+void salvar_cliente(struct cliente *cliente) {
+    FILE *arquivo = fopen("clientes.txt", "a");  // Abre o arquivo em modo de anexo (append)
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+
+    fprintf(arquivo, "%s %s %s %s %c\n", cliente->cpf_cliente, cliente->nome_cliente, cliente->email_cliente,
+                                         cliente->data_cliente, cliente->situacao_cliente);
+
+    fclose(arquivo);
+}
+
+void carregar_cliente(struct cliente *cliente) {
+    FILE *arquivo = fopen("clientes.txt", "r");  // Abre o arquivo em modo de leitura
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+
+    // Supondo que o arquivo tem um formato consistente, você pode usar fscanf para ler os dados
+    fscanf(arquivo, "%s %s %s %s %c", cliente->cpf_cliente, cliente->nome_cliente, cliente->email_cliente,
+           cliente->data_cliente, &cliente->situacao_cliente);
+
+    fclose(arquivo);
+}
+
 void tela_cadastrar_cliente(void) {
+    struct cliente cliente;
+    char situacao;
     char cpf[12];
     char nome[61];
     char email[61];
@@ -72,6 +105,7 @@ void tela_cadastrar_cliente(void) {
     }else{
         printf("deu errado data: %d/%d/%d\n",dia,mes,ano);
     }
+    situacao = 'A';
     getchar();
 
     printf("///            Celular  (apenas números):                                   ///\n");
@@ -81,6 +115,7 @@ void tela_cadastrar_cliente(void) {
     }else{
         printf("deu errado fone: %s\n",fone);
     }
+    
     getchar();
 
     printf("///                                                                         ///\n");
@@ -88,6 +123,13 @@ void tela_cadastrar_cliente(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    strcpy(cliente.cpf_cliente, cpf);
+    strcpy(cliente.nome_cliente, nome);
+    strcpy(cliente.email_cliente, email);
+    sprintf(cliente.data_cliente, "%d/%d/%d", dia, mes, ano);
+    cliente.situacao_cliente = situacao; // Exemplo: define como 'Ativo'
+    salvar_cliente(&cliente);
+
     getchar();
 }
 void tela_pesquisar_cliente(void) {
