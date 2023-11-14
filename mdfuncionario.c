@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "validacao.h"
 #include "ultilidade.h"
 bool validarCPF(const char *cpf);
@@ -7,20 +8,51 @@ bool validaNome(const char nome[]);
 int validaEmail(const char *email);
 int valida_data(int dia, int mes, int ano);
 bool validaFone(const char fone[]);
-
+bool valida_cpf(const char *cpf);
+void limparBuffer();
 struct funcionario
 {
-char cpf_funci[12];
-char nome_funci[61];
-char email_funci[61];
-char data_funci[21];
+char cpf_funcionario[12];
+char nome_funcionario[61];
+char email_funcionario[61];
+char data_funcionario[21];
+char situacao_funcionario;
 };
 
+void salvar_funcionario(struct funcionario *funcionario) {
+    FILE *arquivo = fopen("funcionarios.txt", "a");  // Abre o arquivo em modo de anexo (append)
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+
+    fprintf(arquivo, "%s %s %s %s %c\n", funcionario->cpf_funcionario, funcionario->nome_funcionario, funcionario->email_funcionario,
+                                         funcionario->data_funcionario, funcionario->situacao_funcionario);
+
+    fclose(arquivo);
+}
+
+void carregar_funcionario(struct funcionario *funcionario) {
+    FILE *arquivo = fopen("funcionarios.txt", "r");  // Abre o arquivo em modo de leitura
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+
+    // Supondo que o arquivo tem um formato consistente, você pode usar fscanf para ler os dados
+    fscanf(arquivo, "%s %s %s %s %c", funcionario->cpf_funcionario, funcionario->nome_funcionario, funcionario->email_funcionario,
+           funcionario->data_funcionario, &funcionario->situacao_funcionario);
+
+    fclose(arquivo);
+}
+
 void tela_cadastrar_funcionario(void) {
+    struct funcionario funcionario;
     char cpf[12];
     char nome[61];
     char email[61];
     char fone[15];
+    char situacao;
     int dia,mes,ano;
     system("clear||cls");
     printf("\n");
@@ -43,11 +75,7 @@ void tela_cadastrar_funcionario(void) {
 
     scanf("%s",cpf);
     limparBuffer();
-    if (validarCPF(cpf)){
-        printf("deu certo cpf: %s\n",cpf);
-    }else{
-        printf("deu errado cpf: %s\n",cpf);
-    }
+    valida_cpf(cpf);
        
     printf("///            Nome completo:                                               ///\n");
     scanf("%61[^\n]", nome);  // Use o formato %x[^\n] para ler a entrada até a quebra de linha ou até x caracteres
@@ -56,7 +84,7 @@ void tela_cadastrar_funcionario(void) {
     }else{
         printf("deu errado nome: %s\n",nome);
     }
-    getchar();
+    limparBuffer();
 
     printf("///            E-mail:                                                      ///\n");
     scanf("%61[^\n]", email);  // Use o formato %x[^\n] para ler a entrada até a quebra de linha ou até x caracteres
@@ -65,7 +93,7 @@ void tela_cadastrar_funcionario(void) {
     }else{
         printf("deu errado email: %s\n",email);
     }
-    getchar();
+    limparBuffer();
 
     printf("///            Data de Nascimento (dd/mm/aaaa):                             ///\n");
     scanf("%d/%d/%d",&dia,&mes,&ano);  
@@ -74,7 +102,7 @@ void tela_cadastrar_funcionario(void) {
     }else{
         printf("deu errado data: %d/%d/%d\n",dia,mes,ano);
     }
-    getchar();
+    limparBuffer();
 
     printf("///            Celular  (apenas números):                                   ///\n");
     scanf("%s", fone);  
@@ -83,14 +111,20 @@ void tela_cadastrar_funcionario(void) {
     }else{
         printf("deu errado fone: %s\n",fone);
     }
-    getchar();
-
+    limparBuffer();
+    situacao = 'A';
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+     strcpy(funcionario.cpf_funcionario, cpf);
+    strcpy(funcionario.nome_funcionario, nome);
+    strcpy(funcionario.email_funcionario, email);
+    sprintf(funcionario.data_funcionario, "%d/%d/%d", dia, mes, ano);
+    funcionario.situacao_funcionario = situacao; // Exemplo: define como 'Ativo'
+    salvar_funcionario(&funcionario);
+    limparBuffer();
 }
 void tela_pesquisar_funcionario(void) {
     system("clear||cls");
@@ -116,7 +150,7 @@ void tela_pesquisar_funcionario(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 void tela_alterar_funcioinario(void) {
     system("clear||cls");
@@ -142,7 +176,7 @@ void tela_alterar_funcioinario(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 void tela_excluir_funcionario(void) {
     system("clear||cls");
@@ -168,7 +202,7 @@ void tela_excluir_funcionario(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 
 int tela_menu_funcionario() {
@@ -198,13 +232,13 @@ int tela_menu_funcionario() {
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
     scanf("%d", &opcaoC3);
-    getchar();
+    limparBuffer();
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
     switch (opcaoC3) {
             case 1:
                 tela_cadastrar_funcionario();

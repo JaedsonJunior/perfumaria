@@ -7,6 +7,7 @@ bool validaNome(const char nome[]);
 int validaEmail(const char *email);
 int valida_data(int dia, int mes, int ano);
 bool validaFone(const char fone[]);
+bool valida_cpf(const char *cpf);
 void limparBuffer();
 
 struct cliente
@@ -71,14 +72,9 @@ void tela_cadastrar_cliente(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     printf("///            Informe o CPF (apenas números):                              ///\n");
-
     scanf("%s",cpf);
-    getchar();
-    if (validarCPF(cpf)){
-        printf("deu certo cpf: %s\n",cpf);
-    }else{
-        printf("deu errado cpf: %s\n",cpf);
-    }
+    limparBuffer();
+    valida_cpf(cpf);
        
     printf("///            Nome completo:                                               ///\n");
     scanf("%61[^\n]", nome);  // Use o formato %x[^\n] para ler a entrada até a quebra de linha ou até x caracteres
@@ -87,7 +83,7 @@ void tela_cadastrar_cliente(void) {
     }else{
         printf("deu errado nome: %s\n",nome);
     }
-    getchar();
+    limparBuffer();
 
     printf("///            E-mail:                                                      ///\n");
     scanf("%61[^\n]", email);  // Use o formato %x[^\n] para ler a entrada até a quebra de linha ou até x caracteres
@@ -96,7 +92,7 @@ void tela_cadastrar_cliente(void) {
     }else{
         printf("deu errado email: %s\n",email);
     }
-    getchar();
+    limparBuffer();
 
     printf("///            Data de Nascimento (dd/mm/aaaa):                             ///\n");
     scanf("%d/%d/%d",&dia,&mes,&ano);  
@@ -105,8 +101,8 @@ void tela_cadastrar_cliente(void) {
     }else{
         printf("deu errado data: %d/%d/%d\n",dia,mes,ano);
     }
-    situacao = 'A';
-    getchar();
+   
+    limparBuffer();
 
     printf("///            Celular  (apenas números):                                   ///\n");
     scanf("%s", fone);  
@@ -115,8 +111,8 @@ void tela_cadastrar_cliente(void) {
     }else{
         printf("deu errado fone: %s\n",fone);
     }
-    
-    getchar();
+     situacao = 'A';
+    limparBuffer();
 
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -130,7 +126,7 @@ void tela_cadastrar_cliente(void) {
     cliente.situacao_cliente = situacao; // Exemplo: define como 'Ativo'
     salvar_cliente(&cliente);
 
-    getchar();
+    limparBuffer();
 }
 void tela_pesquisar_cliente(void) {
     system("clear||cls");
@@ -156,7 +152,7 @@ void tela_pesquisar_cliente(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 void tela_alterar_cliente(void) {
     system("clear||cls");
@@ -182,7 +178,7 @@ void tela_alterar_cliente(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 void tela_excluir_cliente(void) {
 
@@ -209,7 +205,7 @@ void tela_excluir_cliente(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 int tela_menu_cliente() {
     int opcaoCl;
@@ -238,13 +234,13 @@ int tela_menu_cliente() {
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
     scanf("%d", &opcaoCl);
-    getchar();
+    limparBuffer();
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
     switch (opcaoCl) {
             case 1:
                 tela_cadastrar_cliente();

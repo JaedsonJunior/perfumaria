@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <time.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+
 
 //CPF ///https://gist.github.com/eduardoedson/8f991b6d234a9ebdcbe3
 bool validarCPF(const char *cpf){
@@ -42,6 +46,15 @@ bool validarCPF(const char *cpf){
         }
     }
     return 1;}
+
+
+
+bool valida_cpf(const char *cpf) {
+    printf(validarCPF(cpf) ? "ok\n" : "errado\n");
+    return validarCPF(cpf);
+}
+
+
 
 //nome /// adaptado de https://gist.github.com/jpcabana1/69054083240567faae13cb375e291e49
 bool validaNome(const char nome[]) {
