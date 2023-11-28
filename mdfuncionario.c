@@ -6,7 +6,8 @@
 bool validarCPF(const char *cpf);
 bool validaNome(const char nome[]);
 int validaEmail(const char *email);
-int valida_data(int dia, int mes, int ano);
+bool extrair_data(const char *data, int *dia, int *mes, int *ano);
+bool valida_data(const char *data);
 bool validaFone(const char fone[]);
 bool valida_cpf(const char *cpf);
 void limparBuffer();
@@ -47,84 +48,7 @@ void carregar_funcionario(struct funcionario *funcionario) {
 }
 
 void tela_cadastrar_funcionario(void) {
-    struct funcionario funcionario;
-    char cpf[12];
-    char nome[61];
-    char email[61];
-    char fone[15];
-    char situacao;
-    int dia,mes,ano;
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Cadastrar Funcionario = = = = = = = =        ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                              ///\n");
-
-    scanf("%s",cpf);
-    limparBuffer();
-    valida_cpf(cpf);
-       
-    printf("///            Nome completo:                                               ///\n");
-    scanf("%61[^\n]", nome);  // Use o formato %x[^\n] para ler a entrada até a quebra de linha ou até x caracteres
-    if (validaNome(nome)){
-        printf("deu certo nome: %s\n",nome);
-    }else{
-        printf("deu errado nome: %s\n",nome);
-    }
-    limparBuffer();
-
-    printf("///            E-mail:                                                      ///\n");
-    scanf("%61[^\n]", email);  // Use o formato %x[^\n] para ler a entrada até a quebra de linha ou até x caracteres
-    if (validaEmail(email)){
-        printf("deu certo email: %s\n",email);
-    }else{
-        printf("deu errado email: %s\n",email);
-    }
-    limparBuffer();
-
-    printf("///            Data de Nascimento (dd/mm/aaaa):                             ///\n");
-    scanf("%d/%d/%d",&dia,&mes,&ano);  
-    if (valida_data(dia,mes,ano)){
-        printf("deu certo data: %d/%d/%d\n",dia,mes,ano);
-    }else{
-        printf("deu errado data: %d/%d/%d\n",dia,mes,ano);
-    }
-    limparBuffer();
-
-    printf("///            Celular  (apenas números):                                   ///\n");
-    scanf("%s", fone);  
-    if ( validaFone(fone)){
-        printf("deu certo fone: %s\n",fone);
-    }else{
-        printf("deu errado fone: %s\n",fone);
-    }
-    limparBuffer();
-    situacao = 'A';
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-     strcpy(funcionario.cpf_funcionario, cpf);
-    strcpy(funcionario.nome_funcionario, nome);
-    strcpy(funcionario.email_funcionario, email);
-    sprintf(funcionario.data_funcionario, "%d/%d/%d", dia, mes, ano);
-    funcionario.situacao_funcionario = situacao; // Exemplo: define como 'Ativo'
-    salvar_funcionario(&funcionario);
-    limparBuffer();
+    
 }
 void tela_pesquisar_funcionario(void) {
     system("clear||cls");
