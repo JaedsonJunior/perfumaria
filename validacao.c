@@ -6,6 +6,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "ultilidade.h"
 
 
 
@@ -48,9 +49,9 @@ bool validarCPF(const char *cpf){
     return 1;}
 
 
-
 bool valida_cpf(const char *cpf) {
-    printf(validarCPF(cpf) ? "ok\n" : "errado\n");
+    
+    printf(validarCPF(cpf)? "ok\n" : "errado\n");
     return validarCPF(cpf);
 }
 
@@ -116,39 +117,52 @@ int validaEmail(const char *email) {
 }
 
 //data de nascimento// https://www.vivaolinux.com.br/script/Funcao-para-validacao-de-datas
-int valida_data(int dia, int mes, int ano)
-    {
-    if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2100)) //verifica se os numeros sao validos
-        {
-            if ((dia == 29 && mes == 2) && ((ano % 4) == 0)) //verifica se o ano e bissexto
-            {
-                return 1;
-            }
-            if (dia <= 28 && mes == 2) //verifica o mes de feveireiro
-            {
-                return 1;
-            }
-            if ((dia <= 30) && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) //verifica os meses de 30 dias
-            {
-                return 1;
-            }
-            if ((dia <=31) && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes ==8 || mes == 10 || mes == 12)) //verifica os meses de 31 dias
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-      }
-       else
-           {
-                return 0;
-           }
-}
+
 
 // Função para verificar se um caractere é um dígito numérico
 bool isDigit(char c) {
     return isdigit((unsigned char)c) != 0;
 }
     
+bool extrair_data(const char *data, int *dia, int *mes, int *ano) {
+    // Utiliza sscanf para extrair dia, mês e ano da string no formato "dd/mm/aaaa"
+
+    limparBuffer();
+    if (sscanf(data, "%d/%d/%d", dia, mes, ano) != 3) {
+        // Se a conversão não foi bem-sucedida (não foram lidos 3 valores), retorna falso
+        return false;
+    }
+
+    return true;
+}
+
+
+//data de nascimento// https://www.vivaolinux.com.br/script/Funcao-para-validacao-de-datas && adaptada pelo chat GPT
+bool valida_data(const char *data) {
+    int dia, mes, ano;
+
+    // Extrai dia, mês e ano da string
+    if (!extrair_data(data, &dia, &mes, &ano)) {
+        // Se a extração falhar, a data é considerada inválida
+        return false;
+    }
+
+
+   if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2100)) {
+        if (mes == 2) {
+            // Fevereiro
+            if (dia > 29) {
+                return false; // Mais de 29 dias em fevereiro
+            } else if (dia == 29 && (ano % 4 != 0 || (ano % 100 == 0 && ano % 400 != 0))) {
+                return false; // Ano não bissexto, mas tentando inserir 29 de fevereiro
+            }
+        } else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) {
+            return false; // Meses com 30 dias e dia maior que 30
+        }
+        // Todas as condições atendidas, a data é válida
+        return true;
+    }
+    // Condições iniciais não atendidas, a data é inválida
+    return false;
+}
+
