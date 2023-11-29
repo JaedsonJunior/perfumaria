@@ -4,9 +4,12 @@
 #include "mdcliente.h"
 #include "mdfuncionario.h"
 #include "mdproduto.h"
+typedef struct cliente Cliente;
+
+
 //Assinaturas
 int tela_menu_principal();
-void tela_cadastrar_cliente();
+Cliente* tela_cadastrar_cliente();
 void tela_pesquisar_cliente();
 void tela_alterar_cliente(); 
 void tela_excluir_cliente();
@@ -30,6 +33,7 @@ int main() {
     return 0;
 }
 int tela_menu_principal(void) {
+    system("clear||cls");
     int opcao;
     int opcaoCl=-1;
     int opcaoC2=-1;
