@@ -30,11 +30,11 @@ char situacao;
 
 
 
-void tela_cadastrar_cliente(void) {
+Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
 	aln = (Cliente*) malloc(sizeof(Cliente));
     
-    limpaTela();
+    system("clear||cls");
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -96,7 +96,7 @@ void tela_cadastrar_cliente(void) {
    
 
     limparBuffer();
-    free(aln);
+    return aln;
     
 }
 void tela_pesquisar_cliente(void) {
