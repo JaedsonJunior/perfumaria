@@ -63,7 +63,7 @@ void ler_cliente(void) {
 }
 
 
-void pesquisar_cliente_por_cpf(const char *cpf) {
+void pesquisar_cliente(const char *cpf) {
     FILE *arquivo = fopen("clientes.bin", "rb");
 
     if (arquivo != NULL) {
