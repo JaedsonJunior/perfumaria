@@ -51,7 +51,7 @@ bool validarCPF(const char *cpf){
 
 bool valida_cpf(const char *cpf) {
     
-    printf(validarCPF(cpf)? "ok\n" : "errado\n");
+    printf(validarCPF(cpf)? "\n" : "\n");
     return validarCPF(cpf);
 }
 
