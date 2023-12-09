@@ -170,7 +170,7 @@ Cliente* tela_cadastrar_cliente(void) {
     
 }
 void tela_pesquisar_cliente() {
-    char cpf;
+    char cpf[12];
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -189,8 +189,13 @@ void tela_pesquisar_cliente() {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     printf("///            Informe o CPF (apenas números):                              ///\n");
-    scanf("%[^\n]",cpf);
-
+    do {
+		printf("///            Informe o CPF (apenas números):                              ///\n");
+		scanf("%[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf(cpf));
+       
+    pesquisar_cliente(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
