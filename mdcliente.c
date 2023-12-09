@@ -234,19 +234,14 @@ void tela_pesquisar_cliente() {
 }
 void tela_alterar_cliente(void) {
     char cpf[12];
-    char nome[61];
-    char email[61];
-    char data[12];
-    char fone[15];
-    char situacao; 
-
+    int alt;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =   Fragância Popular     = = = =                      ///\n");
+    printf("///                 = = = =   Fragância Popular     = = = =                 ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
     printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
@@ -263,30 +258,27 @@ void tela_alterar_cliente(void) {
 		limparBuffer();
 	} while (!valida_cpf(cpf));
     system("clear||cls");
-    if (alt == 1){
-       
-    do {
-		printf("///            Digite o novo nome:                                               ///\n");
-		scanf("%61[^\n]",nome);
-		limparBuffer();
-	} while (!validaNome(nome));
-
-    }else if(alt == 2){
-        do {   
-		printf("///          Digite o novo email:                                                       ///\n");
-		scanf("%[^\n]",email);
-		limparBuffer();
-	} while (!validaEmail(email));
-
-
-    
-
-
-
-    atualizar_cliente(cpf,nome);
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
     printf("///                                                                         ///\n");
+    printf("///                     1- Alterar o nome                                   ///\n");
+    printf("///                     2- Alterar o email                                  ///\n");
+    printf("///                     3- Alterar a data de nascimeto                      ///\n");
+    printf("///                     4- Alterar o numero telefonico                      ///\n");
+    printf("///                     5- Alterar a situacao do cliente                    ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
+    scanf("%d",&alt);
+    switch (alt)
+    {
+    case 1:
+       printf("entrou");
+       limparBuffer();
+        break;
+    
+    default:
+        break;
+    }
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     limparBuffer();
