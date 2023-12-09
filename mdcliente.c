@@ -63,6 +63,41 @@ void ler_cliente(void) {
 }
 
 
+void pesquisar_cliente_por_cpf(const char *cpf) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        int encontrado = 0; // Flag para indicar se o cliente foi encontrado
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            // Compara o CPF do cliente atual com o CPF desejado
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                printf("Cliente encontrado:\n");
+                printf("CPF: %s\n", cliente.cpf);
+                printf("NOME: %s\n", cliente.nome);
+                printf("EMAIL: %s\n", cliente.email);
+                printf("DATA: %s\n", cliente.data);
+                printf("TELEFONE: %s\n", cliente.fone);
+                printf("SITUACAO: %c\n", cliente.situacao);
+                
+                encontrado = 1;
+                break; // Se encontrou, sai do loop
+            }
+        
+
+            else if(!encontrado) {
+                printf("Cliente com CPF %s não encontrado.\n", cpf);
+        }}
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+    }
+}
+
+
 
 Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
@@ -134,7 +169,8 @@ Cliente* tela_cadastrar_cliente(void) {
     return aln;
     
 }
-void tela_pesquisar_cliente(void) {
+void tela_pesquisar_cliente() {
+    char cpf;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -153,6 +189,8 @@ void tela_pesquisar_cliente(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     printf("///            Informe o CPF (apenas números):                              ///\n");
+    scanf("%[^\n]",cpf);
+
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
