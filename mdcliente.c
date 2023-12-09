@@ -188,13 +188,12 @@ void tela_pesquisar_cliente() {
     printf("///            = = = = = = = = Pesquisar Cliente = = = = = = = =            ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                              ///\n");
     do {
 		printf("///            Informe o CPF (apenas números):                              ///\n");
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf(cpf));
-       
+    system("clear||cls");   
     pesquisar_cliente(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
