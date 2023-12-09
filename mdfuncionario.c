@@ -20,33 +20,6 @@ char data_funcionario[21];
 char situacao_funcionario;
 };
 
-void salvar_funcionario(struct funcionario *funcionario) {
-    FILE *arquivo = fopen("funcionarios.txt", "a");  // Abre o arquivo em modo de anexo (append)
-    if (arquivo == NULL) {
-        perror("Erro ao abrir o arquivo");
-        return;
-    }
-
-    fprintf(arquivo, "%s %s %s %s %c\n", funcionario->cpf_funcionario, funcionario->nome_funcionario, funcionario->email_funcionario,
-                                         funcionario->data_funcionario, funcionario->situacao_funcionario);
-
-    fclose(arquivo);
-}
-
-void carregar_funcionario(struct funcionario *funcionario) {
-    FILE *arquivo = fopen("funcionarios.txt", "r");  // Abre o arquivo em modo de leitura
-    if (arquivo == NULL) {
-        perror("Erro ao abrir o arquivo");
-        return;
-    }
-
-    // Supondo que o arquivo tem um formato consistente, você pode usar fscanf para ler os dados
-    fscanf(arquivo, "%s %s %s %s %c", funcionario->cpf_funcionario, funcionario->nome_funcionario, funcionario->email_funcionario,
-           funcionario->data_funcionario, &funcionario->situacao_funcionario);
-
-    fclose(arquivo);
-}
-
 void tela_cadastrar_funcionario(void) {
     
 }
