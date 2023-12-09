@@ -98,6 +98,35 @@ void pesquisar_cliente(const char *cpf) {
 }
 
 
+// Função para atualizar um cliente no arquivo binário
+void atualizar_cliente(const char *cpf, const char *novo_dado) {
+    FILE *arquivo = fopen("clientes.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(cliente.nome, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Cliente), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&cliente, sizeof(Cliente), 1, arquivo);
+
+                printf("Cliente atualizado com sucesso!\n");
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }
+}
 
 Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
@@ -204,6 +233,9 @@ void tela_pesquisar_cliente() {
     limparBuffer();
 }
 void tela_alterar_cliente(void) {
+    char cpf [12];
+    char nome [61];
+
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -221,7 +253,18 @@ void tela_alterar_cliente(void) {
     printf("///            = = = = = = = = Alterar Cliente = = = = = = = = =            ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                              ///\n");
+    do {
+		printf("///            Informe o CPF (apenas números):                              ///\n");
+		scanf("%[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf(cpf));
+    do {
+		printf("///            Nome completo:                                               ///\n");
+		scanf("%[^\n]",nome);
+		limparBuffer();
+	} while (!validaNome(nome));
+
+    atualizar_cliente(cpf,nome);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
