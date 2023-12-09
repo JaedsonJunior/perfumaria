@@ -193,7 +193,8 @@ void tela_pesquisar_cliente() {
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf(cpf));
-    system("clear||cls");   
+    system("clear||cls");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_cliente(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
