@@ -13,9 +13,10 @@ bool valida_cpf(const char *cpf);
 void limparBuffer();
 void limpaTela();
 
-
-
 typedef struct cliente Cliente;
+
+
+
 
 struct cliente
 {
@@ -27,6 +28,39 @@ char fone[15];
 char situacao; 
 };
 
+void salvar_cliente(Cliente *aln) {
+    FILE *arquivo = fopen("clientes.bin", "ab");
+
+    if (arquivo != NULL) {
+        fwrite(aln, sizeof(Cliente), 1, arquivo);
+        fclose(arquivo);
+        printf("Gravado com Sucesso!!\n");
+    } else {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+    }
+
+}
+
+void ler_cliente(void) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            printf("CPF: %s\n", cliente.cpf);
+            printf("NOME: %s\n", cliente.nome);
+            printf("EMAIL: %s\n", cliente.email);
+            printf("DATA: %s\n", cliente.data);
+            printf("TELEFONE: %s\n", cliente.fone);
+            printf("SITUACAO: %c\n", cliente.situacao);
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+    }
+}
 
 
 
@@ -74,7 +108,7 @@ Cliente* tela_cadastrar_cliente(void) {
     
      do {
 		printf("///            Data de Nascimento (dd/mm/aaaa):                             ///\n");
-		scanf(("%[0-9/]"),aln->data);
+		scanf(("%11[0-9/]"),aln->data);
 		limparBuffer();
 	} while (!valida_data(aln->data));
     
@@ -87,6 +121,7 @@ Cliente* tela_cadastrar_cliente(void) {
 	} while (!validaFone(aln->fone));
 
     aln->situacao = 'A';
+    
 
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -94,7 +129,7 @@ Cliente* tela_cadastrar_cliente(void) {
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
    
-
+    salvar_cliente(aln);
     limparBuffer();
     return aln;
     
