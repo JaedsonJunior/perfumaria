@@ -233,8 +233,12 @@ void tela_pesquisar_cliente() {
     limparBuffer();
 }
 void tela_alterar_cliente(void) {
-    char cpf [12];
-    char nome [61];
+    char cpf[12];
+    char nome[61];
+    char email[61];
+    char data[12];
+    char fone[15];
+    char situacao; 
 
     system("clear||cls");
     printf("\n");
@@ -258,11 +262,26 @@ void tela_alterar_cliente(void) {
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf(cpf));
+    system("clear||cls");
+    if (alt == 1){
+       
     do {
-		printf("///            Nome completo:                                               ///\n");
-		scanf("%[^\n]",nome);
+		printf("///            Digite o novo nome:                                               ///\n");
+		scanf("%61[^\n]",nome);
 		limparBuffer();
 	} while (!validaNome(nome));
+
+    }else if(alt == 2){
+        do {   
+		printf("///          Digite o novo email:                                                       ///\n");
+		scanf("%[^\n]",email);
+		limparBuffer();
+	} while (!validaEmail(email));
+
+
+    
+
+
 
     atualizar_cliente(cpf,nome);
     printf("///                                                                         ///\n");
