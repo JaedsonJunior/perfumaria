@@ -234,6 +234,7 @@ void tela_pesquisar_cliente() {
 }
 void tela_alterar_cliente(void) {
     char cpf[12];
+    char nome[61];
     int alt;
     system("clear||cls");
     printf("\n");
@@ -272,8 +273,15 @@ void tela_alterar_cliente(void) {
     switch (alt)
     {
     case 1:
-       printf("entrou");
-       limparBuffer();
+    
+    do {
+		printf("///          Digite o novo Nome:                                               ///\n");
+        limparBuffer();
+		scanf("%61[^\n]",nome);
+        
+	} while (!validaNome(nome));
+        atualizar_cliente(cpf,nome);
+        limparBuffer();
         break;
     
     default:
