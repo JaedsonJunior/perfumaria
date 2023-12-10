@@ -322,7 +322,6 @@ void tela_alterar_cliente(void) {
 		printf(".> Digite o novo email:                                                   \n");
         limparBuffer();
 		scanf("%61[^\n]",email);
-		limparBuffer();
 	} while (!validaEmail(email));
         atualizar_cliente_email(cpf,email);
         limparBuffer();
