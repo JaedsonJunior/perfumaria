@@ -159,6 +159,35 @@ void atualizar_cliente_email(const char *cpf, const char *novo_dado) {
     }
 }
 
+void atualizar_cliente_data(const char *cpf, const char *novo_dado) {
+    FILE *arquivo = fopen("clientes.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(cliente.data, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Cliente), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&cliente, sizeof(Cliente), 1, arquivo);
+
+                printf("%s atualizado com sucesso!\n",novo_dado);
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }
+}
+
 Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
 	aln = (Cliente*) malloc(sizeof(Cliente));
@@ -267,7 +296,7 @@ void tela_alterar_cliente(void) {
     char cpf[12];
     char nome[61];
     char email[61];
-
+    char data[12];
     int alt;
     system("clear||cls");
     printf("\n");
@@ -326,6 +355,17 @@ void tela_alterar_cliente(void) {
         atualizar_cliente_email(cpf,email);
         limparBuffer();
         break;
+    case 3:
+
+    do {
+		printf(".> nova Data de Nascimento (dd/mm/aaaa):                                  \n");
+        limparBuffer();
+		scanf(("%11[0-9/]"),data);
+	} while (!valida_data(data));
+        atualizar_cliente_data(cpf,data);
+        limparBuffer();
+        break;
+
 
     default:
         break;
