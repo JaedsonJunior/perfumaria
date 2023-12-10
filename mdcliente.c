@@ -357,7 +357,6 @@ void tela_alterar_cliente(void) {
     printf("///                     2- Alterar o email                                  ///\n");
     printf("///                     3- Alterar a data de nascimeto                      ///\n");
     printf("///                     4- Alterar o numero telefonico                      ///\n");
-    printf("///                     5- Alterar a situacao do cliente                    ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     scanf("%d",&alt);
