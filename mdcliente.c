@@ -188,6 +188,34 @@ void atualizar_cliente_data(const char *cpf, const char *novo_dado) {
     }
 }
 
+void atualizar_cliente_telefone(const char *cpf, const char *novo_dado) {
+    FILE *arquivo = fopen("clientes.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(cliente.fone, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Cliente), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&cliente, sizeof(Cliente), 1, arquivo);
+
+                printf("%s atualizado com sucesso!\n",novo_dado);
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }
+}
 Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
 	aln = (Cliente*) malloc(sizeof(Cliente));
@@ -297,6 +325,7 @@ void tela_alterar_cliente(void) {
     char nome[61];
     char email[61];
     char data[12];
+    char fone[15];
     int alt;
     system("clear||cls");
     printf("\n");
@@ -345,6 +374,7 @@ void tela_alterar_cliente(void) {
         atualizar_cliente_nome(cpf,nome);
         limparBuffer();
         break;
+
     case 2:
 
      do {   
@@ -355,6 +385,7 @@ void tela_alterar_cliente(void) {
         atualizar_cliente_email(cpf,email);
         limparBuffer();
         break;
+
     case 3:
 
     do {
@@ -366,6 +397,16 @@ void tela_alterar_cliente(void) {
         limparBuffer();
         break;
 
+    case 4:
+
+         do {
+		printf(".> Numero novo  (apenas números):                                          \n");
+        limparBuffer();
+		scanf("%[^\n]",fone);
+	    } while (!validaFone(fone));
+        atualizar_cliente_telefone(cpf,fone);
+        limparBuffer();
+        break;
 
     default:
         break;
