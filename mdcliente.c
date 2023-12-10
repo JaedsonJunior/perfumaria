@@ -26,6 +26,7 @@ char email[61];
 char data[12];
 char fone[15];
 char situacao; 
+
 };
 
 void salvar_cliente(Cliente *aln) {
@@ -99,7 +100,7 @@ void pesquisar_cliente(const char *cpf) {
 
 
 // Função para atualizar um cliente no arquivo binário
-void atualizar_cliente(const char *cpf, const char *novo_dado) {
+void atualizar_cliente_nome(const char *cpf, const char *novo_dado) {
     FILE *arquivo = fopen("clientes.bin", "r+b");
 
     if (arquivo != NULL) {
@@ -117,7 +118,37 @@ void atualizar_cliente(const char *cpf, const char *novo_dado) {
                 // Escrever o registro modificado de volta no arquivo
                 fwrite(&cliente, sizeof(Cliente), 1, arquivo);
 
-                printf("Cliente atualizado com sucesso!\n");
+                printf("%s atualizado com sucesso!\n",novo_dado);
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }
+}
+
+// Função para atualizar um cliente no arquivo binário
+void atualizar_cliente_email(const char *cpf, const char *novo_dado) {
+    FILE *arquivo = fopen("clientes.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(cliente.email, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Cliente), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&cliente, sizeof(Cliente), 1, arquivo);
+
+                printf("%s atualizado com sucesso!\n",novo_dado);
                 break;
             }
         }
@@ -235,6 +266,8 @@ void tela_pesquisar_cliente() {
 void tela_alterar_cliente(void) {
     char cpf[12];
     char nome[61];
+    char email[61];
+
     int alt;
     system("clear||cls");
     printf("\n");
@@ -275,15 +308,26 @@ void tela_alterar_cliente(void) {
     case 1:
     
     do {
-		printf("///          Digite o novo Nome:                                               ///\n");
+		printf(".> Digite o novo Nome:                                                    \n");
         limparBuffer();
 		scanf("%61[^\n]",nome);
         
 	} while (!validaNome(nome));
-        atualizar_cliente(cpf,nome);
+        atualizar_cliente_nome(cpf,nome);
         limparBuffer();
         break;
-    
+    case 2:
+
+     do {   
+		printf(".> Digite o novo email:                                                   \n");
+        limparBuffer();
+		scanf("%61[^\n]",email);
+		limparBuffer();
+	} while (!validaEmail(email));
+        atualizar_cliente_email(cpf,email);
+        limparBuffer();
+        break;
+
     default:
         break;
     }
