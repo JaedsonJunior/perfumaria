@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <string.h>
 #include "validacao.h"
 #include "ultilidade.h"
@@ -216,6 +217,52 @@ void atualizar_cliente_telefone(const char *cpf, const char *novo_dado) {
         printf("Erro ao abrir o arquivo para leitura e gravação.\n");
     }
 }
+
+// Função para excluir um cliente com base no CPF do arquivo binário
+void excluir_cliente(const char *cpf) {
+    FILE *arquivo;
+    FILE *temp;
+    Cliente cliente;
+
+    // Abra o arquivo binário para leitura
+    arquivo = fopen("clientes.bin", "rb");
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        exit(EXIT_FAILURE);
+    }
+
+    // Abra um arquivo temporário para escrita
+    temp = fopen("temp.bin", "wb");
+    if (temp == NULL) {
+        perror("Erro ao criar o arquivo temporário");
+        fclose(arquivo);
+        exit(EXIT_FAILURE);
+    }
+
+    // Leia os registros do arquivo e grave no arquivo temporário, exceto o que será excluído
+    while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+        if (strcmp(cliente.cpf, cpf) != 0) {
+            fwrite(&cliente, sizeof(Cliente), 1, temp);
+        }
+    }
+
+    // Feche os arquivos
+    fclose(arquivo);
+    fclose(temp);
+
+    // Remova o arquivo original e renomeie o temporário
+    if (remove("clientes.bin") != 0) {
+        perror("Erro ao remover o arquivo original");
+        exit(EXIT_FAILURE);
+    }
+
+    if (rename("temp.bin", "clientes.bin") != 0) {
+        perror("Erro ao renomear o arquivo temporário");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("Cliente com CPF %s excluído com sucesso.\n", cpf);
+}
 Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
 	aln = (Cliente*) malloc(sizeof(Cliente));
@@ -369,7 +416,7 @@ void tela_alterar_cliente(void) {
         limparBuffer();
 		scanf("%61[^\n]",nome);
         
-	} while (!validaNome(nome));
+	} while (!validaNome(nome)&&);
         atualizar_cliente_nome(cpf,nome);
         limparBuffer();
         break;
@@ -415,7 +462,7 @@ void tela_alterar_cliente(void) {
     limparBuffer();
 }
 void tela_excluir_cliente(void) {
-
+    char cpf[12];
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -433,7 +480,12 @@ void tela_excluir_cliente(void) {
     printf("///            = = = = = = = = Excluir Cliente = = = = = = = = =            ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF(apenas números):                               ///\n");
+     do {
+		printf("///            Informe o CPF (apenas números):                              ///\n");
+		scanf("%12[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf(cpf));
+    excluir_cliente(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
