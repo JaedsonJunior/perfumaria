@@ -1,17 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct funcionario
+#include "ultilidade.h"
+
+typedef struct produto Produto;
+
+struct produto
 {
-char nome_produto[61];    
+char nome[61];    
 float preco[7];
 int quantidade[4];
 int capacidade[4];
 };
+void salvar_produto(Produto *aln) {
+    FILE *arquivo = fopen("produto.bin", "ab");
 
-void tela_cadastrar_produto(void) {
-    char nome[61];
-    int quantidade[4],capacidade[4];
-    float preco[7];
+    if (arquivo != NULL) {
+        fwrite(aln, sizeof(Produto), 1, arquivo);
+        fclose(arquivo);
+        printf("Gravado com Sucesso!!\n");
+    } else {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+    }
+}
+
+void ler_produto(void) {
+    FILE *arquivo = fopen("produtos.bin", "rb");
+
+    if (arquivo != NULL) {
+        Produto produto;
+
+        while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            printf("NOME: %s\n", produto.nome);
+            printf("PRECO: %f\n", produto.preco[0]);
+            printf("QUANTIDADE: %d\n", produto.quantidade[0]);
+            printf("CAPACIDADE: %d\n", produto.capacidade[0]);
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+    }
+}
+Produto* tela_cadastrar_produto(void) {
+    Produto *aln;
+    aln = (Produto*) malloc(sizeof(Produto));
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -30,19 +62,26 @@ void tela_cadastrar_produto(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     printf("///            nome:                                                        ///\n");
-    scanf("%61[^\n]", nome);
+    scanf("%61[^\n]", aln->nome);
+    limparBuffer();
     printf("///            preço:                                                       ///\n");
-    scanf("%f", preco);
+    scanf("%f", aln->preco);
+    limparBuffer();
     printf("///            Quantidade:                                                  ///\n");
-    scanf("%d", quantidade);
+    scanf("%d", aln->quantidade);
+    limparBuffer();
     printf("///            Capacidade(ml):                                              ///\n");
-    scanf("%d", capacidade);
+    scanf("%d", aln->capacidade);
+    limparBuffer();
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+    salvar_produto(aln);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
+    return aln;
+    
 }
 void tela_pesquisar_produto(void) {
     system("clear||cls");
