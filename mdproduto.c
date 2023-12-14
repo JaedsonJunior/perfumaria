@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ultilidade.h"
 
 typedef struct produto Produto;
@@ -24,7 +25,7 @@ void salvar_produto(Produto *aln) {
 }
 
 void ler_produto(void) {
-    FILE *arquivo = fopen("produtos.bin", "rb");
+    FILE *arquivo = fopen("produto.bin", "rb");
 
     if (arquivo != NULL) {
         Produto produto;
@@ -41,6 +42,39 @@ void ler_produto(void) {
         printf("Erro ao abrir o arquivo para leitura.\n");
     }
 }
+
+void pesquisar_produto(const char *nome) {
+    FILE *arquivo = fopen("produto.bin", "rb");
+
+    if (arquivo != NULL) {
+        Produto produto;
+
+        int encontrado = 0; // Flag para indicar se o cliente foi encontrado
+
+        while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            // Compara o CPF do cliente atual com o CPF desejado
+            if (strcmp(produto.nome, nome) == 0) {
+                printf("Produto encontrado:\n");
+                printf("NOME: %s\n", produto.nome);
+                printf("PRECO: %f\n", produto.preco[0]);
+                printf("QUANTIDADE: %d\n", produto.quantidade[0]);
+                printf("CAPACIDADE: %d\n", produto.capacidade[0]);
+                
+                encontrado = 1;
+                break; // Se encontrou, sai do loop
+            }
+        
+
+            else if(!encontrado) {
+                printf("Produto com nome %s não encontrado.\n", nome);
+        }}
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+    }
+}
+
 Produto* tela_cadastrar_produto(void) {
     Produto *aln;
     aln = (Produto*) malloc(sizeof(Produto));
@@ -84,6 +118,7 @@ Produto* tela_cadastrar_produto(void) {
     
 }
 void tela_pesquisar_produto(void) {
+    char nome[61];
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -102,13 +137,19 @@ void tela_pesquisar_produto(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     printf("///            Nome:                                                        ///\n");
+    scanf("%[^\n]",nome);
+	limparBuffer();
+   system("clear||cls");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");   
+    pesquisar_produto(nome);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
+
 void tela_alterar_produto(void) {
     system("clear||cls");
     printf("\n");
@@ -198,10 +239,11 @@ int tela_menu_produto() {
     switch (opcaoC2) {
             case 1:
                 tela_cadastrar_produto();
-                getwchar();
+                limparBuffer();
                 break;
             case 2:
-                printf("saindo...\n");
+                tela_pesquisar_produto();
+                limparBuffer();
                 break;
             case 3:
                 printf("saindo...\n");
