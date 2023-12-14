@@ -12,7 +12,6 @@ bool valida_data(const char *data);
 bool validaFone(const char fone[]);
 bool valida_cpf(const char *cpf);
 void limparBuffer();
-void limpaTela();
 
 typedef struct cliente Cliente;
 
@@ -416,7 +415,7 @@ void tela_alterar_cliente(void) {
         limparBuffer();
 		scanf("%61[^\n]",nome);
         
-	} while (!validaNome(nome)&&);
+	} while (!validaNome(nome));
         atualizar_cliente_nome(cpf,nome);
         limparBuffer();
         break;
