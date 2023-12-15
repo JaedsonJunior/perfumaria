@@ -89,7 +89,7 @@ void pesquisar_cliente(const char *cpf) {
         
 
             else if(!encontrado) {
-                printf("Cliente com CPF %s não encontrado.\n", cpf);
+                printf("Cliente com CPF %s nao encontrado.\n", cpf);
         }}
 
         fclose(arquivo);
@@ -213,7 +213,7 @@ void atualizar_cliente_telefone(const char *cpf, const char *novo_dado) {
 
         fclose(arquivo);
     } else {
-        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+        printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }
 }
 
@@ -233,7 +233,7 @@ void excluir_cliente(const char *cpf) {
     // Abra um arquivo temporário para escrita
     temp = fopen("temp.bin", "wb");
     if (temp == NULL) {
-        perror("Erro ao criar o arquivo temporário");
+        perror("Erro ao criar o arquivo temporario");
         fclose(arquivo);
         exit(EXIT_FAILURE);
     }
@@ -256,11 +256,11 @@ void excluir_cliente(const char *cpf) {
     }
 
     if (rename("temp.bin", "clientes.bin") != 0) {
-        perror("Erro ao renomear o arquivo temporário");
+        perror("Erro ao renomear o arquivo temporario");
         exit(EXIT_FAILURE);
     }
 
-    printf("Cliente com CPF %s excluído com sucesso.\n", cpf);
+    printf("Cliente com CPF %s excluido com sucesso.\n", cpf);
 }
 Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
@@ -273,10 +273,10 @@ Cliente* tela_cadastrar_cliente(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -285,27 +285,27 @@ Cliente* tela_cadastrar_cliente(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     do {
-		printf("///            Informe o CPF (apenas números):                              ///\n");
-		scanf("%[^\n]", aln->cpf);
-		limparBuffer();
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12s]", aln->cpf);
+        limparBuffer();
 	} while (!valida_cpf(aln->cpf));
        
     
     do {
-		printf("///            Nome completo:                                               ///\n");
-		scanf("%[^\n]", aln->nome);
+		printf("///            Nome completo: ");
+		scanf("%61s", aln->nome);
 		limparBuffer();
 	} while (!validaNome(aln->nome));
 
      do {   
-		printf("///            email:                                                       ///\n");
-		scanf("%[^\n]", aln->email);
+		printf("///            email: ");
+		scanf("%61s", aln->email);
 		limparBuffer();
 	} while (!validaEmail(aln->email));
 
     
      do {
-		printf("///            Data de Nascimento (dd/mm/aaaa):                             ///\n");
+		printf("///            Data de Nascimento (dd/mm/aaaa): ");
 		scanf(("%11[0-9/]"),aln->data);
 		limparBuffer();
 	} while (!valida_data(aln->data));
@@ -313,7 +313,7 @@ Cliente* tela_cadastrar_cliente(void) {
 
    
      do {
-		printf("///            Celular  (apenas números):                                   ///\n");
+		printf("///            Celular (DDD): ");
 		scanf("%[^\n]", aln->fone);
 		limparBuffer();
 	} while (!validaFone(aln->fone));
@@ -340,10 +340,10 @@ void tela_pesquisar_cliente() {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                    = = = =  Fragância Popular    = = = =                ///\n");
+    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -352,7 +352,7 @@ void tela_pesquisar_cliente() {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     do {
-		printf("///            Informe o CPF (apenas números):                              ///\n");
+		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf(cpf));
@@ -379,10 +379,10 @@ void tela_alterar_cliente(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                 = = = =   Fragância Popular     = = = =                 ///\n");
+    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -391,7 +391,7 @@ void tela_alterar_cliente(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     do {
-		printf("///            Informe o CPF (apenas números):                              ///\n");
+		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf(cpf));
@@ -411,7 +411,7 @@ void tela_alterar_cliente(void) {
     case 1:
     
     do {
-		printf(".> Digite o novo Nome:                                                    \n");
+		printf(".> Digite o novo Nome: ");
         limparBuffer();
 		scanf("%61[^\n]",nome);
         
@@ -423,7 +423,7 @@ void tela_alterar_cliente(void) {
     case 2:
 
      do {   
-		printf(".> Digite o novo email:                                                   \n");
+		printf(".> Digite o novo email: ");
         limparBuffer();
 		scanf("%61[^\n]",email);
 	} while (!validaEmail(email));
@@ -434,7 +434,7 @@ void tela_alterar_cliente(void) {
     case 3:
 
     do {
-		printf(".> nova Data de Nascimento (dd/mm/aaaa):                                  \n");
+		printf(".> nova Data de Nascimento (dd/mm/aaaa): ");
         limparBuffer();
 		scanf(("%11[0-9/]"),data);
 	} while (!valida_data(data));
@@ -445,7 +445,7 @@ void tela_alterar_cliente(void) {
     case 4:
 
          do {
-		printf(".> Numero novo  (apenas números):                                          \n");
+		printf(".> Numero novo  (apenas números): ");
         limparBuffer();
 		scanf("%[^\n]",fone);
 	    } while (!validaFone(fone));
@@ -468,10 +468,10 @@ void tela_excluir_cliente(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -480,7 +480,7 @@ void tela_excluir_cliente(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
      do {
-		printf("///            Informe o CPF (apenas números):                              ///\n");
+		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%12[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf(cpf));
@@ -502,10 +502,10 @@ int tela_menu_cliente() {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -519,7 +519,7 @@ int tela_menu_cliente() {
     printf("///            4. Excluir um cliente do sistema                             ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Escolha a opção desejada: ");
+    printf("///            Escolha a opcao desejada: ");
     scanf("%d", &opcaoCl);
     limparBuffer();
     printf("///                                                                         ///\n");
@@ -545,7 +545,7 @@ int tela_menu_cliente() {
                 printf("saindo...\n");
                 break;
             default:
-                printf("Opção inválida\n");
+                printf("Opcao invalida\n");
                 break;
         }
 
