@@ -133,6 +133,34 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
     } else {
         printf("Erro ao abrir o arquivo para leitura e gravação.\n");
     }}
+
+    void atualizar_produto_quantidade(const char *id, const char *novo_dado) {
+    FILE *arquivo = fopen("produto.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Produto produto;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            if (strcmp(produto.id, id) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(produto.quantidade, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Produto), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&produto, sizeof(Produto), 1, arquivo);
+
+                printf("%s atualizado com sucesso!\n",novo_dado);
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }}
 Produto* tela_cadastrar_produto(void) {
     Produto *aln;
     aln = (Produto*) malloc(sizeof(Produto));
@@ -241,6 +269,7 @@ void tela_alterar_produto(void) {
     char id[4];
     char nome[61];
     char preco[7];
+    char quantidade[4];
     int alt;
     system("clear||cls");
     printf("\n");
@@ -288,10 +317,19 @@ void tela_alterar_produto(void) {
     case 2:
         printf(".> Digite o novo preco:                                                    \n");
         limparBuffer();
-		scanf(("%7s]"),preco);
+		scanf(("%6s"),preco);
         atualizar_produto_preco(id,preco);
         limparBuffer();
         break;
+
+    case 3:
+        printf(".> Digite o novo preco:                                                    \n");
+        limparBuffer();
+		scanf(("%3s"),quantidade);
+        atualizar_produto_quantidade(id,quantidade);
+        limparBuffer();
+        break;  
+
     default:
         break;
     }
