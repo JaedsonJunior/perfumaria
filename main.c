@@ -40,25 +40,25 @@ int tela_menu_principal(void) {
     int opcaoC3=-1;
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///                  Projeto Sistema de Gestão de perfumaria                ///\n");
-    printf("///             Developed by @JaedsonJunior -- since Ago, 2023              ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
-    printf("///            = = = = = Gestão de Perfumaria = = = = =                     ///\n");
+    printf("///            = = = = =    Gestao de Perfumaria   = = = = =                ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Módulo Cliente                                            ///\n");
-    printf("///            2. Módulo Produto                                            ///\n");
-    printf("///            3. Módulo funcionarios                                       ///\n");
-    printf("///            4. Módulo vendas                                             ///\n");
+    printf("///            1. modulo Cliente                                            ///\n");
+    printf("///            2. modulo Produto                                            ///\n");
+    printf("///            3. modulo funcionarios                                       ///\n");
+    printf("///            4. modulo vendas                                             ///\n");
     printf("///            5. Sobre                                                     ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Escolha a opção desejada: ");
+    printf("///            Escolha a opcaoo desejada: ");
     scanf("%d", &opcao);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -92,7 +92,7 @@ int tela_menu_principal(void) {
                 printf("saindo...\n");
                 break;
             default:
-                printf("Opção inválida\n");
+                printf("Opcao invalida\n");
                 break;
         }
 
