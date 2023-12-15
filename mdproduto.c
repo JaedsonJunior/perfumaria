@@ -50,14 +50,13 @@ void pesquisar_produto(const char *id) {
 
     if (arquivo != NULL) {
         Produto produto;
-
-        int encontrado = 0; // Flag para indicar se o cliente foi encontrado
+        int encontrado = 0; // Flag para indicar se o produto foi encontrado
 
         while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
             // Compara o id do produto atual com o produto desejado
             if (strcmp(produto.id, id) == 0) {
                 printf("Produto encontrado:\n");
-                printf("ID: %s\n",produto.id);
+                printf("ID: %s\n", produto.id);
                 printf("NOME: %s\n", produto.nome);
                 printf("PRECO: %s\n", produto.preco);
                 printf("QUANTIDADE: %s\n", produto.quantidade);
@@ -66,11 +65,11 @@ void pesquisar_produto(const char *id) {
                 encontrado = 1;
                 break; // Se encontrou, sai do loop
             }
-        
+        }
 
-            else if(!encontrado) {
-                printf("Produto com nome %s não encontrado.\n", id);
-        }}
+        if (!encontrado) {
+            printf("Produto com ID %s não encontrado.\n", id);
+        }
 
         fclose(arquivo);
     } else {
@@ -145,6 +144,34 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
             if (strcmp(produto.id, id) == 0) {
                 // Atualizar os campos necessários do registro
                 strcpy(produto.quantidade, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Produto), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&produto, sizeof(Produto), 1, arquivo);
+
+                printf("%s atualizado com sucesso!\n",novo_dado);
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }}
+    
+    void atualizar_produto_capacidade(const char *id, const char *novo_dado) {
+    FILE *arquivo = fopen("produto.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Produto produto;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            if (strcmp(produto.id, id) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(produto.capacidade, novo_dado);
 
                 // Voltar à posição do arquivo onde o registro foi lido
                 fseek(arquivo, -sizeof(Produto), SEEK_CUR);
@@ -270,6 +297,7 @@ void tela_alterar_produto(void) {
     char nome[61];
     char preco[7];
     char quantidade[4];
+    char capacidade[4];
     int alt;
     system("clear||cls");
     printf("\n");
@@ -323,12 +351,20 @@ void tela_alterar_produto(void) {
         break;
 
     case 3:
-        printf(".> Digite o novo preco:                                                    \n");
+        printf(".> Digite a nova quantidade:                                                    \n");
         limparBuffer();
 		scanf(("%3s"),quantidade);
         atualizar_produto_quantidade(id,quantidade);
         limparBuffer();
         break;  
+
+    case 4:
+        printf(".> Digite a nova capacidade:                                                    \n");
+        limparBuffer();
+		scanf(("%3s"),capacidade);
+        atualizar_produto_capacidade(id,capacidade);
+        limparBuffer();
+        break; 
 
     default:
         break;
