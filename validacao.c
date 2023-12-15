@@ -51,7 +51,7 @@ bool validarCPF(const char *cpf){
 
 bool valida_cpf(const char *cpf) {
     
-    printf(validarCPF(cpf)? "\n" : "\n");
+    printf(validarCPF(cpf)? "" : "");
     return validarCPF(cpf);
 }
 
@@ -116,7 +116,6 @@ int validaEmail(const char *email) {
     return 1;
 }
 
-//data de nascimento// https://www.vivaolinux.com.br/script/Funcao-para-validacao-de-datas
 
 
 // Função para verificar se um caractere é um dígito numérico
@@ -127,7 +126,7 @@ bool isDigit(char c) {
 bool extrair_data(const char *data, int *dia, int *mes, int *ano) {
     // Utiliza sscanf para extrair dia, mês e ano da string no formato "dd/mm/aaaa"
 
-    limparBuffer();
+    
     if (sscanf(data, "%d/%d/%d", dia, mes, ano) != 3) {
         // Se a conversão não foi bem-sucedida (não foram lidos 3 valores), retorna falso
         return false;
