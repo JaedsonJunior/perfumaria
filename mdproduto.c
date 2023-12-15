@@ -166,7 +166,7 @@ Produto* tela_cadastrar_produto(void) {
     scanf("%s", aln->capacidade);
     limparBuffer();
     printf("///            ID(1 a 999):                                                          ///\n");
-    scanf("%s", aln->id);
+    scanf("%4s", aln->id);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -178,7 +178,7 @@ Produto* tela_cadastrar_produto(void) {
     
 }
 void tela_pesquisar_produto(void) {
-    char nome[61];
+    char id[4];
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -196,12 +196,12 @@ void tela_pesquisar_produto(void) {
     printf("///            = = = = = = = = Pesquisar Produto = = = = = = = =            ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            ID(1 a 999):                                                        ///\n");
-    scanf("%[^\n]",nome);
+    printf("///            ID(1 a 999):                                                 ///\n");
+    scanf("%3s",id);
 	limparBuffer();
-   system("clear||cls");
+    system("clear||cls");
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
-    pesquisar_produto(nome);
+    pesquisar_produto(id);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -240,6 +240,7 @@ void tela_excluir_produto(void) {
 void tela_alterar_produto(void) {
     char id[4];
     char nome[61];
+    char preco[7];
     int alt;
     system("clear||cls");
     printf("\n");
@@ -259,7 +260,7 @@ void tela_alterar_produto(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
 	printf("///            Informe o ID (1 a 999):                                      ///\n");
-	scanf("%[^\n]",id);
+	scanf("%3s",id);
 	limparBuffer();
 	
     system("clear||cls");
@@ -283,7 +284,14 @@ void tela_alterar_produto(void) {
         atualizar_produto_nome(id,nome);
         limparBuffer();
         break;
-
+    
+    case 2:
+        printf(".> Digite o novo preco:                                                    \n");
+        limparBuffer();
+		scanf(("%7s]"),preco);
+        atualizar_produto_preco(id,preco);
+        limparBuffer();
+        break;
     default:
         break;
     }
