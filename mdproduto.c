@@ -69,7 +69,7 @@ void pesquisar_produto(const char *id) {
         }
 
         if (!encontrado) {
-            printf("Produto com ID %s não encontrado.\n", id);
+            printf("Produto com ID %s nao encontrado.\n", id);
         }
 
         fclose(arquivo);
@@ -103,7 +103,7 @@ void atualizar_produto_nome(const char *id, const char *novo_dado) {
 
         fclose(arquivo);
     } else {
-        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+        printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }}
 
 void atualizar_produto_preco(const char *id, const char *novo_dado) {
@@ -131,7 +131,7 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
 
         fclose(arquivo);
     } else {
-        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+        printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }}
 
     void atualizar_produto_quantidade(const char *id, const char *novo_dado) {
@@ -159,7 +159,7 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
 
         fclose(arquivo);
     } else {
-        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+        printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }}
     
     void atualizar_produto_capacidade(const char *id, const char *novo_dado) {
@@ -187,7 +187,7 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
 
         fclose(arquivo);
     } else {
-        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+        printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }}
 
     void excluir_produto(const char *id) {
@@ -205,7 +205,7 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
     // Abra um arquivo temporário para escrita
     temp_pro = fopen("temp_pro.bin", "wb");
     if (temp_pro == NULL) {
-        perror("Erro ao criar o arquivo temporário");
+        perror("Erro ao criar o arquivo temporario");
         fclose(arquivo);
         exit(EXIT_FAILURE);
     }
@@ -228,11 +228,11 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
     }
 
     if (rename("temp_pro.bin", "produto.bin") != 0) {
-        perror("Erro ao renomear o arquivo temporário");
+        perror("Erro ao renomear o arquivo temporario");
         exit(EXIT_FAILURE);
     }
 
-    printf("Cliente com CPF %s excluído com sucesso.\n", id);
+    printf("Cliente com CPF %s excluido com sucesso.\n", id);
 }
 
 Produto* tela_cadastrar_produto(void) {
@@ -244,10 +244,10 @@ Produto* tela_cadastrar_produto(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -255,19 +255,19 @@ Produto* tela_cadastrar_produto(void) {
     printf("///            = = = = = = = = Cadastrar produto = = = = = = = =            ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            nome:                                                        ///\n");
+    printf("///            nome: ");
     scanf("%61[^\n]", aln->nome);
     limparBuffer();
-    printf("///            preço:                                                       ///\n");
+    printf("///            preco: ");
     scanf("%s", aln->preco);
     limparBuffer();
-    printf("///            Quantidade:                                                  ///\n");
+    printf("///            Quantidade: ");
     scanf("%s", aln->quantidade);
     limparBuffer();
-    printf("///            Capacidade(ml):                                              ///\n");
+    printf("///            Capacidade(ml): ");
     scanf("%s", aln->capacidade);
     limparBuffer();
-    printf("///            ID(1 a 999):                                                          ///\n");
+    printf("///            ID(1 a 999): ");
     scanf("%4s", aln->id);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -287,10 +287,10 @@ void tela_pesquisar_produto(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -298,7 +298,7 @@ void tela_pesquisar_produto(void) {
     printf("///            = = = = = = = = Pesquisar Produto = = = = = = = =            ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            ID(1 a 999):                                                 ///\n");
+    printf("///            ID(1 a 999): ");
     scanf("%3s",id);
 	limparBuffer();
     system("clear||cls");
@@ -322,10 +322,10 @@ void tela_excluir_produto(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   FragAncia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -333,7 +333,7 @@ void tela_excluir_produto(void) {
     printf("///            = = = = = = = = excluir produto = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");   
-    printf("///            ID(1-999):                                                   ///\n");
+    printf("///            ID(1-999): ");
     scanf("%3s",id);
     limparBuffer();
     excluir_produto(id);
@@ -357,18 +357,18 @@ void tela_alterar_produto(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                 = = = =   Fragância Popular     = = = =                 ///\n");
+    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alterar Cliente = = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = Alterar Cliente = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-	printf("///            Informe o ID (1 a 999):                                      ///\n");
+	printf("///            Informe o ID (1 a 999): ");
 	scanf("%3s",id);
 	limparBuffer();
 	
@@ -387,7 +387,7 @@ void tela_alterar_produto(void) {
     {
     case 1:
     
-		printf(".> Digite o novo Nome:                                                    \n");
+		printf(".> Digite o novo Nome: ");
         limparBuffer();
 		scanf("%61[^\n]",nome);
         atualizar_produto_nome(id,nome);
@@ -395,7 +395,7 @@ void tela_alterar_produto(void) {
         break;
     
     case 2:
-        printf(".> Digite o novo preco:                                                    \n");
+        printf(".> Digite o novo preco: ");
         limparBuffer();
 		scanf(("%6s"),preco);
         atualizar_produto_preco(id,preco);
@@ -403,7 +403,7 @@ void tela_alterar_produto(void) {
         break;
 
     case 3:
-        printf(".> Digite a nova quantidade:                                                    \n");
+        printf(".> Digite a nova quantidade: ");
         limparBuffer();
 		scanf(("%3s"),quantidade);
         atualizar_produto_quantidade(id,quantidade);
@@ -411,7 +411,7 @@ void tela_alterar_produto(void) {
         break;  
 
     case 4:
-        printf(".> Digite a nova capacidade:                                                    \n");
+        printf(".> Digite a nova capacidade: ");
         limparBuffer();
 		scanf(("%3s"),capacidade);
         atualizar_produto_capacidade(id,capacidade);
@@ -434,10 +434,10 @@ int tela_menu_produto() {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -451,7 +451,7 @@ int tela_menu_produto() {
     printf("///            4. Excluir um produto do sistema                             ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Escolha a opção desejada: ");
+    printf("///            Escolha a opcao desejada: ");
     scanf("%d", &opcaoC2);
     getchar();
     printf("///                                                                         ///\n");
@@ -481,7 +481,7 @@ int tela_menu_produto() {
                 printf("saindo...\n");
                 break;
             default:
-                printf("Opção inválida\n");
+                printf("Opcao invalida\n");
                 break;
         }
 return opcaoC2;
