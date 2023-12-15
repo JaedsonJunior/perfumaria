@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "ultilidade.h"
 
 typedef struct produto Produto;
@@ -188,6 +189,52 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
     } else {
         printf("Erro ao abrir o arquivo para leitura e gravação.\n");
     }}
+
+    void excluir_produto(const char *id) {
+    FILE *arquivo;
+    FILE *temp_pro;
+    Produto produto;
+
+    // Abra o arquivo binário para leitura
+    arquivo = fopen("produto.bin", "rb");
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        exit(EXIT_FAILURE);
+    }
+
+    // Abra um arquivo temporário para escrita
+    temp_pro = fopen("temp_pro.bin", "wb");
+    if (temp_pro == NULL) {
+        perror("Erro ao criar o arquivo temporário");
+        fclose(arquivo);
+        exit(EXIT_FAILURE);
+    }
+
+    // Leia os registros do arquivo e grave no arquivo temporário, exceto o que será excluído
+    while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+        if (strcmp(produto.id, id) != 0) {
+            fwrite(&produto, sizeof(Produto), 1, temp_pro);
+        }
+    }
+
+    // Feche os arquivos
+    fclose(arquivo);
+    fclose(temp_pro);
+
+    // Remova o arquivo original e renomeie o temporário
+    if (remove("produto.bin") != 0) {
+        perror("Erro ao remover o arquivo original");
+        exit(EXIT_FAILURE);
+    }
+
+    if (rename("temp_pro.bin", "produto.bin") != 0) {
+        perror("Erro ao renomear o arquivo temporário");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("Cliente com CPF %s excluído com sucesso.\n", id);
+}
+
 Produto* tela_cadastrar_produto(void) {
     Produto *aln;
     aln = (Produto*) malloc(sizeof(Produto));
@@ -267,6 +314,8 @@ void tela_pesquisar_produto(void) {
 
 
 void tela_excluir_produto(void) {
+    char id[4];
+    
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -281,10 +330,13 @@ void tela_excluir_produto(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = excluir produto = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = excluir produto = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");   
-    printf("///            Nome:                                                            ///\n");
+    printf("///            ID(1-999):                                                   ///\n");
+    scanf("%3s",id);
+    limparBuffer();
+    excluir_produto(id);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -422,7 +474,8 @@ int tela_menu_produto() {
                 limparBuffer();
                 break;
             case 4:
-                printf("saindo...\n");
+                tela_excluir_produto();
+                limparBuffer();
                 break;
             case 0:
                 printf("saindo...\n");
