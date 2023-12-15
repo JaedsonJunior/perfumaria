@@ -7,10 +7,11 @@ typedef struct produto Produto;
 
 struct produto
 {
+char id[4];
 char nome[61];    
-float preco[7];
-int quantidade[4];
-int capacidade[4];
+char preco[7];
+char quantidade[4];
+char capacidade[4];
 };
 void salvar_produto(Produto *aln) {
     FILE *arquivo = fopen("produto.bin", "ab");
@@ -31,10 +32,11 @@ void ler_produto(void) {
         Produto produto;
 
         while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            printf("ID: %s\n",produto.id);
             printf("NOME: %s\n", produto.nome);
-            printf("PRECO: %f\n", produto.preco[0]);
-            printf("QUANTIDADE: %d\n", produto.quantidade[0]);
-            printf("CAPACIDADE: %d\n", produto.capacidade[0]);
+            printf("PRECO: %s\n", produto.preco);
+            printf("QUANTIDADE: %s\n", produto.quantidade);
+            printf("CAPACIDADE: %s\n", produto.capacidade);
         }
 
         fclose(arquivo);
@@ -43,7 +45,7 @@ void ler_produto(void) {
     }
 }
 
-void pesquisar_produto(const char *nome) {
+void pesquisar_produto(const char *id) {
     FILE *arquivo = fopen("produto.bin", "rb");
 
     if (arquivo != NULL) {
@@ -52,13 +54,14 @@ void pesquisar_produto(const char *nome) {
         int encontrado = 0; // Flag para indicar se o cliente foi encontrado
 
         while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
-            // Compara o CPF do cliente atual com o CPF desejado
-            if (strcmp(produto.nome, nome) == 0) {
+            // Compara o id do produto atual com o produto desejado
+            if (strcmp(produto.id, id) == 0) {
                 printf("Produto encontrado:\n");
+                printf("ID: %s\n",produto.id);
                 printf("NOME: %s\n", produto.nome);
-                printf("PRECO: %f\n", produto.preco[0]);
-                printf("QUANTIDADE: %d\n", produto.quantidade[0]);
-                printf("CAPACIDADE: %d\n", produto.capacidade[0]);
+                printf("PRECO: %s\n", produto.preco);
+                printf("QUANTIDADE: %s\n", produto.quantidade);
+                printf("CAPACIDADE: %s\n", produto.capacidade);
                 
                 encontrado = 1;
                 break; // Se encontrou, sai do loop
@@ -66,7 +69,7 @@ void pesquisar_produto(const char *nome) {
         
 
             else if(!encontrado) {
-                printf("Produto com nome %s não encontrado.\n", nome);
+                printf("Produto com nome %s não encontrado.\n", id);
         }}
 
         fclose(arquivo);
@@ -75,6 +78,61 @@ void pesquisar_produto(const char *nome) {
     }
 }
 
+void atualizar_produto_nome(const char *id, const char *novo_dado) {
+    FILE *arquivo = fopen("produto.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Produto produto;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            if (strcmp(produto.id, id) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(produto.nome, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Produto), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&produto, sizeof(Produto), 1, arquivo);
+
+                printf("%s atualizado com sucesso!\n",novo_dado);
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }}
+
+void atualizar_produto_preco(const char *id, const char *novo_dado) {
+    FILE *arquivo = fopen("produto.bin", "r+b");
+
+    if (arquivo != NULL) {
+        Produto produto;
+
+        // Encontrar a posição do registro que possui o CPF fornecido
+        while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            if (strcmp(produto.id, id) == 0) {
+                // Atualizar os campos necessários do registro
+                strcpy(produto.preco, novo_dado);
+
+                // Voltar à posição do arquivo onde o registro foi lido
+                fseek(arquivo, -sizeof(Produto), SEEK_CUR);
+
+                // Escrever o registro modificado de volta no arquivo
+                fwrite(&produto, sizeof(Produto), 1, arquivo);
+
+                printf("%s atualizado com sucesso!\n",novo_dado);
+                break;
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e gravação.\n");
+    }}
 Produto* tela_cadastrar_produto(void) {
     Produto *aln;
     aln = (Produto*) malloc(sizeof(Produto));
@@ -99,14 +157,16 @@ Produto* tela_cadastrar_produto(void) {
     scanf("%61[^\n]", aln->nome);
     limparBuffer();
     printf("///            preço:                                                       ///\n");
-    scanf("%f", aln->preco);
+    scanf("%s", aln->preco);
     limparBuffer();
     printf("///            Quantidade:                                                  ///\n");
-    scanf("%d", aln->quantidade);
+    scanf("%s", aln->quantidade);
     limparBuffer();
     printf("///            Capacidade(ml):                                              ///\n");
-    scanf("%d", aln->capacidade);
+    scanf("%s", aln->capacidade);
     limparBuffer();
+    printf("///            ID(1 a 999):                                                          ///\n");
+    scanf("%s", aln->id);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -136,7 +196,7 @@ void tela_pesquisar_produto(void) {
     printf("///            = = = = = = = = Pesquisar Produto = = = = = = = =            ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Nome:                                                        ///\n");
+    printf("///            ID(1 a 999):                                                        ///\n");
     scanf("%[^\n]",nome);
 	limparBuffer();
    system("clear||cls");
@@ -150,32 +210,7 @@ void tela_pesquisar_produto(void) {
     limparBuffer();
 }
 
-void tela_alterar_produto(void) {
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alteração de Produto = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            O que deseja altera:nome,preço,quantidade ou capacidade?      ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-}
+
 void tela_excluir_produto(void) {
     system("clear||cls");
     printf("\n");
@@ -200,6 +235,61 @@ void tela_excluir_produto(void) {
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
+
+void tela_alterar_produto(void) {
+    char id[4];
+    char nome[61];
+    int alt;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                 = = = =   Fragância Popular     = = = =                 ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Alterar Cliente = = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+	printf("///            Informe o ID (1 a 999):                                      ///\n");
+	scanf("%[^\n]",id);
+	limparBuffer();
+	
+    system("clear||cls");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                     1- Alterar o nome                                   ///\n");
+    printf("///                     2- Alterar o preco                                  ///\n");
+    printf("///                     3- Alterar a quantidade                             ///\n");
+    printf("///                     4- Alterar a capacidade                             ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    scanf("%d",&alt);
+    switch (alt)
+    {
+    case 1:
+    
+		printf(".> Digite o novo Nome:                                                    \n");
+        limparBuffer();
+		scanf("%61[^\n]",nome);
+        atualizar_produto_nome(id,nome);
+        limparBuffer();
+        break;
+
+    default:
+        break;
+    }
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
 }
 
 int tela_menu_produto() {
@@ -246,7 +336,8 @@ int tela_menu_produto() {
                 limparBuffer();
                 break;
             case 3:
-                printf("saindo...\n");
+                tela_alterar_produto();
+                limparBuffer();
                 break;
             case 4:
                 printf("saindo...\n");
