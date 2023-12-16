@@ -1,14 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct venda
-{
-char cpf_cliente[12];
-char cpf[12];
-char nome_produto[100];
-char data[20];
-char situacao; 
-};
-void tela_menu_venda(void) {
+#include <string.h>
+#include "mdcliente.h"
+#include "mdfuncionario.h"
+#include "mdproduto.h"
+#include "mdvenda.h"
+#include "ultilidade.h"
+#include "validacao.h"
+
+
+
+int tela_menu_venda(void) {
+    nova_venda *aln;
+    aln = (nova_venda *)malloc(sizeof(nova_venda));
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -35,15 +39,95 @@ void tela_menu_venda(void) {
     printf("///            Escolha a opção desejada: ");
     int opcao_venda;
     scanf("%d", &opcao_venda);
-    getchar();
+    limparBuffer();
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    switch (opcao_venda)
+    {
+    case 1:
+        cadastrar_e_salvar_venda(aln);
+        break;
+    case 2:
+        venda_cliente();
+        break;
+    case 4:
+        venda_funcionario();
+        break;
+    }
+return opcao_venda;
 }
-void cadastra_venda(void) {
+void mostrar_vendas_por_cliente(const char *cpf_cliente) {
+    FILE *arquivo = fopen("vendas.bin", "rb");
+
+    if (arquivo != NULL) {
+        struct venda venda_atual;
+
+        while (fread(&venda_atual, sizeof(struct venda), 1, arquivo) == 1) {
+            if (strcmp(venda_atual.cpf_cliente, cpf_cliente) == 0) {
+                // Mostrar informações da venda
+                printf("CPF Cliente: %s\n", venda_atual.cpf_cliente);
+                printf("CPF Funcionário: %s\n", venda_atual.cpf_funcionario);
+                printf("Nome do Produto: %s\n", venda_atual.nome_produto);
+                printf("Data: %s\n", venda_atual.data);
+                printf("-----------------\n");
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo de vendas para leitura.\n");
+    }
+}
+void mostrar_vendas_por_funcionario(const char *cpf_funcionario) {
+    FILE *arquivo = fopen("vendas.bin", "rb");
+
+    if (arquivo != NULL) {
+        struct venda venda_atual;
+
+        while (fread(&venda_atual, sizeof(struct venda), 1, arquivo) == 1) {
+            if (strcmp(venda_atual.cpf_funcionario, cpf_funcionario) == 0) {
+                // Mostrar informações da venda
+                printf("CPF Cliente: %s\n", venda_atual.cpf_cliente);
+                printf("CPF Funcionário: %s\n", venda_atual.cpf_funcionario);
+                printf("Nome do Produto: %s\n", venda_atual.nome_produto);
+                printf("Data: %s\n", venda_atual.data);
+                printf("-----------------\n");
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo de vendas para leitura.\n");
+    }
+}
+
+void cadastrar_e_salvar_venda(nova_venda *aln) {
+    // Preencha os campos da nova venda
+    printf("Informe o CPF do cliente: ");
+    scanf("%11s", aln->cpf_cliente);
+    limparBuffer();
+
+    printf("Informe o CPF do funcionario: ");
+    scanf("%11s", aln->cpf_funcionario);
+    limparBuffer();
+
+    printf("Informe o nome do produto: ");
+    scanf("%61[^\n]", aln->nome_produto);
+    limparBuffer();
+
+    printf("Informe a data da venda (dd/mm/aaaa): ");
+    scanf("%19s", aln->data);
+    limparBuffer();
+
+    salvar_venda(aln);
+    limparBuffer();
+}
+
+ void venda_cliente(void) {
+    char cpf [12];
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -58,42 +142,23 @@ void cadastra_venda(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  cadastrar venda = = = = = = = = =         ///\n");
+    printf("///            = = = = = = = = =  venda cliente = = = = = = = = =           ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///             EM ANDAMENTO                                                 ///\n");
+     do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12s]",cpf);
+        limparBuffer();
+	} while (!valida_cpf(cpf));
+    pesquisar_cliente_venda(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-}
-void venda_cliente(void) {
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  venda cliente = = = = = = = = =         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///             EM ANDAMENTO                                                 ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 void venda_funcionario(void) {
+    char cpf [12];
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -108,15 +173,20 @@ void venda_funcionario(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  venda funcionario = = = = = = = = =         ///\n");
+    printf("///            = = = = = = = = =  venda funcionario = = = = = = = = =       ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///             EM ANDAMENTO                                                 ///\n");
+     do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12s]",cpf);
+        limparBuffer();
+	} while (!valida_cpf(cpf));
+    pesquisar_funcionario_venda(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    limparBuffer();
 }
 void venda_produto(void) {
     system("clear||cls");
@@ -142,4 +212,72 @@ void venda_produto(void) {
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
+void pesquisar_cliente_venda(const char *cpf) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        int encontrado = 0; // Flag para indicar se o cliente foi encontrado
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            // Compara o CPF do cliente atual com o CPF desejado
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                printf("Cliente encontrado:\n");
+                mostrar_vendas_por_cliente(cpf);
+              
+                encontrado = 1;
+                break; // Se encontrou, sai do loop
+            }
+        
+
+            else if(!encontrado) {
+                printf("Cliente com CPF %s nao encontrado.\n", cpf);
+        }}
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+    }
+}
+void pesquisar_funcionario_venda(const char *cpf) {
+    FILE *arquivo = fopen("funcionario.bin", "rb");
+
+    if (arquivo != NULL) {
+        Funcionario funcionario;
+
+        int encontrado = 0; // Flag para indicar se o cliente foi encontrado
+
+        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
+            // Compara o CPF do funcionario atual com o CPF desejado
+            if (strcmp(funcionario.cpf, cpf) == 0) {
+                printf("Funcionario encontrado:\n");
+                mostrar_vendas_por_funcionario(cpf);
+              
+                encontrado = 1;
+                break; // Se encontrou, sai do loop
+            }
+        
+
+            else if(!encontrado) {
+                printf("Funcionario com CPF %s nao encontrado.\n", cpf);
+        }}
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+    }
+    }
+void salvar_venda(nova_venda *aln) {
+    FILE *arquivo = fopen("vendas.bin", "ab");
+
+    if (arquivo != NULL) {
+        fwrite(aln, sizeof(nova_venda), 1, arquivo);
+        fclose(arquivo);
+        printf("Gravado com Sucesso!!\n");
+    } else {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+    }
+
 }
