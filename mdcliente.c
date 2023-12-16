@@ -15,9 +15,6 @@ void limparBuffer();
 
 typedef struct cliente Cliente;
 
-
-
-
 struct cliente
 {
 char cpf[12];
