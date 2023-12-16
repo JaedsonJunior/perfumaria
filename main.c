@@ -4,10 +4,12 @@
 #include "mdcliente.h"
 #include "mdfuncionario.h"
 #include "mdproduto.h"
-typedef struct cliente Cliente;
+#include "mdvenda.h"
+
 
 
 //Assinaturas
+int tela_menu_venda();
 int tela_menu_principal();
 Cliente* tela_cadastrar_cliente();
 void tela_pesquisar_cliente();
@@ -38,6 +40,7 @@ int tela_menu_principal(void) {
     int opcaoCl=-1;
     int opcaoC2=-1;
     int opcaoC3=-1;
+    int opcao_venda=-1;
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
@@ -83,7 +86,10 @@ int tela_menu_principal(void) {
             } while (opcaoC3!=0);
                 break;
             case 4:
-                printf("4 deu certo\n");
+                do
+            {
+            opcao_venda=tela_menu_venda(); 
+            } while (opcao_venda!=0);
                 break;
             case 5:
                 printf("5 deu certo\n");
