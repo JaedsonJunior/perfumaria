@@ -49,7 +49,7 @@ bool validarCPF(const char *cpf){
     return 1;}
 
 
-bool valida_cpf(const char *cpf) {
+int valida_cpf(const char *cpf) {
     
     printf(validarCPF(cpf)? "" : "");
     return validarCPF(cpf);
