@@ -7,10 +7,12 @@
 #include "mdvenda.h"
 #include "ultilidade.h"
 #include "validacao.h"
+int tela_listar_venda();
 
 
 
 int tela_menu_venda(void) {
+    int opcao_lista= -1;
     nova_venda *aln;
     aln = (nova_venda *)malloc(sizeof(nova_venda));
     system("clear||cls");
@@ -19,7 +21,7 @@ int tela_menu_venda(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
     printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
@@ -31,9 +33,7 @@ int tela_menu_venda(void) {
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
     printf("///            1. Cadastrar uma venda                                       ///\n");
-    printf("///            2. venda cliente                                              ///\n");
-    printf("///            3. venda produto                                              ///\n");
-    printf("///            4. venda funcionario                                          ///\n");
+    printf("///            2. exibir lista de vendas                                    ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
@@ -51,14 +51,45 @@ int tela_menu_venda(void) {
         cadastrar_e_salvar_venda(aln);
         break;
     case 2:
-        venda_cliente();
+        do  {
+        opcao_lista=tela_listar_venda();; 
+            } while (opcao_lista!=0);
         break;
-    case 4:
-        venda_funcionario();
+        
+        
         break;
+    default:
+        printf("Opcao invalida\n");
+        break;    
+   
     }
 return opcao_venda;
 }
+
+void lista_geral() {
+    FILE *arquivo = fopen("vendas.bin", "rb");
+
+    if (arquivo != NULL) {
+        struct venda venda_atual;
+
+        while (fread(&venda_atual, sizeof(struct venda), 1, arquivo) == 1) {
+            
+                // Mostrar informações da venda
+                printf("CPF Cliente: %s\n", venda_atual.cpf_cliente);
+                printf("CPF Funcionário: %s\n", venda_atual.cpf_funcionario);
+                printf("Nome do Produto: %s\n", venda_atual.nome_produto);
+                printf("Data: %s\n", venda_atual.data);
+                printf("-----------------\n");
+                limparBuffer();
+            
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo de vendas para leitura.\n");
+    }
+}
+
 void mostrar_vendas_por_cliente(const char *cpf_cliente) {
     FILE *arquivo = fopen("vendas.bin", "rb");
 
@@ -91,7 +122,7 @@ void mostrar_vendas_por_funcionario(const char *cpf_funcionario) {
             if (strcmp(venda_atual.cpf_funcionario, cpf_funcionario) == 0) {
                 // Mostrar informações da venda
                 printf("CPF Cliente: %s\n", venda_atual.cpf_cliente);
-                printf("CPF Funcionário: %s\n", venda_atual.cpf_funcionario);
+                printf("CPF Funcionario: %s\n", venda_atual.cpf_funcionario);
                 printf("Nome do Produto: %s\n", venda_atual.nome_produto);
                 printf("Data: %s\n", venda_atual.data);
                 printf("-----------------\n");
@@ -106,13 +137,18 @@ void mostrar_vendas_por_funcionario(const char *cpf_funcionario) {
 
 void cadastrar_e_salvar_venda(nova_venda *aln) {
     // Preencha os campos da nova venda
-    printf("Informe o CPF do cliente: ");
-    scanf("%11s", aln->cpf_cliente);
-    limparBuffer();
+    do {
+		printf("///            Informe o CPF Cliente(apenas numeros): ");
+		scanf("%12s]", aln->cpf_cliente);
+        limparBuffer();
+	} while (!valida_cpf_cliente_pesquisa(aln->cpf_cliente));
 
-    printf("Informe o CPF do funcionario: ");
-    scanf("%11s", aln->cpf_funcionario);
-    limparBuffer();
+    do {
+		printf("///            Informe o CPF Funcionario (numeros): ");
+		scanf("%[^\n]", aln->cpf_funcionario);
+		limparBuffer();
+	} while (!valida_cpf_funcionario_pesquisa(aln->cpf_funcionario));
+       
 
     printf("Informe o nome do produto: ");
     scanf("%61[^\n]", aln->nome_produto);
@@ -148,7 +184,7 @@ void cadastrar_e_salvar_venda(nova_venda *aln) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%12s]",cpf);
         limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_cliente_pesquisa(cpf));
     pesquisar_cliente_venda(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -179,7 +215,7 @@ void venda_funcionario(void) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%12s]",cpf);
         limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
     pesquisar_funcionario_venda(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -280,4 +316,54 @@ void salvar_venda(nova_venda *aln) {
         printf("Erro ao abrir o arquivo para escrita.\n");
     }
 
+}
+
+int tela_listar_venda(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  Menu venda = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Lista Geral                                               ///\n");
+    printf("///            2. Lista pesquisa cliente                                    ///\n");
+    printf("///            3. Lista pesquisa funcionario                                ///\n");
+    printf("///            0. voltar                                                    ///\n");
+     printf("///                                                                        ///\n");
+    printf("///            Escolha a opção desejada: ");
+    int opcao_lista;
+    scanf("%d", &opcao_lista);
+    limparBuffer();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    switch (opcao_lista)
+    {
+    case 1:
+        lista_geral();
+        break;
+    case 2:
+        venda_cliente();
+        break;
+    case 3:
+        venda_funcionario();
+        break;
+    default:
+            printf("Opcao invalida\n");
+            break;    
+    }
+return opcao_lista;
 }
