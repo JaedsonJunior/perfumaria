@@ -19,6 +19,10 @@ void apagar_lista_cliente(Cliente **list);
 void exibir_lista_cliente(Cliente *aux);
 void list_alf_cliente(void);
 int relatorios_ordenados(void);
+void list_alf_funcionario(void);
+void gerar_lista_funcionario(Funcionario **list);
+void apagar_lista_funcionario(Funcionario **list);
+void exibir_lista_funcionario(Funcionario *aux);
 
 int relatorios()
 {
@@ -98,6 +102,9 @@ int relatorios_ordenados(void)
       list_alf_cliente();
       limparBuffer();
       break;
+    case 2:
+      list_alf_funcionario();
+      limparBuffer();  
     case 0:
       break;
     default:
@@ -343,7 +350,6 @@ void list_alf_cliente(void)
   apagar_lista_cliente(&list);
 }
 
-
 void gerar_lista_cliente(Cliente **list)
 {
   FILE *fa;
@@ -386,9 +392,6 @@ void gerar_lista_cliente(Cliente **list)
 }
 
 
-
-
-
 void apagar_lista_cliente(Cliente **list)
 {
   Cliente *al;
@@ -401,12 +404,6 @@ void apagar_lista_cliente(Cliente **list)
 }
 
 
-
-
-
-
-
-
 void exibir_lista_cliente(Cliente *aux)
 {
   while (aux != NULL)
@@ -417,10 +414,81 @@ void exibir_lista_cliente(Cliente *aux)
 }
 
 
+void list_alf_funcionario(void)
+{
+  Funcionario *list;
+  list = NULL;
+  gerar_lista_funcionario(&list);
+  exibir_lista_funcionario(list);
+  apagar_lista_funcionario(&list);
+}
+
+void gerar_lista_funcionario(Funcionario **list)
+{
+  FILE *fa;
+  Funcionario *std;
+  apagar_lista_funcionario(&(*list));
+  *list = NULL;
+  fa = fopen("funcionario.bin", "rb");
+  if (fa == NULL)
+  {
+    printf("Erro na abertura do arquivo... \n");
+    return;
+  }
+  else
+  {
+    std = (Funcionario *)malloc(sizeof(Funcionario));
+    while (fread(std, sizeof(Funcionario), 1, fa))
+    {
+      if ((*list == NULL) || (strcmp(std->nome, (*list)->nome) < 0))
+      {
+        std->prox = *list;
+        *list = std;
+      }
+      else
+      {
+        Funcionario *ant = *list;
+        Funcionario *at = (*list)->prox;
+        while ((at != NULL) && (strcmp(at->nome, std->nome) < 0))
+        {
+          ant = at;
+          at = at->prox;
+        }
+        ant->prox = std;
+        std->prox = at;
+      }
+      std = (Funcionario *)malloc(sizeof(Funcionario));
+    }
+    free(std);
+    fclose(fa);
+  }
+}
 
 
 
 
+
+void apagar_lista_funcionario(Funcionario **list)
+{
+  Funcionario *al;
+  while (*list != NULL)
+  {
+    al = *list;
+    *list = (*list)->prox;
+    free(al);
+  }
+}
+
+
+
+void exibir_lista_funcionario(Funcionario *aux)
+{
+  while (aux != NULL)
+  {
+    printf("| %-39s - %-36s        -%-11s      |   \n", aux->nome, aux->email, aux->fone);
+    aux = aux->prox;
+  }
+}
 
 
 
