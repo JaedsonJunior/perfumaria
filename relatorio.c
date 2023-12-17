@@ -10,6 +10,9 @@ void relatorios_filtro_ativos(void);
 int relatorios();
 int relatorios_filtro(void);
 void relatorios_filtro_inativo(void);
+void exibir_cliente_tabela(void);
+int relatorio_tabela(void);
+void exibir_funcionario_tabela(void);
 
 int relatorios()
 {
@@ -17,6 +20,7 @@ int relatorios()
   do
   {
     int opcao_filtro = -1;
+    int opcao_tab_cliente = -1;
     system("clear||cls");
     printf("========================================================\n");
     printf("||                                                    ||\n");
@@ -39,6 +43,11 @@ int relatorios()
     do{
       opcao_filtro=relatorios_filtro();
     }while (opcao_filtro!=0);
+      break;
+      case 2:
+    do{
+      opcao_tab_cliente=relatorio_tabela();
+    }while (opcao_tab_cliente!=0);
       break;
     case 0:
     printf("Saindo...");
@@ -177,6 +186,105 @@ void relatorios_filtro_inativo(void)
   } while (opcao_iativo != 0);
 }
 
+
+
+int relatorio_tabela(void)
+{
+  int op_tab_cliente = -1;
+  do
+  {
+    
+    system("clear||cls");
+    printf("========================================================\n");
+    printf("||                                                    ||\n");
+    printf("||                   Relatorios de tabelas            ||\n");
+    printf("||                                                    ||\n");
+    printf("========================================================\n");
+    printf("||                                                    ||\n");
+    printf("||                      1. Clientes                   ||\n");
+    printf("||                     2. Funcionarios                ||\n");
+    printf("||                        0. Sair                     ||\n");
+    printf("||                                                    ||\n");
+    printf("========================================================\n");
+    printf("\nOpcao: ");
+    scanf("%d", &op_tab_cliente);
+    limparBuffer();
+    switch (op_tab_cliente)
+    {
+    case 1:
+      exibir_cliente_tabela();
+      limparBuffer();
+      break;
+    case 2:
+      exibir_funcionario_tabela();
+      limparBuffer();
+      break;  
+    case 0:
+        printf("Saindo...");
+      break;
+    default:
+      printf("Digite algo valido");
+      break;
+    }
+  } while (op_tab_cliente != 0);
+  return op_tab_cliente;
+}
+
+
+
+
+
+
+
+void exibir_cliente_tabela(void) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+    if (arquivo != NULL) {
+        Cliente cliente;
+        printf("|%-30s", "Nome:");
+        printf("|%-15s", "CPF:");
+        printf("|%-15s", "Data de nasci.:");
+        printf("|%-30s", "Email:");
+        printf("|%-15s", "Telefone:");
+        printf("|%-5s", "Situacao:");
+        printf("\n");
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) 
+             {
+                // Mostrar informações do cliente
+                printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", cliente.nome, cliente.cpf,  cliente.data, cliente.email, cliente.fone, cliente.situacao);
+            }
+
+        fclose(arquivo);
+    }else {
+        printf("Erro ao abrir o arquivo de clientes para leitura.\n");
+    
+
+}
+}
+
+void exibir_funcionario_tabela(void) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+    if (arquivo != NULL) {
+        Funcionario funcionario;
+        printf("|%-30s", "Nome:");
+        printf("|%-15s", "CPF:");
+        printf("|%-15s", "Data de nasci.:");
+        printf("|%-30s", "Email:");
+        printf("|%-15s", "Telefone:");
+        printf("|%-5s", "Situacao:");
+        printf("\n");
+        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) 
+             {
+                // Mostrar informações do cliente
+                printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", funcionario.nome, funcionario.cpf,  funcionario.data, funcionario.email, funcionario.fone, funcionario.situacao);
+            }
+
+        fclose(arquivo);
+    }else {
+        printf("Erro ao abrir o arquivo de clientes para leitura.\n");
+    
+
+}
+}
 
 
 
