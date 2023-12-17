@@ -19,5 +19,7 @@ void pesquisar_cliente_venda(const char *cpf);
 void salvar_venda(nova_venda *aln);
 void pesquisar_funcionario_venda(const char *cpf);
 void mostrar_vendas_por_funcionario(const char *cpf_funcionario);
+void lista_geral();
+int tela_listar_venda();
 
 #endif
