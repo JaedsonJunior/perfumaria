@@ -7,11 +7,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "ultilidade.h"
+#include "mdcliente.h"
+#include "mdfuncionario.h"
 
 
 
 //CPF ///https://gist.github.com/eduardoedson/8f991b6d234a9ebdcbe3
-bool validarCPF(const char *cpf){
+int validarCPF(const char *cpf){
     int i, j, digito1 = 0, digito2 = 0;
     if(strlen(cpf) != 11)
         return 0;
@@ -49,10 +51,101 @@ bool validarCPF(const char *cpf){
     return 1;}
 
 
-int valida_cpf(const char *cpf) {
+int valida_cpf_cliente_cadastro(const char *cpf) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+    int x;
+    x = validarCPF(cpf);
+    if (x==1){
+        if (arquivo != NULL){
+            fclose(arquivo);
+            return compara_cpf_cliente_cadastro(cpf);
+            
+            }
+        else{
+            return 0;
+        }
+
+        
+    }else 
+    {
+       printf("CPF invalido.");
+       return 1;
+    };
     
-    printf(validarCPF(cpf)? "" : "");
-    return validarCPF(cpf);
+    return compara_cpf_cliente_cadastro(cpf);
+}
+
+int valida_cpf_cliente_pesquisa(const char *cpf) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+    int x;
+    x = validarCPF(cpf);
+    if (x==1){
+        if (arquivo != NULL){
+            fclose(arquivo);
+            return compara_cpf_cliente_pesquisa(cpf);
+            
+            }
+        else{
+            return 0;
+        }
+
+        
+    }else 
+    {
+       printf("CPF invalido.");
+       return 0;
+    };
+    
+    return compara_cpf_cliente_pesquisa(cpf);
+}
+
+int valida_cpf_funcionario_cadastro(const char *cpf) {
+    FILE *arquivo = fopen ("funcionario.bin","rb");
+    int x;
+    x = validarCPF(cpf);
+    if (x==1){
+       if (arquivo != NULL){
+            fclose(arquivo);
+            return compara_cpf_funcionario_cadastro(cpf);
+            
+            }
+        else{
+            return 0;
+        }
+
+        
+    }else 
+    {
+       printf("CPF invalido.");
+       return 0;
+    };
+    
+    return compara_cpf_funcionario_cadastro(cpf);
+}
+
+
+int valida_cpf_funcionario_pesquisa(const char *cpf) {
+    FILE *arquivo = fopen ("funcionario.bin","rb");
+    int x;
+    x = validarCPF(cpf);
+    if (x==1){
+       if (arquivo != NULL){
+            fclose(arquivo);
+            return compara_cpf_funcionario_pesquisa(cpf);
+            
+            }
+        else{
+            return 0;
+        }
+
+        
+    }else 
+    {
+       printf("CPF invalido.");
+       return 0;
+    };
+    
+    return compara_cpf_funcionario_pesquisa(cpf);
 }
 
 
