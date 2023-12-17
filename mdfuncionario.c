@@ -29,6 +29,35 @@ char fone[15];
 char situacao;
 };
 
+
+
+void atualizar_situacao_funcionario(const char *cpf) {
+    FILE *arquivo = fopen("funcionario.bin", "rb+");
+    char nova_situacao = 'I';
+
+    if (arquivo != NULL) {
+        Funcionario funcionario;
+
+        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
+            // Verifica se o CPF do cliente atual é o desejado
+            if (strcmp(funcionario.cpf, cpf) == 0) {
+                // Atualiza a situação do cliente
+                funcionario.situacao = nova_situacao;
+
+                // Volta para a posição do arquivo para escrever a alteração
+                fseek(arquivo, -sizeof(Funcionario), SEEK_CUR);
+                fwrite(&funcionario, sizeof(Funcionario), 1, arquivo);
+
+                printf("Funcionario com CPF %s excluído com sucesso.\n", cpf);
+                break; // Cliente encontrado, não precisa continuar procurando
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e escrita.\n");
+    }
+}
 void salvar_funcionario(Funcionario *aln) {
     FILE *arquivo = fopen("funcionario.bin", "ab");
 
@@ -262,51 +291,7 @@ void atualizar_funcionario_telefone(const char *cpf, const char *novo_dado) {
     }
 }
 
-// Função para excluir um cliente com base no CPF do arquivo binário
-void excluir_funcionario(const char *cpf) {
-    FILE *arquivo;
-    FILE *temp_fun;
-    Funcionario funcionario;
 
-    // Abra o arquivo binário para leitura
-    arquivo = fopen("funcionario.bin", "rb");
-    if (arquivo == NULL) {
-        perror("Erro ao abrir o arquivo");
-        exit(EXIT_FAILURE);
-    }
-
-    // Abra um arquivo temporário para escrita
-    temp_fun = fopen("temp_fun.bin", "wb");
-    if (temp_fun == NULL) {
-        perror("Erro ao criar o arquivo temporário");
-        fclose(arquivo);
-        exit(EXIT_FAILURE);
-    }
-
-    // Leia os registros do arquivo e grave no arquivo temporário, exceto o que será excluído
-    while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
-        if (strcmp(funcionario.cpf, cpf) != 0) {
-            fwrite(&funcionario, sizeof(Funcionario), 1, temp_fun);
-        }
-    }
-
-    // Feche os arquivos
-    fclose(arquivo);
-    fclose(temp_fun);
-
-    // Remova o arquivo original e renomeie o temporário
-    if (remove("funcionario.bin") != 0) {
-        perror("Erro ao remover o arquivo original");
-        exit(EXIT_FAILURE);
-    }
-
-    if (rename("temp_fun.bin", "funcionario.bin") != 0) {
-        perror("Erro ao renomear o arquivo temporário");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("Funcionario com CPF %s excluido com sucesso.\n", cpf);
-}
 void exibir_funcionario(void) {
     FILE *arquivo = fopen("funcionario.bin", "rb");
     int i;
@@ -315,7 +300,7 @@ void exibir_funcionario(void) {
         i=1;
 
         while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
-            
+            if (funcionario.situacao != 'I'){
                 // Mostrar informações da venda
                 printf("Funcionario encontrado:%d\n",i);
                 printf("CPF: %s\n", funcionario.cpf);
@@ -327,7 +312,39 @@ void exibir_funcionario(void) {
                 printf("Proximo Funcionario->\n");
                 limparBuffer();
                 i+=1;
-            
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo de vendas para leitura.\n");
+    }
+}
+void exibir_funcionario_inativo(void) {
+    FILE *arquivo = fopen("funcionario.bin", "rb");
+    int i;
+    if (arquivo != NULL) {
+        Funcionario funcionario;
+        i=1;
+
+        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
+            if (funcionario.situacao != 'A') {
+    // Mostrar informações do funcionário
+    printf("Funcionario encontrado:%d\n", i);
+    printf("CPF: %s\n", funcionario.cpf);
+    printf("NOME: %s\n", funcionario.nome);
+    printf("EMAIL: %s\n", funcionario.email);
+    printf("DATA: %s\n", funcionario.data);
+    printf("TELEFONE: %s\n", funcionario.fone);
+    printf("SITUACAO: %c\n", funcionario.situacao);
+    printf("Proximo Funcionario->\n");
+    limparBuffer();
+    i += 1;
+} else {
+    printf("Sem Funcionarios inativos !!!");
+    limparBuffer();
+}
+
         }
 
         fclose(arquivo);
@@ -583,7 +600,7 @@ void tela_excluir_funcionario(void) {
 		scanf("%12[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf_funcionario_pesquisa(cpf));
-    excluir_funcionario(cpf);
+    atualizar_situacao_funcionario(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
