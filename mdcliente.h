@@ -12,6 +12,7 @@ char fone[15];
 char situacao; 
 };
 
+void exibir_cliente_inativo(void);
 Cliente* tela_cadastrar_cliente(void);
 void tela_pesquisar_cliente();
 void tela_alterar_cliente(); 

@@ -367,6 +367,36 @@ void exibir_cliente(void) {
     }
 }
 
+void exibir_cliente_inativo(void) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+    int i;
+    if (arquivo != NULL) {
+        Cliente cliente;
+        i = 1;
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            if (cliente.situacao != 'A') {
+                // Mostrar informações do cliente
+                printf("Cliente encontrado:%d\n", i);
+                printf("CPF: %s\n", cliente.cpf);
+                printf("NOME: %s\n", cliente.nome);
+                printf("EMAIL: %s\n", cliente.email);
+                printf("DATA: %s\n", cliente.data);
+                printf("TELEFONE: %s\n", cliente.fone);
+                printf("SITUACAO: %c\n", cliente.situacao);
+                printf("Proximo Cliente->\n");
+                limparBuffer();
+                i += 1;
+            }else{
+                printf("Sem Clientes Inativos !!!");
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo de clientes para leitura.\n");
+    }
+}
 void tela_exibir_cliente(void) {
     system("clear||cls");
     printf("\n");
