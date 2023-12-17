@@ -4,13 +4,16 @@
 #include <string.h>
 #include "validacao.h"
 #include "ultilidade.h"
-bool validarCPF(const char *cpf);
+
+int validarCPF(const char *cpf);
 bool validaNome(const char nome[]);
 int validaEmail(const char *email);
 bool extrair_data(const char *data, int *dia, int *mes, int *ano);
 bool valida_data(const char *data);
 bool validaFone(const char fone[]);
-bool valida_cpf(const char *cpf);
+int valida_cpf_cliente_cadastro(const char *cpf);
+int valida_cpf_cliente_pesquisa(const char *cpf);
+
 void limparBuffer();
 
 typedef struct cliente Cliente;
@@ -94,6 +97,52 @@ void pesquisar_cliente(const char *cpf) {
         printf("Erro ao abrir o arquivo para leitura.\n");
     }
 }
+int compara_cpf_cliente_cadastro(const char *cpf) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        int encontrado = 0; // Flag para indicar se o cliente foi encontrado
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            // Compara o CPF do cliente atual com o CPF desejado
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                printf("\nCPF cadastrado.");
+                encontrado = 1;
+                break; // Se encontrou, sai do loop
+            }
+        }
+
+        fclose(arquivo);
+        return encontrado;
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+        return 0; // Retorna 0 se houver erro ao abrir o arquivo
+    }
+}
+int compara_cpf_cliente_pesquisa(const char *cpf) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            // Compara o CPF do cliente atual com o CPF desejado
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                return 1;
+                
+            }
+        }
+
+        fclose(arquivo);
+        return 0;
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+        return 0; // Retorna 0 se houver erro ao abrir o arquivo
+    }
+}
+
 
 
 // Função para atualizar um cliente no arquivo binário
@@ -259,6 +308,61 @@ void excluir_cliente(const char *cpf) {
 
     printf("Cliente com CPF %s excluido com sucesso.\n", cpf);
 }
+void exibir_cliente(void) {
+    FILE *arquivo = fopen("clientes.bin", "rb");
+    int i;
+    if (arquivo != NULL) {
+        Cliente cliente;
+        i=1;
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            
+                // Mostrar informações da venda
+                printf("Cliente encontrado:%d\n",i);
+                printf("CPF: %s\n", cliente.cpf);
+                printf("NOME: %s\n", cliente.nome);
+                printf("EMAIL: %s\n", cliente.email);
+                printf("DATA: %s\n", cliente.data);
+                printf("TELEFONE: %s\n", cliente.fone);
+                printf("SITUACAO: %c\n", cliente.situacao);
+                printf("Proximo CLiente->\n");
+                limparBuffer();
+                i+=1;
+            
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo de vendas para leitura.\n");
+    }
+}
+void tela_exibir_cliente(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = =  Lista Clientes  = = = = = = = =             ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    exibir_cliente();
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+
 Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
 	aln = (Cliente*) malloc(sizeof(Cliente));
@@ -285,7 +389,7 @@ Cliente* tela_cadastrar_cliente(void) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%12s]", aln->cpf);
         limparBuffer();
-	} while (!valida_cpf(aln->cpf));
+	} while (valida_cpf_cliente_cadastro(aln->cpf)!=0);
        
     
     do {
@@ -352,7 +456,7 @@ void tela_pesquisar_cliente() {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%[^\n]",cpf);
 		limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_cliente_pesquisa(cpf));
     system("clear||cls");
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_cliente(cpf);
@@ -391,7 +495,7 @@ void tela_alterar_cliente(void) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%[^\n]",cpf);
 		limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_cliente_pesquisa(cpf));
     system("clear||cls");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                     OPCOES DE ALTERACAO                                 ///\n");
@@ -480,7 +584,7 @@ void tela_excluir_cliente(void) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%12[^\n]",cpf);
 		limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_cliente_pesquisa(cpf));
     excluir_cliente(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -514,6 +618,7 @@ int tela_menu_cliente() {
     printf("///            2. Pesquisar os dados de um cliente                          ///\n");
     printf("///            3. Atualizar o cadastro de um cliente                        ///\n");
     printf("///            4. Excluir um cliente do sistema                             ///\n");
+    printf("///            5. exibir clientes                                           ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opcao desejada: ");
@@ -537,6 +642,9 @@ int tela_menu_cliente() {
                 break;
             case 4:
                 tela_excluir_cliente();    
+                break;
+            case 5:
+                tela_exibir_cliente();
                 break;
             case 0:
                 printf("saindo...\n");

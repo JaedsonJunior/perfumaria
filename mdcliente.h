@@ -17,5 +17,8 @@ void tela_pesquisar_cliente();
 void tela_alterar_cliente(); 
 void tela_excluir_cliente(); 
 int tela_menu_cliente();
+int compara_cpf_cliente_cadastro(const char *cpf);
+int compara_cpf_cliente_pesquisa(const char *cpf);
+
 
 #endif
