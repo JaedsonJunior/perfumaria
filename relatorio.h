@@ -8,8 +8,10 @@ void relatorios_filtro_inativo(void);
 void exibir_cliente_tabela(void);
 int relatorio_tabela(void);
 void exibir_funcionario_tabela(void);
-
-
+void gerar_lista_cliente(Cliente **list);
+void apagar_lista_cliente(Cliente **list);
+void exibir_lista_cliente(Cliente *aux);
+void list_alf_cliente(void);
 
 
 

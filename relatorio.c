@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mdcliente.h"
 #include "mdfuncionario.h"
 #include "ultilidade.h"
@@ -13,6 +14,11 @@ void relatorios_filtro_inativo(void);
 void exibir_cliente_tabela(void);
 int relatorio_tabela(void);
 void exibir_funcionario_tabela(void);
+void gerar_lista_cliente(Cliente **list);
+void apagar_lista_cliente(Cliente **list);
+void exibir_lista_cliente(Cliente *aux);
+void list_alf_cliente(void);
+int relatorios_ordenados(void);
 
 int relatorios()
 {
@@ -21,6 +27,7 @@ int relatorios()
   {
     int opcao_filtro = -1;
     int opcao_tab_cliente = -1;
+    int op_ordenada = -1;
     system("clear||cls");
     printf("========================================================\n");
     printf("||                                                    ||\n");
@@ -44,11 +51,15 @@ int relatorios()
       opcao_filtro=relatorios_filtro();
     }while (opcao_filtro!=0);
       break;
-      case 2:
+    case 2:
     do{
       opcao_tab_cliente=relatorio_tabela();
     }while (opcao_tab_cliente!=0);
       break;
+    case 3:
+      do{
+      op_ordenada=relatorios_ordenados();
+    }while (op_ordenada!=0);
     case 0:
     printf("Saindo...");
       break;
@@ -60,6 +71,42 @@ int relatorios()
   return opcao_relato;
 }
 
+int relatorios_ordenados(void)
+{
+  int op_ordenada = -1;
+  do
+  {
+    
+    system("clear||cls");
+    printf("========================================================\n");
+    printf("||                                                    ||\n");
+    printf("||               Relatorios Ordenados Alfabe.         ||\n");
+    printf("||                                                    ||\n");
+    printf("========================================================\n");
+    printf("||                                                    ||\n");
+    printf("||                      1. Clientes                   ||\n");
+    printf("||                     2. Funcionarios                ||\n");
+    printf("||                        0. Sair                     ||\n");
+    printf("||                                                    ||\n");
+    printf("========================================================\n");
+    printf("\nOpcao: ");
+    scanf("%d", &op_ordenada);
+    limparBuffer();
+    switch (op_ordenada)
+    {
+    case 1:
+      list_alf_cliente();
+      limparBuffer();
+      break;
+    case 0:
+      break;
+    default:
+      printf("Digite algo valido");
+      break;
+    }
+  } while (op_ordenada != 0);
+  return op_ordenada;
+}
 
 int relatorios_filtro(void)
 {
@@ -287,6 +334,71 @@ void exibir_funcionario_tabela(void) {
 }
 
 
+void list_alf_cliente(void)
+{
+  Cliente *list;
+  list = NULL;
+  gerar_lista_cliente(&list);
+  exibir_lista_cliente(list);
+  apagar_lista_cliente(&list);
+}
+
+
+void gerar_lista_cliente(Cliente **list)
+{
+  FILE *fa;
+  Cliente *std;
+  apagar_lista_cliente(&(*list));
+  *list = NULL;
+  fa = fopen("clientes.bin", "rb");
+  if (fa == NULL)
+  {
+    printf("Erro na abertura do arquivo... \n");
+    return;
+  }
+  else
+  {
+    std = (Cliente *)malloc(sizeof(Cliente));
+    while (fread(std, sizeof(Cliente), 1, fa))
+    {
+      if ((*list == NULL) || (strcmp(std->nome, (*list)->nome) < 0))
+      {
+        std->prox = *list;
+        *list = std;
+      }
+      else
+      {
+        Cliente *ant = *list;
+        Cliente *at = (*list)->prox;
+        while ((at != NULL) && (strcmp(at->nome, std->nome) < 0))
+        {
+          ant = at;
+          at = at->prox;
+        }
+        ant->prox = std;
+        std->prox = at;
+      }
+      std = (Cliente *)malloc(sizeof(Cliente));
+    }
+    free(std);
+    fclose(fa);
+  }
+}
+
+
+
+
+
+void apagar_lista_cliente(Cliente **list)
+{
+  Cliente *al;
+  while (*list != NULL)
+  {
+    al = *list;
+    *list = (*list)->prox;
+    free(al);
+  }
+}
 
 
 
@@ -295,19 +407,14 @@ void exibir_funcionario_tabela(void) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+void exibir_lista_cliente(Cliente *aux)
+{
+  while (aux != NULL)
+  {
+    printf("| %-39s - %-36s        -%-11s      |   \n", aux->nome, aux->email, aux->fone);
+    aux = aux->prox;
+  }
+}
 
 
 
