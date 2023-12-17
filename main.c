@@ -37,7 +37,8 @@ int main() {
     return 0;
 }
 int tela_menu_principal(void) {
-    system("clear||cls");
+    system("clear");
+
     int opcao;
     int opcaoCl=-1;
     int opcaoC2=-1;

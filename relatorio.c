@@ -32,7 +32,8 @@ int relatorios()
     int opcao_filtro = -1;
     int opcao_tab_cliente = -1;
     int op_ordenada = -1;
-    system("clear||cls");
+    system("clear");
+
     printf("========================================================\n");
     printf("||                                                    ||\n");
     printf("||                      Menu Relatorios               ||\n");
@@ -81,7 +82,8 @@ int relatorios_ordenados(void)
   do
   {
     
-    system("clear||cls");
+    system("clear");
+
     printf("========================================================\n");
     printf("||                                                    ||\n");
     printf("||               Relatorios Ordenados Alfabe.         ||\n");
@@ -121,7 +123,8 @@ int relatorios_filtro(void)
   do
   {
     
-    system("clear||cls");
+    system("clear");
+
     printf("========================================================\n");
     printf("||                                                    ||\n");
     printf("||                   Relatorios Filtro                ||\n");
@@ -164,7 +167,8 @@ void relatorios_filtro_ativos(void)
   do
   {
     opcao_fativo = -1;
-    system("clear||cls");
+    system("clear");
+
     printf("========================================================\n");
     printf("||                                                    ||\n");
     printf("||                 Relatorios Filtro Ativos           ||\n");
@@ -206,7 +210,8 @@ void relatorios_filtro_inativo(void)
   do
   {
     opcao_iativo = -1;
-    system("clear||cls");
+    system("clear");
+
     printf("========================================================\n");
     printf("||                                                    ||\n");
     printf("||                 Relatorios Filtro Inativo          ||\n");
@@ -248,7 +253,8 @@ int relatorio_tabela(void)
   do
   {
     
-    system("clear||cls");
+    system("clear");
+
     printf("========================================================\n");
     printf("||                                                    ||\n");
     printf("||                   Relatorios de tabelas            ||\n");

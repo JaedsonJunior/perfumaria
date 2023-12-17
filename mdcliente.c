@@ -398,7 +398,8 @@ void exibir_cliente_inativo(void) {
     }
 }
 void tela_exibir_cliente(void) {
-    system("clear||cls");
+    system("clear");
+
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -428,7 +429,8 @@ Cliente* tela_cadastrar_cliente(void) {
     Cliente *aln;
 	aln = (Cliente*) malloc(sizeof(Cliente));
     
-    system("clear||cls");
+    system("clear");
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -496,7 +498,8 @@ Cliente* tela_cadastrar_cliente(void) {
 }
 void tela_pesquisar_cliente() {
     char cpf[12];
-    system("clear||cls");
+    system("clear");
+
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -518,7 +521,8 @@ void tela_pesquisar_cliente() {
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf_cliente_pesquisa(cpf));
-    system("clear||cls");
+    system("clear");
+
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_cliente(cpf);
     printf("///                                                                         ///\n");
@@ -535,7 +539,8 @@ void tela_alterar_cliente(void) {
     char data[12];
     char fone[15];
     int alt;
-    system("clear||cls");
+    system("clear");
+
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -557,7 +562,8 @@ void tela_alterar_cliente(void) {
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf_cliente_pesquisa(cpf));
-    system("clear||cls");
+    system("clear");
+
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                     OPCOES DE ALTERACAO                                 ///\n");
     printf("///                                                                         ///\n");
@@ -624,7 +630,8 @@ void tela_alterar_cliente(void) {
 }
 void tela_excluir_cliente(void) {
     char cpf[12];
-    system("clear||cls");
+    system("clear");
+
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -658,7 +665,8 @@ void tela_excluir_cliente(void) {
 
 int tela_menu_cliente() {
     int opcaoCl;
-    system("clear||cls");
+    system("clear");
+
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
