@@ -32,7 +32,9 @@ int relatorios()
     int opcao_filtro = -1;
     int opcao_tab_cliente = -1;
     int op_ordenada = -1;
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("========================================================\n");
     printf("||                                                    ||\n");
@@ -82,7 +84,9 @@ int relatorios_ordenados(void)
   do
   {
     
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("========================================================\n");
     printf("||                                                    ||\n");
@@ -123,7 +127,9 @@ int relatorios_filtro(void)
   do
   {
     
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("========================================================\n");
     printf("||                                                    ||\n");
@@ -167,7 +173,9 @@ void relatorios_filtro_ativos(void)
   do
   {
     opcao_fativo = -1;
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("========================================================\n");
     printf("||                                                    ||\n");
@@ -210,7 +218,9 @@ void relatorios_filtro_inativo(void)
   do
   {
     opcao_iativo = -1;
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("========================================================\n");
     printf("||                                                    ||\n");
@@ -253,7 +263,9 @@ int relatorio_tabela(void)
   do
   {
     
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("========================================================\n");
     printf("||                                                    ||\n");

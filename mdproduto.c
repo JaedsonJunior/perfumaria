@@ -266,7 +266,9 @@ void exibir_produto(void) {
     }
 }
 void tela_exibir_produto(void) {
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -294,7 +296,9 @@ void tela_exibir_produto(void) {
 Produto* tela_cadastrar_produto(void) {
     Produto *aln;
     aln = (Produto*) malloc(sizeof(Produto));
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -338,7 +342,9 @@ Produto* tela_cadastrar_produto(void) {
 }
 void tela_pesquisar_produto(void) {
     char id[4];
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -359,7 +365,9 @@ void tela_pesquisar_produto(void) {
     printf("///            ID(1 a 999): ");
     scanf("%3s",id);
 	limparBuffer();
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_produto(id);
@@ -375,7 +383,9 @@ void tela_pesquisar_produto(void) {
 void tela_excluir_produto(void) {
     char id[4];
     
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -411,7 +421,9 @@ void tela_alterar_produto(void) {
     char quantidade[4];
     char capacidade[4];
     int alt;
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -433,7 +445,9 @@ void tela_alterar_produto(void) {
 	scanf("%3s",id);
 	limparBuffer();
 	
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                     OPCOES DE ALTERACAO                                 ///\n");
@@ -490,7 +504,9 @@ void tela_alterar_produto(void) {
 
 int tela_menu_produto() {
     int opcaoC2;
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");

@@ -353,7 +353,9 @@ void exibir_funcionario_inativo(void) {
     }
 }
 void tela_exibir_funcionario(void) {
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -383,7 +385,9 @@ Funcionario* tela_cadastrar_funcionario(void) {
     Funcionario *aln;
 	aln = (Funcionario*) malloc(sizeof(Funcionario));
     
-    system("clear");
+    (void)system("clear");
+
+
 
 
     printf("\n");
@@ -452,7 +456,9 @@ Funcionario* tela_cadastrar_funcionario(void) {
 }
 void tela_pesquisar_funcionario(void) {
     char cpf[12];
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -475,7 +481,9 @@ void tela_pesquisar_funcionario(void) {
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf_funcionario_pesquisa(cpf));
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_funcionario(cpf);
@@ -493,7 +501,9 @@ void tela_alterar_funcionario(void) {
     char data[12];
     char fone[15];
     int alt;
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -516,7 +526,9 @@ void tela_alterar_funcionario(void) {
 		scanf("%[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf_funcionario_pesquisa(cpf));
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                     OPCOES DE ALTERACAO                                 ///\n");
@@ -584,7 +596,9 @@ void tela_alterar_funcionario(void) {
 }
 void tela_excluir_funcionario(void) {
     char cpf[12];
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -618,7 +632,9 @@ void tela_excluir_funcionario(void) {
 
 int tela_menu_funcionario() {
     int opcaoC3;
-    system("clear");
+    (void)system("clear");
+
+
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
