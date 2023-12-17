@@ -11,6 +11,7 @@ char email[61];
 char data[12];
 char fone[15];
 char situacao;
+struct funcionario *prox;
 };
 
 int tela_menu_funcionario();
