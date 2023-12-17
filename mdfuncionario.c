@@ -3,13 +3,14 @@
 #include <string.h>
 #include "validacao.h"
 #include "ultilidade.h"
-bool validarCPF(const char *cpf);
+int validarCPF(const char *cpf);
 bool validaNome(const char nome[]);
 int validaEmail(const char *email);
 bool extrair_data(const char *data, int *dia, int *mes, int *ano);
 bool valida_data(const char *data);
 bool validaFone(const char fone[]);
-bool valida_cpf(const char *cpf);
+int compara_cpf_funcionario_cadastro(const char *cpf);
+int valida_cpf_funcionario_pesquisa(const char *cpf);
 void limparBuffer();
 
 typedef struct funcionario Funcionario;
@@ -59,6 +60,51 @@ void ler_funcionario(void) {
         fclose(arquivo);
     } else {
         printf("Erro ao abrir o arquivo para leitura.\n");
+    }
+}
+int compara_cpf_funcionario_cadastro(const char *cpf) {
+    FILE *arquivo = fopen("funcionario.bin", "rb");
+
+    if (arquivo != NULL) {
+        Funcionario funcionario;
+
+        int encontrado = 0; // Flag para indicar se o cliente foi encontrado
+
+        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
+            // Compara o CPF do cliente atual com o CPF desejado
+            if (strcmp(funcionario.cpf, cpf) == 0) {
+                printf("\nCPF cadastrado.");
+                encontrado = 1;
+                break; // Se encontrou, sai do loop
+            }
+        }
+
+        fclose(arquivo);
+        return encontrado;
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+        return 0; // Retorna 0 se houver erro ao abrir o arquivo
+    }
+}
+int compara_cpf_funcionario_pesquisa(const char *cpf) {
+    FILE *arquivo = fopen("funcionario.bin", "rb");
+
+    if (arquivo != NULL) {
+        Funcionario funcionario;
+
+        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
+            // Compara o CPF do cliente atual com o CPF desejado
+            if (strcmp(funcionario.cpf, cpf) == 0) {
+                return 1;
+                
+            }
+        }
+
+        fclose(arquivo);
+        return 0;
+    } else {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+        return 0; // Retorna 0 se houver erro ao abrir o arquivo
     }
 }
 
@@ -261,7 +307,60 @@ void excluir_funcionario(const char *cpf) {
 
     printf("Funcionario com CPF %s excluido com sucesso.\n", cpf);
 }
+void exibir_funcionario(void) {
+    FILE *arquivo = fopen("funcionario.bin", "rb");
+    int i;
+    if (arquivo != NULL) {
+        Funcionario funcionario;
+        i=1;
 
+        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
+            
+                // Mostrar informações da venda
+                printf("Funcionario encontrado:%d\n",i);
+                printf("CPF: %s\n", funcionario.cpf);
+                printf("NOME: %s\n", funcionario.nome);
+                printf("EMAIL: %s\n", funcionario.email);
+                printf("DATA: %s\n", funcionario.data);
+                printf("TELEFONE: %s\n", funcionario.fone);
+                printf("SITUACAO: %c\n", funcionario.situacao);
+                printf("Proximo Funcionario->\n");
+                limparBuffer();
+                i+=1;
+            
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo de vendas para leitura.\n");
+    }
+}
+void tela_exibir_funcionario(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Lista de Funcionarios = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    exibir_funcionario();
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
 Funcionario* tela_cadastrar_funcionario(void) {
     Funcionario *aln;
 	aln = (Funcionario*) malloc(sizeof(Funcionario));
@@ -288,7 +387,7 @@ Funcionario* tela_cadastrar_funcionario(void) {
 		printf("///            Informe o CPF (numeros): ");
 		scanf("%[^\n]", aln->cpf);
 		limparBuffer();
-	} while (!valida_cpf(aln->cpf));
+	} while (valida_cpf_funcionario_cadastro(aln->cpf)!=0);
        
     
     do {
@@ -355,7 +454,7 @@ void tela_pesquisar_funcionario(void) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%[^\n]",cpf);
 		limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
     system("clear||cls");
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_funcionario(cpf);
@@ -394,7 +493,7 @@ void tela_alterar_funcionario(void) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%[^\n]",cpf);
 		limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
     system("clear||cls");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                     OPCOES DE ALTERACAO                                 ///\n");
@@ -483,7 +582,7 @@ void tela_excluir_funcionario(void) {
 		printf("///            Informe o CPF (apenas numeros): ");
 		scanf("%12[^\n]",cpf);
 		limparBuffer();
-	} while (!valida_cpf(cpf));
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
     excluir_funcionario(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -516,6 +615,7 @@ int tela_menu_funcionario() {
     printf("///            2. Pesquisar os dados de um funcionario                      ///\n");
     printf("///            3. Atualizar os dados de um funcionario                      ///\n");
     printf("///            4. Excluir um funcionario do sistema                         ///\n");
+    printf("///            5. Exibir Lista de Funcionarios                              ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opcaoo desejada: ");
@@ -539,6 +639,9 @@ int tela_menu_funcionario() {
                 break;
             case 4:
                 tela_excluir_funcionario();    
+                break;
+            case 5:
+                exibir_funcionario();
                 break;
             case 0:
                 printf("saindo...\n");

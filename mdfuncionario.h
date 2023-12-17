@@ -17,6 +17,8 @@ int tela_menu_funcionario();
 void tela_cadastrar_funcionario(void);
 void tela_pesquisar_funcionario(void);
 void tela_alterar_funcioinario(void);
-void tela_excluir_funcionario(void); 
+void tela_excluir_funcionario(void);
+int compara_cpf_funcionario_cadastro(const char *cpf);
+int compara_cpf_funcionario_pesquisa(const char *cpf);
 
 #endif
