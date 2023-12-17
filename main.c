@@ -5,6 +5,8 @@
 #include "mdfuncionario.h"
 #include "mdproduto.h"
 #include "mdvenda.h"
+#include "relatorio.h"
+
 
 
 
@@ -22,7 +24,7 @@ void tela_alterar_funcioinario();
 void tela_excluir_funcionario(); 
 int tela_menu_produto();
 void tela_cadastrar_produto();
-
+int relatorios();
 /////
 // Programa principal
 int main() {
@@ -41,6 +43,7 @@ int tela_menu_principal(void) {
     int opcaoC2=-1;
     int opcaoC3=-1;
     int opcao_venda=-1;
+    int opcao_relato = -1;
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
@@ -57,8 +60,8 @@ int tela_menu_principal(void) {
     printf("///            1. modulo Cliente                                            ///\n");
     printf("///            2. modulo Produto                                            ///\n");
     printf("///            3. modulo funcionarios                                       ///\n");
-    printf("///            4. modulo vendas                                             ///\n");
-    printf("///            5. Sobre                                                     ///\n");
+    printf("///            4. Modulo vendas                                             ///\n");
+    printf("///            5. Relatorios                                                ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opcaoo desejada: ");
@@ -92,7 +95,10 @@ int tela_menu_principal(void) {
             } while (opcao_venda!=0);
                 break;
             case 5:
-                printf("5 deu certo\n");
+                 do
+            {
+            opcao_relato=relatorios(); 
+            } while (opcao_relato!=0);
                 break;
             case 0:
                 printf("saindo...\n");
