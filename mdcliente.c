@@ -308,34 +308,65 @@ void excluir_cliente(const char *cpf) {
 
     printf("Cliente com CPF %s excluido com sucesso.\n", cpf);
 }
+
+
+void atualizar_situacao_cliente(const char *cpf) {
+    FILE *arquivo = fopen("clientes.bin", "rb+");
+    char nova_situacao = 'I';
+
+    if (arquivo != NULL) {
+        Cliente cliente;
+
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
+            // Verifica se o CPF do cliente atual é o desejado
+            if (strcmp(cliente.cpf, cpf) == 0) {
+                // Atualiza a situação do cliente
+                cliente.situacao = nova_situacao;
+
+                // Volta para a posição do arquivo para escrever a alteração
+                fseek(arquivo, -sizeof(Cliente), SEEK_CUR);
+                fwrite(&cliente, sizeof(Cliente), 1, arquivo);
+
+                printf("Cliente com CPF %s excluído com sucesso.\n", cpf);
+                break; // Cliente encontrado, não precisa continuar procurando
+            }
+        }
+
+        fclose(arquivo);
+    } else {
+        printf("Erro ao abrir o arquivo para leitura e escrita.\n");
+    }
+}
+
 void exibir_cliente(void) {
     FILE *arquivo = fopen("clientes.bin", "rb");
     int i;
     if (arquivo != NULL) {
         Cliente cliente;
-        i=1;
+        i = 1;
 
         while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
-            
-                // Mostrar informações da venda
-                printf("Cliente encontrado:%d\n",i);
+            if (cliente.situacao != 'I') {
+                // Mostrar informações do cliente
+                printf("Cliente encontrado:%d\n", i);
                 printf("CPF: %s\n", cliente.cpf);
                 printf("NOME: %s\n", cliente.nome);
                 printf("EMAIL: %s\n", cliente.email);
                 printf("DATA: %s\n", cliente.data);
                 printf("TELEFONE: %s\n", cliente.fone);
                 printf("SITUACAO: %c\n", cliente.situacao);
-                printf("Proximo CLiente->\n");
+                printf("Proximo Cliente->\n");
                 limparBuffer();
-                i+=1;
-            
+                i += 1;
+            }
         }
 
         fclose(arquivo);
     } else {
-        printf("Erro ao abrir o arquivo de vendas para leitura.\n");
+        printf("Erro ao abrir o arquivo de clientes para leitura.\n");
     }
 }
+
 void tela_exibir_cliente(void) {
     system("clear||cls");
     printf("\n");
@@ -585,7 +616,7 @@ void tela_excluir_cliente(void) {
 		scanf("%12[^\n]",cpf);
 		limparBuffer();
 	} while (!valida_cpf_cliente_pesquisa(cpf));
-    excluir_cliente(cpf);
+    atualizar_situacao_cliente(cpf);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
