@@ -9,6 +9,7 @@
 void relatorios_filtro_ativos(void);
 int relatorios();
 int relatorios_filtro(void);
+void relatorios_filtro_inativo(void);
 
 int relatorios()
 {
@@ -79,6 +80,9 @@ int relatorios_filtro(void)
     case 1:
       relatorios_filtro_ativos();
       break;
+    case 2:
+      relatorios_filtro_inativo();
+      break;  
     case 0:
         printf("saindo");  
         limparBuffer();
@@ -106,7 +110,6 @@ void relatorios_filtro_ativos(void)
     printf("||                                                    ||\n");
     printf("||                      1. Clientes                   ||\n");
     printf("||                     2. Funcionarios                ||\n");
-    printf("||                      3. Servicos                   ||\n");
     printf("||                        0. Sair                     ||\n");
     printf("||                                                    ||\n");
     printf("========================================================\n");
@@ -117,6 +120,10 @@ void relatorios_filtro_ativos(void)
     {
     case 1:
       exibir_cliente();
+      limparBuffer();
+      break;
+    case 2:
+      exibir_funcionario(); 
       limparBuffer();
       break;
     case 0:
@@ -130,6 +137,45 @@ void relatorios_filtro_ativos(void)
 
 
 
+void relatorios_filtro_inativo(void)
+{
+  int opcao_iativo = -1;
+  do
+  {
+    opcao_iativo = -1;
+    system("clear||cls");
+    printf("========================================================\n");
+    printf("||                                                    ||\n");
+    printf("||                 Relatorios Filtro Inativo          ||\n");
+    printf("||                                                    ||\n");
+    printf("========================================================\n");
+    printf("||                                                    ||\n");
+    printf("||                      1. Clientes                   ||\n");
+    printf("||                     2. Funcionarios                ||\n");
+    printf("||                        0. Sair                     ||\n");
+    printf("||                                                    ||\n");
+    printf("========================================================\n");
+    printf("\nOpcao: ");
+    scanf("%d", &opcao_iativo);
+    limparBuffer();
+    switch (opcao_iativo)
+    {
+    case 1:
+      exibir_cliente_inativo();
+      limparBuffer();
+      break;
+    case 2:
+      exibir_funcionario_inativo();
+      limparBuffer();
+      break;
+    case 0:
+      break;
+    default:
+      printf("Digite algo valido");
+      break;
+    }
+  } while (opcao_iativo != 0);
+}
 
 
 

@@ -4,7 +4,7 @@
 void relatorios_filtro_ativos(void);
 int relatorios();
 int relatorios_filtro(void);
-
+void relatorios_filtro_inativo(void);
 
 
 
