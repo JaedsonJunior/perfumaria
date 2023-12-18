@@ -349,7 +349,6 @@ int relatorio_tabela(void)
 void exibir_cliente_tabela(void) {
     FILE *arquivo = fopen("clientes.bin", "rb");
     if (arquivo != NULL) {
-        Cliente cliente;
         printf("|%-30s", "Nome:");
         printf("|%-15s", "CPF:");
         printf("|%-15s", "Data de nasci.:");
@@ -357,13 +356,8 @@ void exibir_cliente_tabela(void) {
         printf("|%-15s", "Telefone:");
         printf("|%-5s", "Situacao:");
         printf("\n");
-        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) 
-             {
-                // Mostrar informações do cliente
-                printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", cliente.nome, cliente.cpf,  cliente.data, cliente.email, cliente.fone, cliente.situacao);
-            }
-
-        fclose(arquivo);
+        mini_exibir_cliente(arquivo);
+      fclose(arquivo);
     }else {
         printf("Erro ao abrir o arquivo de clientes para leitura.\n");
     

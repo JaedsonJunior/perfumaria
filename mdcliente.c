@@ -13,6 +13,7 @@ bool valida_data(const char *data);
 bool validaFone(const char fone[]);
 int valida_cpf_cliente_cadastro(const char *cpf);
 int valida_cpf_cliente_pesquisa(const char *cpf);
+void mini_exibir_cliente(FILE *arquivo);
 
 void limparBuffer();
 
@@ -339,7 +340,12 @@ void atualizar_situacao_cliente(const char *cpf) {
         printf("Erro ao abrir o arquivo para leitura e escrita.\n");
     }
 }
-
+void mini_exibir_cliente(FILE *arquivo){
+    Cliente cliente;
+    while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1){
+    printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", cliente.nome, cliente.cpf,  cliente.data, cliente.email, cliente.fone, cliente.situacao);
+    }
+}
 void exibir_cliente(void) {
     FILE *arquivo = fopen("clientes.bin", "rb");
     int i;

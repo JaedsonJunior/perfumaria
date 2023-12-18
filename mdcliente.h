@@ -22,5 +22,6 @@ int tela_menu_cliente();
 int compara_cpf_cliente_cadastro(const char *cpf);
 int compara_cpf_cliente_pesquisa(const char *cpf);
 void exibir_cliente(void);
+void mini_exibir_cliente(FILE *arquivo);
 
 #endif
