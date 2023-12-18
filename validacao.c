@@ -151,14 +151,32 @@ int valida_cpf_funcionario_pesquisa(const char *cpf) {
 
 
 //nome /// adaptado de https://gist.github.com/jpcabana1/69054083240567faae13cb375e291e49
+
+
 bool validaNome(const char nome[]) {
+    // Verifica se a string é vazia ou contém apenas espaços
+    if (nome[0] == '\0' || (isspace((unsigned char)nome[0]) && nome[1] == '\0')) {
+        return false;
+    }
+
+    // Loop para verificar cada caractere na string
     for (int i = 0; nome[i] != '\0'; i++) {
+        // Verifica se cada caractere é alfabético, espaço ou apóstrofo
         if (!isalpha((unsigned char)nome[i]) && nome[i] != ' ' && nome[i] != '\'') {
             return false;
         }
     }
+
+    // Se a primeira letra for Enter, trata como string vazia
+    if (nome[0] == '\n') {
+        return false;
+    }
+
+    // Se todas as condições forem atendidas, retorna true
     return true;
 }
+
+
   
 //numero fone//adaptado chatgpt
 bool validaFone(const char fone[]) {
@@ -170,7 +188,7 @@ bool validaFone(const char fone[]) {
         i++;
     }
 
-    if (i > 15) {
+    if (i > 15 || i < 11) {
         return false; // O número de telefone é muito longo (mais de 15 dígitos)
     }
 

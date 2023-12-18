@@ -355,23 +355,6 @@ void exibir_funcionario_inativo(void) {
 void tela_exibir_funcionario(void) {
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -401,24 +384,6 @@ Funcionario* tela_cadastrar_funcionario(void) {
 	aln = (Funcionario*) malloc(sizeof(Funcionario));
     
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -488,23 +453,6 @@ void tela_pesquisar_funcionario(void) {
     char cpf[12];
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -528,23 +476,6 @@ void tela_pesquisar_funcionario(void) {
 	} while (!valida_cpf_funcionario_pesquisa(cpf));
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_funcionario(cpf);
     printf("///                                                                         ///\n");
@@ -560,26 +491,8 @@ void tela_alterar_funcionario(void) {
     char email[61];
     char data[12];
     char fone[15];
-    int alt;
+    int alt = -1;
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -602,24 +515,6 @@ void tela_alterar_funcionario(void) {
 		limparBuffer();
 	} while (!valida_cpf_funcionario_pesquisa(cpf));
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                     OPCOES DE ALTERACAO                                 ///\n");
     printf("///                                                                         ///\n");
@@ -638,7 +533,6 @@ void tela_alterar_funcionario(void) {
 		printf(".> Digite o novo Nome: ");
         limparBuffer();
 		scanf("%61[^\n]",nome);
-        
 	} while (!validaNome(nome));
         atualizar_funcionario_nome(cpf,nome);
         limparBuffer();
@@ -671,7 +565,7 @@ void tela_alterar_funcionario(void) {
          do {
 		printf(".> Numero novo  (apenas números): ");
         limparBuffer();
-		scanf("%[^\n]",fone);
+		scanf("%15[^\n]",fone);
 	    } while (!validaFone(fone));
         atualizar_funcionario_telefone(cpf,fone);
         limparBuffer();
@@ -687,24 +581,6 @@ void tela_alterar_funcionario(void) {
 void tela_excluir_funcionario(void) {
     char cpf[12];
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -738,24 +614,6 @@ void tela_excluir_funcionario(void) {
 int tela_menu_funcionario() {
     int opcaoC3;
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");

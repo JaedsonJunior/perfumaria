@@ -83,6 +83,7 @@ void pesquisar_cliente(const char *cpf) {
                 printf("TELEFONE: %s\n", cliente.fone);
                 printf("SITUACAO: %c\n", cliente.situacao);
                 
+                
                 encontrado = 1;
                 break; // Se encontrou, sai do loop
             }
@@ -108,7 +109,8 @@ int compara_cpf_cliente_cadastro(const char *cpf) {
         while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) {
             // Compara o CPF do cliente atual com o CPF desejado
             if (strcmp(cliente.cpf, cpf) == 0) {
-                printf("\nCPF cadastrado.");
+                printf("\nCPF cadastrado.\n");
+                
                 encontrado = 1;
                 break; // Se encontrou, sai do loop
             }
@@ -534,23 +536,6 @@ void tela_pesquisar_cliente() {
     char cpf[12];
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -574,23 +559,6 @@ void tela_pesquisar_cliente() {
 	} while (!valida_cpf_cliente_pesquisa(cpf));
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("///////////////////////////////////////////////////////////////////////////////\n");   
     pesquisar_cliente(cpf);
     printf("///                                                                         ///\n");
@@ -608,24 +576,6 @@ void tela_alterar_cliente(void) {
     char fone[15];
     int alt;
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
