@@ -266,7 +266,10 @@ void exibir_produto(void) {
     }
 }
 void tela_exibir_produto(void) {
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -302,7 +305,10 @@ void tela_exibir_produto(void) {
 Produto* tela_cadastrar_produto(void) {
     Produto *aln;
     aln = (Produto*) malloc(sizeof(Produto));
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -354,7 +360,10 @@ Produto* tela_cadastrar_produto(void) {
 }
 void tela_pesquisar_produto(void) {
     char id[4];
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -383,7 +392,10 @@ void tela_pesquisar_produto(void) {
     printf("///            ID(1 a 999): ");
     scanf("%3s",id);
 	limparBuffer();
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -407,7 +419,10 @@ void tela_pesquisar_produto(void) {
 void tela_excluir_produto(void) {
     char id[4];
     
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -451,7 +466,10 @@ void tela_alterar_produto(void) {
     char quantidade[4];
     char capacidade[4];
     int alt;
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -481,7 +499,10 @@ void tela_alterar_produto(void) {
 	scanf("%3s",id);
 	limparBuffer();
 	
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -546,7 +567,10 @@ void tela_alterar_produto(void) {
 
 int tela_menu_produto() {
     int opcaoC2;
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 

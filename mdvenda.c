@@ -15,7 +15,10 @@ int tela_menu_venda(void) {
     int opcao_lista= -1;
     nova_venda *aln;
     aln = (nova_venda *)malloc(sizeof(nova_venda));
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -173,7 +176,10 @@ void cadastrar_e_salvar_venda(nova_venda *aln) {
 
  void venda_cliente(void) {
     char cpf [12];
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -213,7 +219,10 @@ void cadastrar_e_salvar_venda(nova_venda *aln) {
 }
 void venda_funcionario(void) {
     char cpf [12];
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -252,7 +261,10 @@ void venda_funcionario(void) {
     limparBuffer();
 }
 void venda_produto(void) {
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
@@ -355,7 +367,10 @@ void salvar_venda(nova_venda *aln) {
 }
 
 int tela_listar_venda(void) {
-    system("clear||cls");
+    limpaTela(void);
+
+
+
 
 
 
