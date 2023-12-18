@@ -154,7 +154,7 @@ int relatorios_filtro(void)
     printf("///            = = = = = = =  Relatorios  Filtro  = = = = = = =             ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Ativos                                                    ///\n");
+    printf("///            1. Ativos                                                   ///\n");
     printf("///            2. Inativos                                                  ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
@@ -357,11 +357,10 @@ void exibir_cliente_tabela(void) {
         printf("|%-15s", "Telefone:");
         printf("|%-5s", "Situacao:");
         printf("\n");
-       while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) 
+        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) 
              {
                 // Mostrar informações do cliente
                 printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", cliente.nome, cliente.cpf,  cliente.data, cliente.email, cliente.fone, cliente.situacao);
-                
             }
 
         fclose(arquivo);

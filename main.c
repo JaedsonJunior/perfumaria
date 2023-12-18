@@ -12,6 +12,7 @@
 
 
 //Assinaturas
+void mostrar_sobre(void);
 int tela_menu_venda();
 int tela_menu_principal();
 Cliente* tela_cadastrar_cliente();
@@ -66,6 +67,7 @@ int tela_menu_principal(void) {
     printf("///            3. modulo funcionarios                                       ///\n");
     printf("///            4. Modulo vendas                                             ///\n");
     printf("///            5. Relatorios                                                ///\n");
+    printf("///            6. Sobre                                                     ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opcaoo desejada: ");
@@ -103,6 +105,10 @@ int tela_menu_principal(void) {
             {
             opcao_relato=relatorios(); 
             } while (opcao_relato!=0);
+                break;
+            case 6:
+                mostrar_sobre();
+                limparBuffer();
                 break;
             case 0:
                 printf("saindo...\n");
