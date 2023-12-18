@@ -6,6 +6,7 @@
 #include "mdproduto.h"
 #include "mdvenda.h"
 #include "relatorio.h"
+#include "ultilidade.h"
 
 
 
@@ -37,16 +38,7 @@ int main() {
     return 0;
 }
 int tela_menu_principal(void) {
-    limpaTela(void);
-
-
-
-
-
-
-
-
-
+    system("clear||cls");
 
 
 

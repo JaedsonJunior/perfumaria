@@ -2,7 +2,13 @@
 #define ultilidade_h
 
 void limparBuffer();
-void system("clear||cls");
+
+
+
+
+
+
+
 
 
 
