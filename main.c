@@ -37,7 +37,10 @@ int main() {
     return 0;
 }
 int tela_menu_principal(void) {
-    limpaTela();
+    system("clear||cls");
+
+
+
 
 
 

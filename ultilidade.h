@@ -2,6 +2,9 @@
 #define ultilidade_h
 
 void limparBuffer();
-void limpaTela();
+void system("clear||cls");
+
+
+
 
 #endif

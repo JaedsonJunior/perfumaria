@@ -32,7 +32,10 @@ int relatorios()
     int opcao_filtro = -1;
     int opcao_tab_cliente = -1;
     int op_ordenada = -1;
-    limpaTela();
+    system("clear||cls");
+
+
+
 
 
 
@@ -87,7 +90,10 @@ int relatorios_ordenados(void)
   do
   {
     
-    limpaTela();
+    system("clear||cls");
+
+
+
 
 
 
@@ -133,7 +139,10 @@ int relatorios_filtro(void)
   do
   {
     
-    limpaTela();
+    system("clear||cls");
+
+
+
 
 
 
@@ -182,7 +191,10 @@ void relatorios_filtro_ativos(void)
   do
   {
     opcao_fativo = -1;
-    limpaTela();
+    system("clear||cls");
+
+
+
 
 
 
@@ -230,7 +242,10 @@ void relatorios_filtro_inativo(void)
   do
   {
     opcao_iativo = -1;
-    limpaTela();
+    system("clear||cls");
+
+
+
 
 
 
@@ -278,7 +293,10 @@ int relatorio_tabela(void)
   do
   {
     
-    limpaTela();
+    system("clear||cls");
+
+
+
 
 
 
