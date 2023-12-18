@@ -320,6 +320,21 @@ void exibir_funcionario(void) {
         printf("Erro ao abrir o arquivo de vendas para leitura.\n");
     }
 }
+
+void mini_exibir_funcionario(FILE *arquivo){
+    Funcionario funcionario;
+    while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1){
+    printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", funcionario.nome, funcionario.cpf,  funcionario.data, funcionario.email, funcionario.fone, funcionario.situacao);
+    }
+}
+
+
+
+
+
+
+
+
 void exibir_funcionario_inativo(void) {
     FILE *arquivo = fopen("funcionario.bin", "rb");
     int i;

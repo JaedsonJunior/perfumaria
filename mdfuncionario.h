@@ -23,5 +23,6 @@ int compara_cpf_funcionario_cadastro(const char *cpf);
 int compara_cpf_funcionario_pesquisa(const char *cpf);
 void exibir_funcionario(void);
 void exibir_funcionario_inativo(void);
+void mini_exibir_funcionario(FILE *arquivo);
 
 #endif

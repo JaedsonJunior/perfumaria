@@ -89,7 +89,7 @@ int relatorios_ordenados(void)
   int op_ordenada = -1;
   do
   {
-    
+    system("clear||cls");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
@@ -368,7 +368,6 @@ void exibir_cliente_tabela(void) {
 void exibir_funcionario_tabela(void) {
     FILE *arquivo = fopen("funcionario.bin", "rb");
     if (arquivo != NULL) {
-        Funcionario funcionario;
         printf("|%-30s", "Nome:");
         printf("|%-15s", "CPF:");
         printf("|%-15s", "Data de nasci.:");
@@ -376,12 +375,7 @@ void exibir_funcionario_tabela(void) {
         printf("|%-15s", "Telefone:");
         printf("|%-5s", "Situacao:");
         printf("\n");
-        while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) 
-             {
-                // Mostrar informações do cliente
-                printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", funcionario.nome, funcionario.cpf,  funcionario.data, funcionario.email, funcionario.fone, funcionario.situacao);
-            }
-
+        mini_exibir_funcionario(arquivo);
         fclose(arquivo);
     }else {
         printf("Erro ao abrir o arquivo de clientes para leitura.\n");

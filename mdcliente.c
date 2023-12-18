@@ -13,7 +13,7 @@ bool valida_data(const char *data);
 bool validaFone(const char fone[]);
 int valida_cpf_cliente_cadastro(const char *cpf);
 int valida_cpf_cliente_pesquisa(const char *cpf);
-void mini_exibir_cliente(FILE *arquivo);
+
 
 void limparBuffer();
 
