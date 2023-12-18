@@ -33,36 +33,27 @@ int relatorios()
     int opcao_tab_cliente = -1;
     int op_ordenada = -1;
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                      Menu Relatorios               ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                  1. Relatorios Filtro              ||\n");
-    printf("||                  2. Relatorios Tabela              ||\n");
-    printf("||                 3. Relatorios Ordenados            ||\n");
-    printf("||                        0. Sair                     ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  Relatorios = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Relatorio Filtro                                          ///\n");
+    printf("///            2. Relatorio Tabela                                          ///\n");
+    printf("///            3. Relatorio ordenada                                        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
     printf("\nOpcao: ");
     scanf("%d", &opcao_relato);
     limparBuffer();
@@ -99,18 +90,26 @@ int relatorios_ordenados(void)
   do
   {
     
-    system("clear||cls");
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||               Relatorios Ordenados Alfabe.         ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                      1. Clientes                   ||\n");
-    printf("||                     2. Funcionarios                ||\n");
-    printf("||                        0. Sair                     ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///      = = = = = = = = =  Relatorios Ordenada Alf = = = = = = = = =       ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cliente                                                   ///\n");
+    printf("///            2. Funcionario                                               ///\n");
+    printf("///            0. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
     printf("\nOpcao: ");
     scanf("%d", &op_ordenada);
     limparBuffer();
@@ -140,35 +139,26 @@ int relatorios_filtro(void)
   {
     
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                   Relatorios Filtro                ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                      1. Ativos                     ||\n");
-    printf("||                     2. Inativos                    ||\n");
-    printf("||                       0. Sair                      ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = =  Relatorios  Filtro  = = = = = = =             ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Ativos                                                    ///\n");
+    printf("///            2. Inativos                                                  ///\n");
+    printf("///            0. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
 
     printf("\nOpcao: ");
 
@@ -202,34 +192,26 @@ void relatorios_filtro_ativos(void)
     opcao_fativo = -1;
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                 Relatorios Filtro Ativos           ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                      1. Clientes                   ||\n");
-    printf("||                     2. Funcionarios                ||\n");
-    printf("||                        0. Sair                     ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = =  Relatorios Filtro Ativos = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cliente                                                   ///\n");
+    printf("///            2. Funcionario                                               ///\n");
+    printf("///            0. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
     printf("\nOpcao: ");
     scanf("%d", &opcao_fativo);
     limparBuffer();
@@ -262,34 +244,26 @@ void relatorios_filtro_inativo(void)
     opcao_iativo = -1;
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                 Relatorios Filtro Inativo          ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                      1. Clientes                   ||\n");
-    printf("||                     2. Funcionarios                ||\n");
-    printf("||                        0. Sair                     ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = =  Relatorios Filtro Inativo = = =               ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cliente                                                   ///\n");
+    printf("///            2. Funcionario                                               ///\n");
+    printf("///            0. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
     printf("\nOpcao: ");
     scanf("%d", &opcao_iativo);
     limparBuffer();
@@ -322,34 +296,26 @@ int relatorio_tabela(void)
     
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                   Relatorios de tabelas            ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
-    printf("||                                                    ||\n");
-    printf("||                      1. Clientes                   ||\n");
-    printf("||                     2. Funcionarios                ||\n");
-    printf("||                        0. Sair                     ||\n");
-    printf("||                                                    ||\n");
-    printf("========================================================\n");
+   printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = =  Relatorios  tabela  = = = = = = =             ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cliente                                                   ///\n");
+    printf("///            2. Funcionario                                               ///\n");
+    printf("///            0. Voltar                                                    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
     printf("\nOpcao: ");
     scanf("%d", &op_tab_cliente);
     limparBuffer();
@@ -391,10 +357,11 @@ void exibir_cliente_tabela(void) {
         printf("|%-15s", "Telefone:");
         printf("|%-5s", "Situacao:");
         printf("\n");
-        while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) 
+       while (fread(&cliente, sizeof(Cliente), 1, arquivo) == 1) 
              {
                 // Mostrar informações do cliente
                 printf("|%-30s|%-15s|%-15s|%-30s|%-15s|%-5c\n", cliente.nome, cliente.cpf,  cliente.data, cliente.email, cliente.fone, cliente.situacao);
+                
             }
 
         fclose(arquivo);
@@ -406,7 +373,7 @@ void exibir_cliente_tabela(void) {
 }
 
 void exibir_funcionario_tabela(void) {
-    FILE *arquivo = fopen("clientes.bin", "rb");
+    FILE *arquivo = fopen("funcionario.bin", "rb");
     if (arquivo != NULL) {
         Funcionario funcionario;
         printf("|%-30s", "Nome:");
