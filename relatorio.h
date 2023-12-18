@@ -13,6 +13,9 @@ void apagar_lista_cliente(Cliente **list);
 void exibir_lista_cliente(Cliente *aux);
 void list_alf_cliente(void);
 int relatorios_ordenados(void);
-
+void list_alf_funcionario(void);
+void gerar_lista_funcionario(Funcionario **list);
+void apagar_lista_funcionario(Funcionario **list);
+void exibir_lista_funcionario(Funcionario *aux);
 
 #endif
