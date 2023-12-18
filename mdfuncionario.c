@@ -102,7 +102,7 @@ int compara_cpf_funcionario_cadastro(const char *cpf) {
         while (fread(&funcionario, sizeof(Funcionario), 1, arquivo) == 1) {
             // Compara o CPF do cliente atual com o CPF desejado
             if (strcmp(funcionario.cpf, cpf) == 0) {
-                printf("\nCPF cadastrado.");
+                printf("\nCPF cadastrado.\n");
                 encontrado = 1;
                 break; // Se encontrou, sai do loop
             }

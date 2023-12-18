@@ -9,30 +9,11 @@
 #include "validacao.h"
 int tela_listar_venda();
 
-
-
 int tela_menu_venda(void) {
     int opcao_lista= -1;
     nova_venda *aln;
     aln = (nova_venda *)malloc(sizeof(nova_venda));
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -42,7 +23,7 @@ int tela_menu_venda(void) {
     printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -183,33 +164,15 @@ void cadastrar_e_salvar_venda(nova_venda *aln) {
  void venda_cliente(void) {
     char cpf [12];
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular = = = =                    ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -232,33 +195,15 @@ void cadastrar_e_salvar_venda(nova_venda *aln) {
 void venda_funcionario(void) {
     char cpf [12];
     system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
+    printf("///                  = = = =   Fragancia Popular  = = = =                   ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -278,49 +223,7 @@ void venda_funcionario(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     limparBuffer();
 }
-void venda_produto(void) {
-    system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragância Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  venda produto = = = = = = = = =           ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///             EM ANDAMENTO                                                 ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-}
 void pesquisar_cliente_venda(const char *cpf) {
     FILE *arquivo = fopen("clientes.bin", "rb");
 
@@ -393,23 +296,6 @@ void salvar_venda(nova_venda *aln) {
 int tela_listar_venda(void) {
     system("clear||cls");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -418,7 +304,7 @@ int tela_listar_venda(void) {
     printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @JaedsonJunior -- since Ago, 2023            ///\n");
+    printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
