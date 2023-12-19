@@ -7,7 +7,7 @@ struct venda
 char cpf_cliente[12];
 char cpf_funcionario[12];
 char nome_produto[100];
-char data[20];
+int data;
 };
 int tela_menu_venda();
 void cadastrar_e_salvar_venda(nova_venda *aln);

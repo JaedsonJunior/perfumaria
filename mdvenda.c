@@ -9,6 +9,9 @@
 #include "validacao.h"
 int tela_listar_venda();
 
+
+
+
 int tela_menu_venda(void) {
     int opcao_lista= -1;
     nova_venda *aln;
@@ -64,7 +67,6 @@ int tela_menu_venda(void) {
     }
 return opcao_venda;
 }
-
 void lista_geral() {
     FILE *arquivo = fopen("vendas.bin", "rb");
 
@@ -77,7 +79,7 @@ void lista_geral() {
                 printf("CPF Cliente: %s\n", venda_atual.cpf_cliente);
                 printf("CPF Funcionário: %s\n", venda_atual.cpf_funcionario);
                 printf("Nome do Produto: %s\n", venda_atual.nome_produto);
-                printf("Data: %s\n", venda_atual.data);
+                 printf("Data da Venda: %02d/%02d/%04d\n",venda_atual.data / 1000000, (venda_atual.data / 10000) % 100, venda_atual.data % 10000);
                 printf("-----------------\n");
                 limparBuffer();
             
@@ -88,6 +90,7 @@ void lista_geral() {
         printf("Erro ao abrir o arquivo de vendas para leitura.\n");
     }
 }
+
 
 void mostrar_vendas_por_cliente(const char *cpf_cliente) {
     FILE *arquivo = fopen("vendas.bin", "rb");
@@ -101,7 +104,7 @@ void mostrar_vendas_por_cliente(const char *cpf_cliente) {
                 printf("CPF Cliente: %s\n", venda_atual.cpf_cliente);
                 printf("CPF Funcionário: %s\n", venda_atual.cpf_funcionario);
                 printf("Nome do Produto: %s\n", venda_atual.nome_produto);
-                printf("Data: %s\n", venda_atual.data);
+                printf("Data: %d\n", venda_atual.data);
                 printf("-----------------\n");
             }
         }
@@ -123,7 +126,7 @@ void mostrar_vendas_por_funcionario(const char *cpf_funcionario) {
                 printf("CPF Cliente: %s\n", venda_atual.cpf_cliente);
                 printf("CPF Funcionario: %s\n", venda_atual.cpf_funcionario);
                 printf("Nome do Produto: %s\n", venda_atual.nome_produto);
-                printf("Data: %s\n", venda_atual.data);
+                printf("Data: %d\n", venda_atual.data);
                 printf("-----------------\n");
             }
         }
@@ -135,6 +138,7 @@ void mostrar_vendas_por_funcionario(const char *cpf_funcionario) {
 }
 
 void cadastrar_e_salvar_venda(nova_venda *aln) {
+    
     // Preencha os campos da nova venda
     do {
 		printf("///            Informe o CPF Cliente(apenas numeros): ");
@@ -149,13 +153,14 @@ void cadastrar_e_salvar_venda(nova_venda *aln) {
 	} while (!valida_cpf_funcionario_pesquisa(aln->cpf_funcionario));
        
 
-    printf("Informe o nome do produto: ");
-    scanf("%61[^\n]", aln->nome_produto);
-    limparBuffer();
+   do {
+		printf("///            Informe o Id do Produto (1 a 999): ");
+		scanf("%[^\n]", aln->nome_produto);
+		limparBuffer();
+	} while (!valida_id(aln->nome_produto));
 
-    printf("Informe a data da venda (dd/mm/aaaa): ");
-    scanf("%19s", aln->data);
-    limparBuffer();
+    aln->data=data_hoje();
+    data_hoje();
 
     salvar_venda(aln);
     limparBuffer();
@@ -329,6 +334,7 @@ int tela_listar_venda(void) {
     switch (opcao_lista)
     {
     case 1:
+        limparBuffer();
         lista_geral();
         break;
     case 2:

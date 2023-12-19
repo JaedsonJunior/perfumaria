@@ -14,6 +14,32 @@ char preco[7];
 char quantidade[4];
 char capacidade[4];
 };
+
+
+
+int valida_id(const char *id) {
+    FILE *arquivo = fopen("produto.bin", "rb");
+    
+    if (arquivo != NULL) {
+        Produto produto;
+
+        while (fread(&produto, sizeof(Produto), 1, arquivo) == 1) {
+            if (strcmp(produto.id, id) == 0) {
+                fclose(arquivo);  // Feche o arquivo antes de retornar
+                return 1;  // ID encontrado, retorne 1
+            }
+            // Não retorne 0 aqui, pois isso encerraria a função prematuramente
+        }
+
+        fclose(arquivo);
+        // Se chegou aqui, o ID não foi encontrado em nenhum produto
+        return 0;
+    } else {
+        printf("Erro ao abrir o arquivo...\n");
+        return 0;
+    }
+}
+
 void salvar_produto(Produto *aln) {
     FILE *arquivo = fopen("produto.bin", "ab");
 
