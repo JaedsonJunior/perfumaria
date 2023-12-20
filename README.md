@@ -3,6 +3,8 @@ Este é um projeto para fins de aprendizado e avaliativo que desenvolvemos como 
 
 COMANDO PARA RODAR NO VSCODE
 
-gcc -c -Wall *.c \n
-gcc -o main *.c \n
+gcc -c -Wall *.c
+
+gcc -o main *.c
+
 ./main
