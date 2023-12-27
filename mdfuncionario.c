@@ -3,31 +3,334 @@
 #include <string.h>
 #include "validacao.h"
 #include "ultilidade.h"
-int validarCPF(const char *cpf);
-bool validaNome(const char nome[]);
-int validaEmail(const char *email);
-bool extrair_data(const char *data, int *dia, int *mes, int *ano);
-bool valida_data(const char *data);
-bool validaFone(const char fone[]);
-int compara_cpf_funcionario_cadastro(const char *cpf);
-int valida_cpf_funcionario_pesquisa(const char *cpf);
+#include "mdfuncionario.h"
+
 void limparBuffer();
 
-typedef struct funcionario Funcionario;
+int tela_menu_funcionario() {
+    int opcaoC3;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                   = = = =   Fragancia Popular    = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///          = = = = = = = =  Menu funcionario = = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cadastrar um funcionario                                  ///\n");
+    printf("///            2. Pesquisar os dados de um funcionario                      ///\n");
+    printf("///            3. Atualizar os dados de um funcionario                      ///\n");
+    printf("///            4. Excluir um funcionario do sistema                         ///\n");
+    printf("///            5. Exibir Lista de Funcionarios                              ///\n");
+    printf("///            0. Voltar ao menu anterior                                   ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcaoo desejada: ");
+    scanf("%d", &opcaoC3);
+    limparBuffer();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+    switch (opcaoC3) {
+            case 1:
+                tela_cadastrar_funcionario();
+                break;
+            case 2:
+                tela_pesquisar_funcionario();
+                break;
+            case 3:
+                tela_alterar_funcionario();
+                break;
+            case 4:
+                tela_excluir_funcionario();    
+                break;
+            case 5:
+                exibir_funcionario();
+                break;
+            case 0:
+                printf("saindo...\n");
+                break;
+            default:
+                printf("Opcao invalida\n");
+                break;
+        }
+
+return opcaoC3;        
+}
 
 
 
 
+void tela_exibir_funcionario(void) {
+    system("clear||cls");
 
-struct funcionario
-{
-char cpf[12];
-char nome[61];
-char email[61];
-char data[12];
-char fone[15];
-char situacao;
-};
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Lista de Funcionarios = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    exibir_funcionario();
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+
+Funcionario* tela_cadastrar_funcionario(void) {
+    Funcionario *aln;
+	aln = (Funcionario*) malloc(sizeof(Funcionario));
+    
+    system("clear||cls");
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Cadastrar funcionario = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    do {
+		printf("///            Informe o CPF (numeros): ");
+		scanf("%[^\n]", aln->cpf);
+		limparBuffer();
+	} while (valida_cpf_funcionario_cadastro(aln->cpf)!=0);
+       
+    
+    do {
+		printf("///            Nome completo: ");
+		scanf("%[^\n]", aln->nome);
+		limparBuffer();
+	} while (!validaNome(aln->nome));
+
+     do {   
+		printf("///            email: ");
+		scanf("%[^\n]", aln->email);
+		limparBuffer();
+	} while (!validaEmail(aln->email));
+
+    
+     do {
+		printf("///            Data de Nascimento (dd/mm/aaaa): ");
+		scanf(("%11[0-9/]"),aln->data);
+		limparBuffer();
+	} while (!valida_data(aln->data));
+    
+
+   
+     do {
+		printf("///            Celular (DDD): ");
+		scanf("%[^\n]", aln->fone);
+		limparBuffer();
+	} while (!validaFone(aln->fone));
+
+    aln->situacao = 'A';
+    
+
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+   
+    salvar_funcionario(aln);
+    limparBuffer();
+    return aln;
+    
+}
+void tela_pesquisar_funcionario(void) {
+    char cpf[12];
+    system("clear||cls");
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Pesquisar funcionario = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+   do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
+    system("clear||cls");
+
+    printf("///////////////////////////////////////////////////////////////////////////////\n");   
+    pesquisar_funcionario(cpf);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+void tela_alterar_funcionario(void) {
+    char cpf[12];
+    char nome[61];
+    char email[61];
+    char data[12];
+    char fone[15];
+    int alt = -1;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Alterar Fucionario = = = = = =               ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
+    system("clear||cls");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                     1- Alterar o nome                                   ///\n");
+    printf("///                     2- Alterar o email                                  ///\n");
+    printf("///                     3- Alterar a data de nascimeto                      ///\n");
+    printf("///                     4- Alterar o numero telefonico                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    scanf("%d",&alt);
+    switch (alt)
+    {
+    case 1:
+    
+    do {
+		printf(".> Digite o novo Nome: ");
+        limparBuffer();
+		scanf("%61[^\n]",nome);
+	} while (!validaNome(nome));
+        atualizar_funcionario_nome(cpf,nome);
+        limparBuffer();
+        break;
+
+    case 2:
+
+     do {   
+		printf(".> Digite o novo email: ");
+        limparBuffer();
+		scanf("%61[^\n]",email);
+	} while (!validaEmail(email));
+        atualizar_funcionario_email(cpf,email);
+        limparBuffer();
+        break;
+
+    case 3:
+
+    do {
+		printf(".> nova Data de Nascimento (dd/mm/aaaa): ");
+        limparBuffer();
+		scanf(("%11[0-9/]"),data);
+	} while (!valida_data(data));
+        atualizar_funcionario_data(cpf,data);
+        limparBuffer();
+        break;
+
+    case 4:
+
+         do {
+		printf(".> Numero novo  (apenas números): ");
+        limparBuffer();
+		scanf("%15[^\n]",fone);
+	    } while (!validaFone(fone));
+        atualizar_funcionario_telefone(cpf,fone);
+        limparBuffer();
+        break;
+
+    default:
+        break;
+    }
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+void tela_excluir_funcionario(void) {
+    char cpf[12];
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                   = = = =   Fragancia Popular     = = = =               ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Excluir funcionario = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+     do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
+    atualizar_situacao_funcionario(cpf);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
 
 
 
@@ -329,12 +632,6 @@ void mini_exibir_funcionario(FILE *arquivo){
 }
 
 
-
-
-
-
-
-
 void exibir_funcionario_inativo(void) {
     FILE *arquivo = fopen("funcionario.bin", "rb");
     int i;
@@ -366,324 +663,4 @@ void exibir_funcionario_inativo(void) {
     } else {
         printf("Erro ao abrir o arquivo de vendas para leitura.\n");
     }
-}
-void tela_exibir_funcionario(void) {
-    system("clear||cls");
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Lista de Funcionarios = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    exibir_funcionario();
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-Funcionario* tela_cadastrar_funcionario(void) {
-    Funcionario *aln;
-	aln = (Funcionario*) malloc(sizeof(Funcionario));
-    
-    system("clear||cls");
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Cadastrar funcionario = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    do {
-		printf("///            Informe o CPF (numeros): ");
-		scanf("%[^\n]", aln->cpf);
-		limparBuffer();
-	} while (valida_cpf_funcionario_cadastro(aln->cpf)!=0);
-       
-    
-    do {
-		printf("///            Nome completo: ");
-		scanf("%[^\n]", aln->nome);
-		limparBuffer();
-	} while (!validaNome(aln->nome));
-
-     do {   
-		printf("///            email: ");
-		scanf("%[^\n]", aln->email);
-		limparBuffer();
-	} while (!validaEmail(aln->email));
-
-    
-     do {
-		printf("///            Data de Nascimento (dd/mm/aaaa): ");
-		scanf(("%11[0-9/]"),aln->data);
-		limparBuffer();
-	} while (!valida_data(aln->data));
-    
-
-   
-     do {
-		printf("///            Celular (DDD): ");
-		scanf("%[^\n]", aln->fone);
-		limparBuffer();
-	} while (!validaFone(aln->fone));
-
-    aln->situacao = 'A';
-    
-
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-   
-    salvar_funcionario(aln);
-    limparBuffer();
-    return aln;
-    
-}
-void tela_pesquisar_funcionario(void) {
-    char cpf[12];
-    system("clear||cls");
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Pesquisar funcionario = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-   do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%[^\n]",cpf);
-		limparBuffer();
-	} while (!valida_cpf_funcionario_pesquisa(cpf));
-    system("clear||cls");
-
-    printf("///////////////////////////////////////////////////////////////////////////////\n");   
-    pesquisar_funcionario(cpf);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-void tela_alterar_funcionario(void) {
-    char cpf[12];
-    char nome[61];
-    char email[61];
-    char data[12];
-    char fone[15];
-    int alt = -1;
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alterar Fucionario = = = = = =               ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%[^\n]",cpf);
-		limparBuffer();
-	} while (!valida_cpf_funcionario_pesquisa(cpf));
-    system("clear||cls");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                     1- Alterar o nome                                   ///\n");
-    printf("///                     2- Alterar o email                                  ///\n");
-    printf("///                     3- Alterar a data de nascimeto                      ///\n");
-    printf("///                     4- Alterar o numero telefonico                      ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    scanf("%d",&alt);
-    switch (alt)
-    {
-    case 1:
-    
-    do {
-		printf(".> Digite o novo Nome: ");
-        limparBuffer();
-		scanf("%61[^\n]",nome);
-	} while (!validaNome(nome));
-        atualizar_funcionario_nome(cpf,nome);
-        limparBuffer();
-        break;
-
-    case 2:
-
-     do {   
-		printf(".> Digite o novo email: ");
-        limparBuffer();
-		scanf("%61[^\n]",email);
-	} while (!validaEmail(email));
-        atualizar_funcionario_email(cpf,email);
-        limparBuffer();
-        break;
-
-    case 3:
-
-    do {
-		printf(".> nova Data de Nascimento (dd/mm/aaaa): ");
-        limparBuffer();
-		scanf(("%11[0-9/]"),data);
-	} while (!valida_data(data));
-        atualizar_funcionario_data(cpf,data);
-        limparBuffer();
-        break;
-
-    case 4:
-
-         do {
-		printf(".> Numero novo  (apenas números): ");
-        limparBuffer();
-		scanf("%15[^\n]",fone);
-	    } while (!validaFone(fone));
-        atualizar_funcionario_telefone(cpf,fone);
-        limparBuffer();
-        break;
-
-    default:
-        break;
-    }
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-void tela_excluir_funcionario(void) {
-    char cpf[12];
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                   = = = =   Fragancia Popular     = = = =               ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Excluir funcionario = = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-     do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%12[^\n]",cpf);
-		limparBuffer();
-	} while (!valida_cpf_funcionario_pesquisa(cpf));
-    atualizar_situacao_funcionario(cpf);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-
-int tela_menu_funcionario() {
-    int opcaoC3;
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                   = = = =   Fragancia Popular    = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///          = = = = = = = =  Menu funcionario = = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar um funcionario                                  ///\n");
-    printf("///            2. Pesquisar os dados de um funcionario                      ///\n");
-    printf("///            3. Atualizar os dados de um funcionario                      ///\n");
-    printf("///            4. Excluir um funcionario do sistema                         ///\n");
-    printf("///            5. Exibir Lista de Funcionarios                              ///\n");
-    printf("///            0. Voltar ao menu anterior                                   ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            Escolha a opcaoo desejada: ");
-    scanf("%d", &opcaoC3);
-    limparBuffer();
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-    switch (opcaoC3) {
-            case 1:
-                tela_cadastrar_funcionario();
-                break;
-            case 2:
-                tela_pesquisar_funcionario();
-                break;
-            case 3:
-                tela_alterar_funcionario();
-                break;
-            case 4:
-                tela_excluir_funcionario();    
-                break;
-            case 5:
-                exibir_funcionario();
-                break;
-            case 0:
-                printf("saindo...\n");
-                break;
-            default:
-                printf("Opcao invalida\n");
-                break;
-        }
-
-return opcaoC3;        
 }
