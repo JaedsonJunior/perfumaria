@@ -13,12 +13,8 @@
 
 //Assinaturas
 void mostrar_sobre(void);
-int tela_menu_venda();
 int tela_menu_principal();
-Cliente* tela_cadastrar_cliente();
-int tela_menu_produto();
-void tela_cadastrar_produto();
-int relatorios();
+
 /////
 // Programa principal
 int main() {
