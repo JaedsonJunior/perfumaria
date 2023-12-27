@@ -4,31 +4,360 @@
 #include <string.h>
 #include "validacao.h"
 #include "ultilidade.h"
+#include "mdcliente.h"
 
-int validarCPF(const char *cpf);
-bool validaNome(const char nome[]);
-int validaEmail(const char *email);
-bool extrair_data(const char *data, int *dia, int *mes, int *ano);
-bool valida_data(const char *data);
-bool validaFone(const char fone[]);
-int valida_cpf_cliente_cadastro(const char *cpf);
-int valida_cpf_cliente_pesquisa(const char *cpf);
+
+void exibir_cliente_inativo(void);
+Cliente* tela_cadastrar_cliente(void);
+void tela_pesquisar_cliente();
+void tela_alterar_cliente(); 
+void tela_excluir_cliente(); 
+int tela_menu_cliente();
+int compara_cpf_cliente_cadastro(const char *cpf);
+int compara_cpf_cliente_pesquisa(const char *cpf);
+void exibir_cliente(void);
+void mini_exibir_cliente(FILE *arquivo);
+void exibir_cliente(void);
+void atualizar_situacao_cliente(const char *cpf);
+void excluir_cliente(const char *cpf); 
+void atualizar_cliente_telefone(const char *cpf, const char *novo_dado);
+void atualizar_cliente_data(const char *cpf, const char *novo_dado);
+void atualizar_cliente_email(const char *cpf, const char *novo_dado);
+void atualizar_cliente_nome(const char *cpf, const char *novo_dado);
+void pesquisar_cliente(const char *cpf);
+void ler_cliente(void); 
+void salvar_cliente(Cliente *aln);
+void tela_exibir_cliente(void);
 
 
 void limparBuffer();
 
-typedef struct cliente Cliente;
+int tela_menu_cliente() {
+    int opcaoCl;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  Menu Cliente = = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cadastrar um novo cliente                                 ///\n");
+    printf("///            2. Pesquisar os dados de um cliente                          ///\n");
+    printf("///            3. Atualizar o cadastro de um cliente                        ///\n");
+    printf("///            4. Excluir um cliente do sistema                             ///\n");
+    printf("///            5. exibir clientes                                           ///\n");
+    printf("///            0. Voltar ao menu anterior                                   ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
+    scanf("%d", &opcaoCl);
+    limparBuffer();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+    switch (opcaoCl) {
+            case 1:
+                tela_cadastrar_cliente();
+                break;
+            case 2:
+                tela_pesquisar_cliente();
+                break;
+            case 3:
+                tela_alterar_cliente();
+                break;
+            case 4:
+                tela_excluir_cliente();    
+                break;
+            case 5:
+                tela_exibir_cliente();
+                break;
+            case 0:
+                printf("saindo...\n");
+                break;
+            default:
+                printf("Opcao invalida\n");
+                break;
+        }
 
-struct cliente
-{
-char cpf[12];
-char nome[61];
-char email[61];
-char data[12];
-char fone[15];
-char situacao; 
+return opcaoCl;        
+}
 
-};
+
+void tela_exibir_cliente(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = =  Lista Clientes  = = = = = = = =             ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    exibir_cliente();
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+
+Cliente* tela_cadastrar_cliente(void) {
+    Cliente *aln;
+	aln = (Cliente*) malloc(sizeof(Cliente));
+    
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Cadastrar Cliente = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12s]", aln->cpf);
+        limparBuffer();
+	} while (valida_cpf_cliente_cadastro(aln->cpf)!=0);
+       
+    
+    do {
+		printf("///            Nome completo: ");
+		scanf("%61s", aln->nome);
+		limparBuffer();
+	} while (!validaNome(aln->nome));
+
+     do {   
+		printf("///            email: ");
+		scanf("%61s", aln->email);
+		limparBuffer();
+	} while (!validaEmail(aln->email));
+
+    
+     do {
+		printf("///            Data de Nascimento (dd/mm/aaaa): ");
+		scanf(("%11[0-9/]"),aln->data);
+		limparBuffer();
+	} while (!valida_data(aln->data));
+    
+
+   
+     do {
+		printf("///            Celular (DDD): ");
+		scanf("%[^\n]", aln->fone);
+		limparBuffer();
+	} while (!validaFone(aln->fone));
+
+    aln->situacao = 'A';
+    
+
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+   
+    salvar_cliente(aln);
+    limparBuffer();
+    return aln;
+    
+}
+void tela_pesquisar_cliente() {
+    char cpf[12];
+    system("clear||cls");
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Pesquisar Cliente = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf_cliente_pesquisa(cpf));
+    system("clear||cls");
+
+    printf("///////////////////////////////////////////////////////////////////////////////\n");   
+    pesquisar_cliente(cpf);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+void tela_alterar_cliente(void) {
+    char cpf[12];
+    char nome[61];
+    char email[61];
+    char data[12];
+    char fone[15];
+    int alt;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Alterar Cliente = = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf_cliente_pesquisa(cpf));
+    system("clear||cls");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                     1- Alterar o nome                                   ///\n");
+    printf("///                     2- Alterar o email                                  ///\n");
+    printf("///                     3- Alterar a data de nascimeto                      ///\n");
+    printf("///                     4- Alterar o numero telefonico                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    scanf("%d",&alt);
+    switch (alt)
+    {
+    case 1:
+    
+    do {
+		printf(".> Digite o novo Nome: ");
+        limparBuffer();
+		scanf("%61[^\n]",nome);
+        
+	} while (!validaNome(nome));
+        atualizar_cliente_nome(cpf,nome);
+        limparBuffer();
+        break;
+
+    case 2:
+
+     do {   
+		printf(".> Digite o novo email: ");
+        limparBuffer();
+		scanf("%61[^\n]",email);
+	} while (!validaEmail(email));
+        atualizar_cliente_email(cpf,email);
+        limparBuffer();
+        break;
+
+    case 3:
+
+    do {
+		printf(".> nova Data de Nascimento (dd/mm/aaaa): ");
+        limparBuffer();
+		scanf(("%11[0-9/]"),data);
+	} while (!valida_data(data));
+        atualizar_cliente_data(cpf,data);
+        limparBuffer();
+        break;
+
+    case 4:
+
+         do {
+		printf(".> Numero novo  (apenas números): ");
+        limparBuffer();
+		scanf("%[^\n]",fone);
+	    } while (!validaFone(fone));
+        atualizar_cliente_telefone(cpf,fone);
+        limparBuffer();
+        break;
+
+    default:
+        break;
+    }
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+void tela_excluir_cliente(void) {
+    char cpf[12];
+    system("clear||cls");
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Excluir Cliente = = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+     do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12[^\n]",cpf);
+		limparBuffer();
+	} while (!valida_cpf_cliente_pesquisa(cpf));
+    atualizar_situacao_cliente(cpf);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+
+
+
+
 
 void salvar_cliente(Cliente *aln) {
     FILE *arquivo = fopen("clientes.bin", "ab");
@@ -404,326 +733,4 @@ void exibir_cliente_inativo(void) {
     } else {
         printf("Erro ao abrir o arquivo de clientes para leitura.\n");
     }
-}
-void tela_exibir_cliente(void) {
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = =  Lista Clientes  = = = = = = = =             ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    exibir_cliente();
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-
-Cliente* tela_cadastrar_cliente(void) {
-    Cliente *aln;
-	aln = (Cliente*) malloc(sizeof(Cliente));
-    
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Cadastrar Cliente = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%12s]", aln->cpf);
-        limparBuffer();
-	} while (valida_cpf_cliente_cadastro(aln->cpf)!=0);
-       
-    
-    do {
-		printf("///            Nome completo: ");
-		scanf("%61s", aln->nome);
-		limparBuffer();
-	} while (!validaNome(aln->nome));
-
-     do {   
-		printf("///            email: ");
-		scanf("%61s", aln->email);
-		limparBuffer();
-	} while (!validaEmail(aln->email));
-
-    
-     do {
-		printf("///            Data de Nascimento (dd/mm/aaaa): ");
-		scanf(("%11[0-9/]"),aln->data);
-		limparBuffer();
-	} while (!valida_data(aln->data));
-    
-
-   
-     do {
-		printf("///            Celular (DDD): ");
-		scanf("%[^\n]", aln->fone);
-		limparBuffer();
-	} while (!validaFone(aln->fone));
-
-    aln->situacao = 'A';
-    
-
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-   
-    salvar_cliente(aln);
-    limparBuffer();
-    return aln;
-    
-}
-void tela_pesquisar_cliente() {
-    char cpf[12];
-    system("clear||cls");
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                    = = = =  Fragancia Popular    = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Pesquisar Cliente = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%[^\n]",cpf);
-		limparBuffer();
-	} while (!valida_cpf_cliente_pesquisa(cpf));
-    system("clear||cls");
-
-    printf("///////////////////////////////////////////////////////////////////////////////\n");   
-    pesquisar_cliente(cpf);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-void tela_alterar_cliente(void) {
-    char cpf[12];
-    char nome[61];
-    char email[61];
-    char data[12];
-    char fone[15];
-    int alt;
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alterar Cliente = = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%[^\n]",cpf);
-		limparBuffer();
-	} while (!valida_cpf_cliente_pesquisa(cpf));
-    system("clear||cls");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                     1- Alterar o nome                                   ///\n");
-    printf("///                     2- Alterar o email                                  ///\n");
-    printf("///                     3- Alterar a data de nascimeto                      ///\n");
-    printf("///                     4- Alterar o numero telefonico                      ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    scanf("%d",&alt);
-    switch (alt)
-    {
-    case 1:
-    
-    do {
-		printf(".> Digite o novo Nome: ");
-        limparBuffer();
-		scanf("%61[^\n]",nome);
-        
-	} while (!validaNome(nome));
-        atualizar_cliente_nome(cpf,nome);
-        limparBuffer();
-        break;
-
-    case 2:
-
-     do {   
-		printf(".> Digite o novo email: ");
-        limparBuffer();
-		scanf("%61[^\n]",email);
-	} while (!validaEmail(email));
-        atualizar_cliente_email(cpf,email);
-        limparBuffer();
-        break;
-
-    case 3:
-
-    do {
-		printf(".> nova Data de Nascimento (dd/mm/aaaa): ");
-        limparBuffer();
-		scanf(("%11[0-9/]"),data);
-	} while (!valida_data(data));
-        atualizar_cliente_data(cpf,data);
-        limparBuffer();
-        break;
-
-    case 4:
-
-         do {
-		printf(".> Numero novo  (apenas números): ");
-        limparBuffer();
-		scanf("%[^\n]",fone);
-	    } while (!validaFone(fone));
-        atualizar_cliente_telefone(cpf,fone);
-        limparBuffer();
-        break;
-
-    default:
-        break;
-    }
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-void tela_excluir_cliente(void) {
-    char cpf[12];
-    system("clear||cls");
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Excluir Cliente = = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-     do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%12[^\n]",cpf);
-		limparBuffer();
-	} while (!valida_cpf_cliente_pesquisa(cpf));
-    atualizar_situacao_cliente(cpf);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-
-
-int tela_menu_cliente() {
-    int opcaoCl;
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  Menu Cliente = = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar um novo cliente                                 ///\n");
-    printf("///            2. Pesquisar os dados de um cliente                          ///\n");
-    printf("///            3. Atualizar o cadastro de um cliente                        ///\n");
-    printf("///            4. Excluir um cliente do sistema                             ///\n");
-    printf("///            5. exibir clientes                                           ///\n");
-    printf("///            0. Voltar ao menu anterior                                   ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            Escolha a opcao desejada: ");
-    scanf("%d", &opcaoCl);
-    limparBuffer();
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-    switch (opcaoCl) {
-            case 1:
-                tela_cadastrar_cliente();
-                break;
-            case 2:
-                tela_pesquisar_cliente();
-                break;
-            case 3:
-                tela_alterar_cliente();
-                break;
-            case 4:
-                tela_excluir_cliente();    
-                break;
-            case 5:
-                tela_exibir_cliente();
-                break;
-            case 0:
-                printf("saindo...\n");
-                break;
-            default:
-                printf("Opcao invalida\n");
-                break;
-        }
-
-return opcaoCl;        
 }
