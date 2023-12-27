@@ -13,7 +13,6 @@ int tela_menu_venda();
 void cadastrar_e_salvar_venda(nova_venda *aln);
 void venda_cliente(void);
 void venda_funcionario(void);
-void venda_produto(void);
 void mostrar_vendas_por_cliente(const char *cpf);
 void pesquisar_cliente_venda(const char *cpf);
 void salvar_venda(nova_venda *aln);

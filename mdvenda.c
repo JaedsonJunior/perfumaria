@@ -7,9 +7,6 @@
 #include "mdvenda.h"
 #include "ultilidade.h"
 #include "validacao.h"
-int tela_listar_venda();
-
-
 
 
 int tela_menu_venda(void) {
@@ -67,6 +64,128 @@ int tela_menu_venda(void) {
     }
 return opcao_venda;
 }
+
+
+void venda_cliente(void) {
+    char cpf [12];
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular = = = =                    ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  venda cliente = = = = = = = = =           ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+     do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12s]",cpf);
+        limparBuffer();
+	} while (!valida_cpf_cliente_pesquisa(cpf));
+    pesquisar_cliente_venda(cpf);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+void venda_funcionario(void) {
+    char cpf [12];
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular  = = = =                   ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  venda funcionario = = = = = = = = =       ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+     do {
+		printf("///            Informe o CPF (apenas numeros): ");
+		scanf("%12s]",cpf);
+        limparBuffer();
+	} while (!valida_cpf_funcionario_pesquisa(cpf));
+    pesquisar_funcionario_venda(cpf);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+
+
+
+int tela_listar_venda(void) {
+    system("clear||cls");
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  Menu venda = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Lista Geral                                               ///\n");
+    printf("///            2. Lista pesquisa cliente                                    ///\n");
+    printf("///            3. Lista pesquisa funcionario                                ///\n");
+    printf("///            0. voltar                                                    ///\n");
+     printf("///                                                                        ///\n");
+    printf("///            Escolha a opção desejada: ");
+    int opcao_lista;
+    scanf("%d", &opcao_lista);
+    limparBuffer();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    switch (opcao_lista)
+    {
+    case 1:
+        limparBuffer();
+        lista_geral();
+        break;
+    case 2:
+        venda_cliente();
+        break;
+    case 3:
+        venda_funcionario();
+        break;
+    default:
+            printf("Opcao invalida\n");
+            break;    
+    }
+return opcao_lista;
+}
+
+
+
+
 void lista_geral() {
     FILE *arquivo = fopen("vendas.bin", "rb");
 
@@ -166,69 +285,6 @@ void cadastrar_e_salvar_venda(nova_venda *aln) {
     limparBuffer();
 }
 
- void venda_cliente(void) {
-    char cpf [12];
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular = = = =                    ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  venda cliente = = = = = = = = =           ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-     do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%12s]",cpf);
-        limparBuffer();
-	} while (!valida_cpf_cliente_pesquisa(cpf));
-    pesquisar_cliente_venda(cpf);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-void venda_funcionario(void) {
-    char cpf [12];
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular  = = = =                   ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  venda funcionario = = = = = = = = =       ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-     do {
-		printf("///            Informe o CPF (apenas numeros): ");
-		scanf("%12s]",cpf);
-        limparBuffer();
-	} while (!valida_cpf_funcionario_pesquisa(cpf));
-    pesquisar_funcionario_venda(cpf);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-
 void pesquisar_cliente_venda(const char *cpf) {
     FILE *arquivo = fopen("clientes.bin", "rb");
 
@@ -296,56 +352,4 @@ void salvar_venda(nova_venda *aln) {
         printf("Erro ao abrir o arquivo para escrita.\n");
     }
 
-}
-
-int tela_listar_venda(void) {
-    system("clear||cls");
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  Menu venda = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            1. Lista Geral                                               ///\n");
-    printf("///            2. Lista pesquisa cliente                                    ///\n");
-    printf("///            3. Lista pesquisa funcionario                                ///\n");
-    printf("///            0. voltar                                                    ///\n");
-     printf("///                                                                        ///\n");
-    printf("///            Escolha a opção desejada: ");
-    int opcao_lista;
-    scanf("%d", &opcao_lista);
-    limparBuffer();
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    switch (opcao_lista)
-    {
-    case 1:
-        limparBuffer();
-        lista_geral();
-        break;
-    case 2:
-        venda_cliente();
-        break;
-    case 3:
-        venda_funcionario();
-        break;
-    default:
-            printf("Opcao invalida\n");
-            break;    
-    }
-return opcao_lista;
 }
