@@ -3,19 +3,294 @@
 #include <string.h>
 #include <errno.h>
 #include "ultilidade.h"
-
-typedef struct produto Produto;
-
-struct produto
-{
-char id[4];
-char nome[61];    
-char preco[7];
-char quantidade[4];
-char capacidade[4];
-};
+#include "mdproduto.h"
 
 
+
+
+void tela_exibir_produto(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///              = = = = =  Exibir Lista de Produto = = = =                 ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    exibir_produto();
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+Produto* tela_cadastrar_produto(void) {
+    Produto *aln;
+    aln = (Produto*) malloc(sizeof(Produto));
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Cadastrar produto = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            nome: ");
+    scanf("%61[^\n]", aln->nome);
+    limparBuffer();
+    printf("///            preco: ");
+    scanf("%s", aln->preco);
+    limparBuffer();
+    printf("///            Quantidade: ");
+    scanf("%s", aln->quantidade);
+    limparBuffer();
+    printf("///            Capacidade(ml): ");
+    scanf("%s", aln->capacidade);
+    limparBuffer();
+    printf("///            ID(1 a 999): ");
+    scanf("%4s", aln->id);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    salvar_produto(aln);
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+    return aln;
+    
+}
+void tela_pesquisar_produto(void) {
+    char id[4];
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Pesquisar Produto = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            ID(1 a 999): ");
+    scanf("%3s",id);
+	limparBuffer();
+    system("clear||cls");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");   
+    pesquisar_produto(id);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+
+
+void tela_excluir_produto(void) {
+    char id[4];
+    
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   FragAncia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = excluir produto = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");   
+    printf("///            ID(1-999): ");
+    scanf("%3s",id);
+    limparBuffer();
+    excluir_produto(id);
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void tela_alterar_produto(void) {
+    char id[4];
+    char nome[61];
+    char preco[7];
+    char quantidade[4];
+    char capacidade[4];
+    int alt;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Alterar Cliente = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+	printf("///            Informe o ID (1 a 999): ");
+	scanf("%3s",id);
+	limparBuffer();
+	
+    system("clear||cls");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                     1- Alterar o nome                                   ///\n");
+    printf("///                     2- Alterar o preco                                  ///\n");
+    printf("///                     3- Alterar a quantidade                             ///\n");
+    printf("///                     4- Alterar a capacidade                             ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    scanf("%d",&alt);
+    switch (alt)
+    {
+    case 1:
+    
+		printf(".> Digite o novo Nome: ");
+        limparBuffer();
+		scanf("%61[^\n]",nome);
+        atualizar_produto_nome(id,nome);
+        limparBuffer();
+        break;
+    
+    case 2:
+        printf(".> Digite o novo preco: ");
+        limparBuffer();
+		scanf(("%6s"),preco);
+        atualizar_produto_preco(id,preco);
+        limparBuffer();
+        break;
+
+    case 3:
+        printf(".> Digite a nova quantidade: ");
+        limparBuffer();
+		scanf(("%3s"),quantidade);
+        atualizar_produto_quantidade(id,quantidade);
+        limparBuffer();
+        break;  
+
+    case 4:
+        printf(".> Digite a nova capacidade: ");
+        limparBuffer();
+		scanf(("%3s"),capacidade);
+        atualizar_produto_capacidade(id,capacidade);
+        limparBuffer();
+        break; 
+
+    default:
+        break;
+    }
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    limparBuffer();
+}
+
+int tela_menu_produto() {
+    int opcaoC2;
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = =  Menu produto = = = = = = = = =            ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Cadastrar um novo produto                                 ///\n");
+    printf("///            2. Pesquisar os dados de um produto                          ///\n");
+    printf("///            3. Atualizar dados de um produto                             ///\n");
+    printf("///            4. Excluir um produto do sistema                             ///\n");
+    printf("///            5. Exibir Lista de Produto                                   ///\n");
+    printf("///            0. Voltar ao menu anterior                                   ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a opcao desejada: ");
+    scanf("%d", &opcaoC2);
+    getchar();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    switch (opcaoC2) {
+            case 1:
+                tela_cadastrar_produto();
+                
+                break;
+            case 2:
+                tela_pesquisar_produto();
+                
+                break;
+            case 3:
+                tela_alterar_produto();
+                
+                break;
+            case 4:
+                tela_excluir_produto();
+                
+                break;
+            case 5:
+                exibir_produto();
+                
+                break;    
+            case 0:
+                printf("saindo...\n");
+                break;
+            default:
+                printf("Opcao invalida\n");
+                break;
+        }
+return opcaoC2;
+}
+
+// Abaixo tem as funções de produto
 
 int valida_id(const char *id) {
     FILE *arquivo = fopen("produto.bin", "rb");
@@ -162,7 +437,8 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
         printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }}
 
-    void atualizar_produto_quantidade(const char *id, const char *novo_dado) {
+    
+void atualizar_produto_quantidade(const char *id, const char *novo_dado) {
     FILE *arquivo = fopen("produto.bin", "r+b");
 
     if (arquivo != NULL) {
@@ -190,7 +466,7 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
         printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }}
     
-    void atualizar_produto_capacidade(const char *id, const char *novo_dado) {
+void atualizar_produto_capacidade(const char *id, const char *novo_dado) {
     FILE *arquivo = fopen("produto.bin", "r+b");
 
     if (arquivo != NULL) {
@@ -218,7 +494,7 @@ void atualizar_produto_preco(const char *id, const char *novo_dado) {
         printf("Erro ao abrir o arquivo para leitura e gravacao.\n");
     }}
 
-    void excluir_produto(const char *id) {
+void excluir_produto(const char *id) {
     FILE *arquivo;
     FILE *temp_pro;
     Produto produto;
@@ -290,429 +566,4 @@ void exibir_produto(void) {
     } else {
         printf("Erro ao abrir o arquivo de vendas para leitura.\n");
     }
-}
-void tela_exibir_produto(void) {
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///              = = = = =  Exibir Lista de Produto = = = =                 ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    exibir_produto();
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-Produto* tela_cadastrar_produto(void) {
-    Produto *aln;
-    aln = (Produto*) malloc(sizeof(Produto));
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Cadastrar produto = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            nome: ");
-    scanf("%61[^\n]", aln->nome);
-    limparBuffer();
-    printf("///            preco: ");
-    scanf("%s", aln->preco);
-    limparBuffer();
-    printf("///            Quantidade: ");
-    scanf("%s", aln->quantidade);
-    limparBuffer();
-    printf("///            Capacidade(ml): ");
-    scanf("%s", aln->capacidade);
-    limparBuffer();
-    printf("///            ID(1 a 999): ");
-    scanf("%4s", aln->id);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    salvar_produto(aln);
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-    return aln;
-    
-}
-void tela_pesquisar_produto(void) {
-    char id[4];
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Pesquisar Produto = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            ID(1 a 999): ");
-    scanf("%3s",id);
-	limparBuffer();
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("///////////////////////////////////////////////////////////////////////////////\n");   
-    pesquisar_produto(id);
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-
-
-void tela_excluir_produto(void) {
-    char id[4];
-    
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   FragAncia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = excluir produto = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");   
-    printf("///            ID(1-999): ");
-    scanf("%3s",id);
-    limparBuffer();
-    excluir_produto(id);
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-}
-
-void tela_alterar_produto(void) {
-    char id[4];
-    char nome[61];
-    char preco[7];
-    char quantidade[4];
-    char capacidade[4];
-    int alt;
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                 = = = =   Fragancia Popular     = = = =                 ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alterar Cliente = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-	printf("///            Informe o ID (1 a 999): ");
-	scanf("%3s",id);
-	limparBuffer();
-	
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                     OPCOES DE ALTERACAO                                 ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                     1- Alterar o nome                                   ///\n");
-    printf("///                     2- Alterar o preco                                  ///\n");
-    printf("///                     3- Alterar a quantidade                             ///\n");
-    printf("///                     4- Alterar a capacidade                             ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    scanf("%d",&alt);
-    switch (alt)
-    {
-    case 1:
-    
-		printf(".> Digite o novo Nome: ");
-        limparBuffer();
-		scanf("%61[^\n]",nome);
-        atualizar_produto_nome(id,nome);
-        limparBuffer();
-        break;
-    
-    case 2:
-        printf(".> Digite o novo preco: ");
-        limparBuffer();
-		scanf(("%6s"),preco);
-        atualizar_produto_preco(id,preco);
-        limparBuffer();
-        break;
-
-    case 3:
-        printf(".> Digite a nova quantidade: ");
-        limparBuffer();
-		scanf(("%3s"),quantidade);
-        atualizar_produto_quantidade(id,quantidade);
-        limparBuffer();
-        break;  
-
-    case 4:
-        printf(".> Digite a nova capacidade: ");
-        limparBuffer();
-		scanf(("%3s"),capacidade);
-        atualizar_produto_capacidade(id,capacidade);
-        limparBuffer();
-        break; 
-
-    default:
-        break;
-    }
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    limparBuffer();
-}
-
-int tela_menu_produto() {
-    int opcaoC2;
-    system("clear||cls");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///                  = = = =   Fragancia Popular     = = = =                ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  Menu produto = = = = = = = = =            ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar um novo produto                                 ///\n");
-    printf("///            2. Pesquisar os dados de um produto                          ///\n");
-    printf("///            3. Atualizar dados de um produto                             ///\n");
-    printf("///            4. Excluir um produto do sistema                             ///\n");
-    printf("///            5. Exibir Lista de Produto                                   ///\n");
-    printf("///            0. Voltar ao menu anterior                                   ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            Escolha a opcao desejada: ");
-    scanf("%d", &opcaoC2);
-    getchar();
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-    switch (opcaoC2) {
-            case 1:
-                tela_cadastrar_produto();
-                
-                break;
-            case 2:
-                tela_pesquisar_produto();
-                
-                break;
-            case 3:
-                tela_alterar_produto();
-                
-                break;
-            case 4:
-                tela_excluir_produto();
-                
-                break;
-            case 5:
-                exibir_produto();
-                
-                break;    
-            case 0:
-                printf("saindo...\n");
-                break;
-            default:
-                printf("Opcao invalida\n");
-                break;
-        }
-return opcaoC2;
 }
